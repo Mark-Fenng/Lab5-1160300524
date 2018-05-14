@@ -9,7 +9,6 @@ import edu.uci.ics.jung.graph.util.Pair;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.visualization.renderers.Renderer;
-import factory.graph.GraphFactory;
 import graph.Graph;
 import graph.GraphPoet;
 import graph.SocialNetwork;

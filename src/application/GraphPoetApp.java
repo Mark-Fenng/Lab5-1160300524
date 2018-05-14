@@ -1,5 +1,7 @@
 package application;
 
+import factory.Exception.FormatException;
+import factory.Exception.TypeException;
 import factory.graph.GraphFactory;
 import graph.*;
 import helper.ParseCommandHelper;
@@ -18,7 +20,7 @@ class GraphPoetApp {
         ParseCommandHelper.Command("test/graph/data/GraphPoet.txt");
     }
 
-    GraphPoetApp(String filePath) throws IOException {
+    GraphPoetApp(String filePath) throws IOException, FormatException, TypeException {
         graphPoet = GraphFactory.createGraph(filePath);
     }
 
