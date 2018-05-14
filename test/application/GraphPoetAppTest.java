@@ -43,6 +43,7 @@ public class GraphPoetAppTest {
     @Test
     public void testPoem() throws Exception {
         assertEquals("Seek to explore strange new life and exciting synergies!", poetApp.poem("Seek to explore new and exciting synergies!"));
+        assertEquals("Seek explore strange new life and exciting synergies!", poetApp.poem("Seek explore new and exciting synergies!"));
 /*
 try {
    Method method = GraphPoetApp.getClass().getMethod("poem", String.class);

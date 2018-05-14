@@ -8,16 +8,18 @@ import vertex.Vertex;
 import java.io.IOException;
 import java.util.*;
 
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
+
 class GraphPoetApp {
     private Graph graphPoet;
 
     public static void main(String[] args) throws IOException {
-        new GraphPoetApp("test/graph/data/GraphPoet.txt");
+        ParseCommandHelper.Command("test/graph/data/GraphPoet.txt");
     }
 
     GraphPoetApp(String filePath) throws IOException {
         graphPoet = GraphFactory.createGraph(filePath);
-        ParseCommandHelper.Command(filePath);
     }
 
     /**

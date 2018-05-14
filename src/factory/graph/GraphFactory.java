@@ -1,8 +1,9 @@
 package factory.graph;
 
+import factory.Exception.FormatException;
+import factory.Exception.TypeException;
 import graph.Graph;
 
-import javax.activation.UnsupportedDataTypeException;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.regex.*;
 
 abstract public class GraphFactory {
-    public static Graph createGraph(String filePath) throws IOException {
+    public static Graph createGraph(String filePath) throws IOException, TypeException, FormatException {
         BufferedReader fileReader = new BufferedReader(new FileReader(filePath));
         String content;
         while ((content = fileReader.readLine()).replace(" ", "").equals("")) ;
@@ -29,14 +30,14 @@ abstract public class GraphFactory {
                 case "MovieGraph":
                     return GraphMovieFactory.createGraph(filePath);
                 default:
-                    throw new UnsupportedDataTypeException(type);
+                    throw new TypeException("Definite Graph type format : GraphType=\"GraphPoet\"|\"SocialNetwork\"|\"NetworkTopology\"|\"MovieGraph\"");
             }
         } else {
-            throw new RuntimeException("form of the file is wrong!");
+            throw new FormatException("Miss the Graph Type");
         }
     }
 
-    static String GraphLabel(String filePath) throws IOException {
+    static String GraphLabel(String filePath) throws IOException, FormatException {
         BufferedReader fileReader = new BufferedReader(new FileReader(filePath));
         Pattern regex;
         Matcher matcher;
@@ -48,17 +49,16 @@ abstract public class GraphFactory {
             regex = Pattern.compile("GraphName\\s*=\\s*\"(.*)\"");
             matcher = regex.matcher(content);
             if (matcher.find()) {
-                String graphName = matcher.group(1);
-                return graphName;
+                return matcher.group(1);
             } else {
-                throw new RuntimeException("form of the file is wrong!");
+                throw new FormatException("Definite Graph label format : GraphName=\"name\"");
             }
         } else {
-            throw new RuntimeException("form of the file is wrong!");
+            throw new FormatException("Miss the Graph Label");
         }
     }
 
-    public static List<List<String>> getVertices(String filePath) throws IOException {
+    public static List<List<String>> getVertices(String filePath) throws IOException, FormatException {
         List<List<String>> vertices = new ArrayList<>();
         BufferedReader fileReader = new BufferedReader(new FileReader(filePath));
         Pattern regex;
@@ -66,7 +66,12 @@ abstract public class GraphFactory {
         String content;
         // 跳过图的类型，图的label的内容
         while (!fileReader.readLine().equals("")) ;
-        fileReader.readLine();
+        content = fileReader.readLine();
+        regex = Pattern.compile("^VertexType\\s*=\\s(\\w+)$");
+        matcher = regex.matcher(content);
+        if (!matcher.find()) {
+            throw new FormatException("Miss the Vertex Type");
+        }
         // 找到文件中关于点的描述
         while (!(content = fileReader.readLine()).equals("")) {
             regex = Pattern.compile("^Vertex\\s*=\\s*<\"(.*)\",\\s*\"(.*)\"(?:,\\s*<(.*)>)?>$");
@@ -76,13 +81,15 @@ abstract public class GraphFactory {
                 String type = matcher.group(2);
                 String attr = matcher.group(3);
                 vertices.add(new ArrayList<>(Arrays.asList(label, type, attr)));
+            } else {
+                throw new FormatException("\"Content\" format error!\nDefinite Vertex format : Vertex = <\"Label1\",\"type1\",<\"attr1\",...,\"attrk\">>");
             }
         }
         fileReader.close();
         return vertices;
     }
 
-    public static List<List<String>> getEdges(String filePath) throws IOException {
+    public static List<List<String>> getEdges(String filePath) throws IOException, FormatException {
         List<List<String>> vertices = new ArrayList<>();
         BufferedReader fileReader = new BufferedReader(new FileReader(filePath));
         Pattern regex;
@@ -92,7 +99,12 @@ abstract public class GraphFactory {
         while (!fileReader.readLine().equals("")) ;
         // 跳过点的描述信息
         while (!fileReader.readLine().equals("")) ;
-        fileReader.readLine();
+        content = fileReader.readLine();
+        regex = Pattern.compile("^EdgeType\\s*=\\s(\\w+)$");
+        matcher = regex.matcher(content);
+        if (!matcher.find()) {
+            throw new FormatException("Miss the Edge Type");
+        }
         // 找到文件中关于点的描述
         while ((content = fileReader.readLine()) != null && !content.equals("")) {
             regex = Pattern.compile("^Edge\\s*=\\s*<\"(.*)\",\\s*\"(.*)\",\\s*\"(.*)\",\\s*\"(.*)\",\\s*\"(.*)\",\\s*\"(.*)\">$");
@@ -104,6 +116,8 @@ abstract public class GraphFactory {
             matcher = regex.matcher(content);
             if (matcher.find()) {
                 vertices.add(new ArrayList<>(Arrays.asList(matcher.group(1), matcher.group(2), matcher.group(3))));
+            } else{
+                throw new FormatException("\"Content\" format error!\nDefinite Vertex format : Vertex = <\"Label1\",\"type1\",<\"attr1\",...,\"attrk\">>");
             }
         }
         fileReader.close();

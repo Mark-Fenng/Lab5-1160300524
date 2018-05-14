@@ -55,9 +55,9 @@ public class ParseCommandHelper {
     public static void Command(String filePath) throws IOException {
         Graph graph = GraphFactory.createGraph(filePath);
         List<String> params;
+        Scanner in = new Scanner(System.in);
         while (true) {
             System.out.print("Graph>>>");
-            Scanner in = new Scanner(System.in);
             if (in.hasNextLine()) {
                 String input = in.nextLine();
                 params = new LinkedList<>(Arrays.asList(input.split(" ")));

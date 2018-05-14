@@ -36,6 +36,8 @@ dependencies {
     compile 'net.sf.jung:jung-io:2.0.1'
     compile 'net.sf.jung:jung-visualization:2.0.1'
     compile 'net.sf.jung:jung-samples:2.0.1'
-
+//    compile 'org.slf4j:slf4j-api:1.8.0-beta2'
+//    compile 'org.slf4j:slf4j-log4j12:1.8.0-beta2'
+//
     testCompile 'junit:junit:4.12'
 }
