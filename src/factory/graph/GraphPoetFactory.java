@@ -1,7 +1,7 @@
 package factory.graph;
 
+import factory.Exception.FormatException;
 import factory.edge.EdgeFactory;
-import graph.ConcreteGraph;
 import graph.Graph;
 import graph.GraphPoet;
 import vertex.Vertex;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class GraphPoetFactory {
-    public static Graph createGraph(String filePath) throws IOException {
+    public static Graph createGraph(String filePath) throws IOException, FormatException {
         Graph poet;
         // graph name
         String graphName = GraphFactory.GraphLabel(filePath);

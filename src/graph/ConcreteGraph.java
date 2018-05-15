@@ -97,6 +97,10 @@ public class ConcreteGraph implements Graph {
 
     @Override
     public boolean addEdge(Edge edge) {
+        for (Vertex item : edge.vertices()) {
+            if (!vertices.contains(item))
+                throw new RuntimeException();
+        }
         if (!edges.contains(edge)) {
             edges.add(edge);
             // add edge to the vertex,as out edges
