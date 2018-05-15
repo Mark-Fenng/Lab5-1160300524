@@ -8,9 +8,9 @@ import java.util.*;
 /**
  * <p>
  * Abstraction Function:
- * label -> 点的唯一标识
- * vertices -> 图中的所有点的集合
- * edges -> 图中所有边的集合
+ * label -- 点的唯一标识
+ * vertices -- 图中的所有点的集合
+ * edges -- 图中所有边的集合
  * </p>
  * <p>
  * Rep Invariant:

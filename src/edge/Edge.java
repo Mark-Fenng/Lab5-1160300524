@@ -10,9 +10,9 @@ import java.util.Set;
 /**
  * <p>
  * Abstraction Function:
- * label -> 点的唯一标识
- * weight -> 边的权重值   -1表示这条边是无权重边
- * vertices -> 边中的顶点
+ * label -- 点的唯一标识
+ * weight -- 边的权重值   -1表示这条边是无权重边
+ * vertices -- 边中的顶点
  * 如果是有向边，vertices中的第一个点是起点，第二个点是终点
  * 如果是无向边，vertices中的两个点没有先后关系
  * 如果是超边，vertices可以是有多个点，点之间没有先后关系

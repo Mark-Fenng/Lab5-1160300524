@@ -7,9 +7,9 @@ import edge.*;
 /**
  * <p>
  *     Abstraction Function:
- *     label -> 点的唯一标识
- *     inEdges -> 所有入边的集合
- *     outEdges -> 所有出边的集合
+ *     label -- 点的唯一标识
+ *     inEdges -- 所有入边的集合
+ *     outEdges -- 所有出边的集合
  * </p>
  *
  * <p>

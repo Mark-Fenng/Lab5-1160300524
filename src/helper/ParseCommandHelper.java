@@ -1,5 +1,7 @@
 package helper;
 
+import factory.Exception.FormatException;
+import factory.Exception.TypeException;
 import factory.graph.GraphFactory;
 import graph.Graph;
 
@@ -52,7 +54,7 @@ public class ParseCommandHelper {
      * @param filePath 含有图语法信息的语法输入
      * @throws IOException 文件读写的异常
      */
-    public static void Command(String filePath) throws IOException {
+    public static void Command(String filePath) throws IOException, FormatException, TypeException {
         Graph graph = GraphFactory.createGraph(filePath);
         List<String> params;
         Scanner in = new Scanner(System.in);
