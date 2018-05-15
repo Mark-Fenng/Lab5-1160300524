@@ -1,5 +1,7 @@
 package vertex;
 
+import Exception.Vertex.VertexAttributeException;
+
 import java.util.Arrays;
 
 public class Router extends Vertex {
@@ -15,7 +17,7 @@ public class Router extends Vertex {
     }
 
     @Override
-    public void fillVertexInfo(String[] args) throws NumberFormatException {
+    public void fillVertexInfo(String[] args) throws NumberFormatException, VertexAttributeException {
         if (args.length == 1) {
 //            String values[] = args[0].split(".");
 //            for (int i = 0; i < values.length; i++) {
@@ -23,7 +25,7 @@ public class Router extends Vertex {
 //            }
             ip = args[0];
         } else {
-            throw new RuntimeException("the Router must have ip,not null");
+            throw new VertexAttributeException("The Vertex : " + getLabel() + " doesn't have wrong number of attributes");
         }
     }
 

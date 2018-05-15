@@ -1,9 +1,10 @@
 package factory.vertex;
 
+import Exception.Vertex.VertexAttributeException;
 import vertex.Vertex;
 
 abstract public class VertexFactory {
-    public static Vertex createVertex(String label, String type, String[] args) {
+    public static Vertex createVertex(String label, String type, String[] args) throws VertexAttributeException {
         switch (type) {
             case "Word":
                 return WordVertexFactory.createVertex(label, args);

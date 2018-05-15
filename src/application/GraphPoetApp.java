@@ -1,7 +1,9 @@
 package application;
 
-import factory.Exception.FormatException;
-import factory.Exception.TypeException;
+import Exception.Edge.EdgeVertexException;
+import Exception.FormatException;
+import Exception.TypeException;
+import Exception.Vertex.VertexAttributeException;
 import factory.graph.GraphFactory;
 import graph.*;
 import helper.ParseCommandHelper;
@@ -16,11 +18,11 @@ import java.util.*;
 class GraphPoetApp {
     private Graph graphPoet;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, FormatException, TypeException, EdgeVertexException, VertexAttributeException {
         ParseCommandHelper.Command("test/graph/data/GraphPoet.txt");
     }
 
-    GraphPoetApp(String filePath) throws IOException, FormatException, TypeException {
+    GraphPoetApp(String filePath) throws IOException, FormatException, TypeException, EdgeVertexException, VertexAttributeException {
         graphPoet = GraphFactory.createGraph(filePath);
     }
 

@@ -1,4 +1,4 @@
-package factory.Exception;
+package Exception;
 
 public class FormatException extends Exception {
 

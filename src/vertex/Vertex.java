@@ -2,6 +2,7 @@ package vertex;
 
 import java.util.*;
 
+import Exception.Vertex.VertexAttributeException;
 import edge.*;
 
 /**
@@ -37,7 +38,7 @@ public abstract class Vertex {
      *
      * @param args 附加的数据项,一个String表示一个信息单元
      */
-    public abstract void fillVertexInfo(String[] args);
+    public abstract void fillVertexInfo(String[] args) throws VertexAttributeException;
 
     /**
      * 给这个点添加入边,添加的是一个Edge对象

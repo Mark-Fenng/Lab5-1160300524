@@ -1,5 +1,6 @@
 package vertex;
 
+import Exception.Vertex.VertexAttributeException;
 import edge.Edge;
 
 import java.util.Arrays;
@@ -49,12 +50,12 @@ public class Person extends Vertex {
     }
 
     @Override
-    public void fillVertexInfo(String[] args) throws NumberFormatException {
+    public void fillVertexInfo(String[] args) throws NumberFormatException, VertexAttributeException {
         if (args.length == 2) {
             gender = args[0];
             age = Integer.parseInt(args[1]);
         } else {
-            throw new RuntimeException("The Person must have both gender and age,but the number of parameter is wrong");
+            throw new VertexAttributeException("The Vertex : " + getLabel() + " doesn't have wrong number of attributes");
         }
     }
 
