@@ -1,5 +1,7 @@
 package helper;
 
+import Exception.Edge.EdgeVertexException;
+import Exception.Vertex.VertexAttributeException;
 import graph.Graph;
 
 import java.util.List;
@@ -17,7 +19,7 @@ abstract class Command {
      *
      * @param args 用户输入的新对象的属性
      */
-    abstract void add(List<String> args);
+    abstract void add(List<String> args) throws EdgeVertexException, VertexAttributeException;
 
     /**
      * 从图中删除用户指定的对象
@@ -31,7 +33,7 @@ abstract class Command {
      *
      * @param args 用户输入的指定对象的属性
      */
-    abstract void update(List<String> args);
+    abstract void update(List<String> args) throws VertexAttributeException;
 
     /**
      * 展示图中指定对象的属性

@@ -72,7 +72,7 @@ public class ParseCommandHelper {
         }
     }
 
-    private static void command(List<String> args, Command cmd) {
+    private static void command(List<String> args, Command cmd) throws EdgeVertexException, VertexAttributeException {
         Pattern commandRule = Pattern.compile("--(.*)");
         Matcher matcher = commandRule.matcher(args.get(0));
         String command;
@@ -97,7 +97,7 @@ public class ParseCommandHelper {
         }
     }
 
-    private static void type(List<String> args, Graph graph) {
+    private static void type(List<String> args, Graph graph) throws EdgeVertexException, VertexAttributeException {
         if (args.size() < 3)
             return;
         String type = args.get(0);

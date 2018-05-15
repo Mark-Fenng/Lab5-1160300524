@@ -1,5 +1,6 @@
 package graph;
 
+import Exception.Edge.EdgeVertexException;
 import edge.Edge;
 
 public class SocialNetwork extends ConcreteGraph {
@@ -8,7 +9,7 @@ public class SocialNetwork extends ConcreteGraph {
     }
 
     @Override
-    public boolean addEdge(Edge edge) {
+    public boolean addEdge(Edge edge) throws EdgeVertexException {
         if (!super.edges().contains(edge)) {
             double newWeight = edge.getWeight();
             super.edges().forEach(item -> item.setWeight(item.getWeight() * (1.0 - newWeight)));

@@ -93,7 +93,7 @@ abstract public class GraphFactory {
             countLine++;
         content = fileReader.readLine();
         countLine++;
-        regex = Pattern.compile("^VertexType\\s*=\\s(\\w+)$");
+        regex = Pattern.compile("^VertexType\\s*=\\s*\"(\\w+)\"$");
         matcher = regex.matcher(content);
         if (!matcher.find()) {
             throw new FormatException("Miss the Vertex Type", countLine);
@@ -139,7 +139,7 @@ abstract public class GraphFactory {
             countLine++;
         content = fileReader.readLine();
         countLine++;
-        regex = Pattern.compile("^EdgeType\\s*=\\s(\\w+)$");
+        regex = Pattern.compile("^EdgeType\\s*=\\s*\"(\\w+)\"$");
         matcher = regex.matcher(content);
         if (!matcher.find()) {
             throw new FormatException("Miss the Edge Type", countLine);

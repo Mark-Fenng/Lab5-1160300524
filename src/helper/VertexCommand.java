@@ -1,5 +1,6 @@
 package helper;
 
+import Exception.Vertex.VertexAttributeException;
 import edge.Edge;
 import factory.vertex.VertexFactory;
 import graph.Graph;
@@ -16,7 +17,7 @@ class VertexCommand extends Command {
     }
 
     @Override
-    void add(List<String> args) {
+    void add(List<String> args) throws VertexAttributeException {
         Pattern Rule = Pattern.compile("\"(.*)\"");
         Matcher matcher = Rule.matcher(args.get(0));
         String label;
@@ -60,7 +61,7 @@ class VertexCommand extends Command {
     }
 
     @Override
-    void update(List<String> args) {
+    void update(List<String> args) throws VertexAttributeException {
         Pattern Rule = Pattern.compile("\"(.*)\"");
         Matcher matcher = Rule.matcher(args.get(0));
         String label;

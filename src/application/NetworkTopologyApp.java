@@ -1,5 +1,8 @@
 package application;
 
+import Exception.*;
+import Exception.Edge.EdgeVertexException;
+import Exception.Vertex.VertexAttributeException;
 import graph.Graph;
 import factory.graph.GraphTopologyFactory;
 import helper.ParseCommandHelper;
@@ -10,11 +13,11 @@ import java.util.Collection;
 class NetworkTopologyApp {
     private Graph NetworkTopolopyApp;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, FormatException, EdgeVertexException, VertexAttributeException, TypeException {
         new NetworkTopologyApp("test/graph/data/GraphTopology.txt");
     }
 
-    NetworkTopologyApp(String filePath) throws IOException {
+    NetworkTopologyApp(String filePath) throws IOException, FormatException, VertexAttributeException, EdgeVertexException, TypeException {
         NetworkTopolopyApp = GraphTopologyFactory.createGraph(filePath);
         ParseCommandHelper.Command(filePath);
 //        iterator("vertices", NetworkTopolopyApp.vertices());

@@ -1,5 +1,8 @@
 package helper;
 
+import Exception.*;
+import Exception.Edge.EdgeVertexException;
+import Exception.Vertex.VertexAttributeException;
 import edge.Edge;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.graph.AbstractGraph;
@@ -9,6 +12,7 @@ import edu.uci.ics.jung.graph.util.Pair;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.visualization.renderers.Renderer;
+import factory.graph.GraphFactory;
 import graph.Graph;
 import graph.GraphPoet;
 import graph.SocialNetwork;
@@ -44,7 +48,7 @@ public class GraphVisualizationHelper {
         frame.setVisible(true);
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, EdgeVertexException, VertexAttributeException, TypeException, FormatException {
         Graph poet, socialNetwork, topologyNetwork, movie;
         poet = GraphFactory.createGraph("test/graph/data/GraphPoet.txt");
         socialNetwork = GraphFactory.createGraph("test/graph/data/GraphSocial.txt");
