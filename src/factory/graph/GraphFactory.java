@@ -1,5 +1,6 @@
 package factory.graph;
 
+import factory.Exception.AddEdgeException;
 import factory.Exception.FormatException;
 import factory.Exception.TypeException;
 import graph.Graph;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.regex.*;
 
 abstract public class GraphFactory {
-    public static Graph createGraph(String filePath) throws IOException, TypeException, FormatException {
+    public static Graph createGraph(String filePath) throws IOException, TypeException, FormatException, AddEdgeException {
         BufferedReader fileReader = new BufferedReader(new FileReader(filePath));
         String content;
         int countLine = 0; // 统计文件的行数，便于报错
