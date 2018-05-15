@@ -9,7 +9,7 @@ public class FormatException extends Exception {
      * @param LineNumber 格式错误发生的文件的行数
      */
     public FormatException(String message, int LineNumber) {
-        super("Format Occur at Line " + LineNumber + "\n" + message);
+        super("Format Error Occur at Line " + LineNumber + "\n" + message);
     }
 
     public FormatException(String message, Throwable cause) {

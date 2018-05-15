@@ -16,7 +16,7 @@ abstract public class GraphFactory {
     public static Graph createGraph(String filePath) throws IOException, TypeException, FormatException, EdgeVertexException, VertexAttributeException {
         BufferedReader fileReader = new BufferedReader(new FileReader(filePath));
         String content;
-        int countLine = 0; // 统计文件的行数，便于报错
+        int countLine = 1; // 统计文件的行数，便于报错
         while ((content = fileReader.readLine()).replace(" ", "").equals(""))
             countLine++;
         fileReader.close();
@@ -89,8 +89,9 @@ abstract public class GraphFactory {
         String content;
         int countLine = 0; // 统计文件的行数，便于报错
         // 跳过图的类型，图的label的内容
-        while (!fileReader.readLine().equals(""))
+        do {
             countLine++;
+        } while (!fileReader.readLine().equals(""));
         content = fileReader.readLine();
         countLine++;
         regex = Pattern.compile("^VertexType\\s*=\\s*\"(\\w+)\"$");
@@ -109,7 +110,7 @@ abstract public class GraphFactory {
                 String attr = matcher.group(3);
                 vertices.add(new ArrayList<>(Arrays.asList(label, type, attr)));
             } else {
-                throw new FormatException("\"Content\" format error!\nDefine Vertex format : Vertex = <\"Label\",\"type\",<\"attr1\",...,\"attrk\">>", countLine);
+                throw new FormatException("\"" + content + "\" format error!\nDefine Vertex format : Vertex = <\"Label\",\"type\",<\"attr1\",...,\"attrk\">>", countLine);
             }
         }
         fileReader.close();
@@ -132,11 +133,13 @@ abstract public class GraphFactory {
         String content;
         int countLine = 0; // 统计文件的行数，便于报错
         // 跳过图的类型，图的label的内容
-        while (!fileReader.readLine().equals(""))
+        do {
             countLine++;
+        } while (!fileReader.readLine().equals(""));
         // 跳过点的描述信息
-        while (!fileReader.readLine().equals(""))
+        do {
             countLine++;
+        } while (!fileReader.readLine().equals(""));
         content = fileReader.readLine();
         countLine++;
         regex = Pattern.compile("^EdgeType\\s*=\\s*\"(\\w+)\"$");
@@ -147,7 +150,7 @@ abstract public class GraphFactory {
         // 找到文件中关于点的描述
         while ((content = fileReader.readLine()) != null && !content.equals("")) {
             countLine++;
-            regex = Pattern.compile("^Edge\\s*=\\s*<\"(.*)\",\\s*\"(.*)\",\\s*\"(.*)\",\\s*\"(.*)\",\\s*\"(.*)\",\\s*\"(.*)\">$");
+            regex = Pattern.compile("^Edge\\s*=\\s*<\"(.*)\",\\s*\"(.*)\",\\s*\"(.*)\",\\s*\"(.*)\",\\s*\"(.*)\",\\s*\"(Yes|No)\">$");
             matcher = regex.matcher(content);
             boolean edgeFind = false;
             if (matcher.find()) {
@@ -159,7 +162,7 @@ abstract public class GraphFactory {
             if (matcher.find()) {
                 vertices.add(new ArrayList<>(Arrays.asList(matcher.group(1), matcher.group(2), matcher.group(3))));
             } else if (!edgeFind) {
-                throw new FormatException("\"Content\" format error!\n" +
+                throw new FormatException("\"" + content + "\"format error!\n" +
                         "Define Edge format : Edge = <\"Label\",\"type\",\"Weight\",\"StartVertex\",\"EndVertex\",\"Yes|No\">\n" +
                         "Define Hyper Edge format : HyperEdge = <\"Label\",\"Type\",{\"Vertex1\", ..., \"Vertexn\"}>", countLine);
             }
