@@ -3,6 +3,7 @@
  */
 package graph;
 
+import Exception.Edge.EdgeTypeException;
 import Exception.Edge.EdgeVertexException;
 import Exception.Vertex.VertexTypeException;
 import edge.Edge;
@@ -62,7 +63,7 @@ public interface Graph {
      * @return true: 图中成功添加了这条边 false: 图中已经有了这条边，添加失败
      * @throws EdgeVertexException 如果添加的边中含有还未添加的点，会抛出此错误
      */
-    boolean addEdge(Edge edge) throws EdgeVertexException;
+    boolean addEdge(Edge edge) throws EdgeVertexException, EdgeTypeException;
 
     /**
      * 从图中移除指定的边对象

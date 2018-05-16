@@ -1,8 +1,12 @@
 package graph;
 
+import Exception.Edge.EdgeTypeException;
 import Exception.Edge.EdgeVertexException;
 import Exception.Vertex.VertexTypeException;
+import edge.CommentConnection;
 import edge.Edge;
+import edge.ForwardConnection;
+import edge.FriendConnection;
 import vertex.Person;
 import vertex.Vertex;
 
@@ -19,7 +23,9 @@ public class SocialNetwork extends ConcreteGraph {
     }
 
     @Override
-    public boolean addEdge(Edge edge) throws EdgeVertexException {
+    public boolean addEdge(Edge edge) throws EdgeVertexException, EdgeTypeException {
+        if (!((edge instanceof ForwardConnection) || (edge instanceof FriendConnection) || (edge instanceof CommentConnection)))
+            throw new EdgeTypeException(getLabel());
         if (!super.edges().contains(edge)) {
             double newWeight = edge.getWeight();
             super.edges().forEach(item -> item.setWeight(item.getWeight() * (1.0 - newWeight)));
