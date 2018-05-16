@@ -26,8 +26,8 @@ import edge.*;
 public abstract class Vertex {
     private String label;
 
-    private final Set<Edge> inEdges = new HashSet<>(); // 入边
-    private final Set<Edge> outEdges = new HashSet<>(); // 出边
+    private final List<Edge> inEdges = new LinkedList<>(); // 入边
+    private final List<Edge> outEdges = new LinkedList<>(); // 出边
 
     Vertex(String label) {
         this.label = label;
