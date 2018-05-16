@@ -3,6 +3,7 @@ package factory.graph;
 import Exception.Edge.EdgeVertexException;
 import Exception.FormatException;
 import Exception.Vertex.VertexAttributeException;
+import Exception.Vertex.VertexTypeException;
 import factory.edge.EdgeFactory;
 import factory.vertex.VertexFactory;
 import graph.ConcreteGraph;
@@ -17,7 +18,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class GraphMovieFactory {
-    public static Graph createGraph(String filePath) throws IOException, FormatException, EdgeVertexException, VertexAttributeException {
+    public static Graph createGraph(String filePath) throws IOException, FormatException, EdgeVertexException, VertexAttributeException, VertexTypeException {
         Graph movie;
         Pattern regex;
         Matcher matcher;

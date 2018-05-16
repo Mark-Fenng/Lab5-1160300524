@@ -4,6 +4,7 @@
 package graph;
 
 import Exception.Edge.EdgeVertexException;
+import Exception.Vertex.VertexTypeException;
 import edge.Edge;
 import vertex.Vertex;
 
@@ -19,7 +20,7 @@ public interface Graph {
      * @param vertex Vertex对象,表示一个点
      * @return true: 向图中成功的添加了这个点 false: 图中已经包含了这个点
      */
-    boolean addVertex(Vertex vertex);
+    boolean addVertex(Vertex vertex) throws VertexTypeException;
 
     /**
      * 从图中移除这个点，任何包含这个点的边都会同时被删除

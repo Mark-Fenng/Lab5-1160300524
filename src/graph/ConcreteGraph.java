@@ -1,6 +1,7 @@
 package graph;
 
 import Exception.Edge.EdgeVertexException;
+import Exception.Vertex.VertexTypeException;
 import edge.Edge;
 import vertex.Vertex;
 
@@ -36,7 +37,7 @@ public class ConcreteGraph implements Graph {
     }
 
     @Override
-    public boolean addVertex(Vertex vertex) {
+    public boolean addVertex(Vertex vertex) throws VertexTypeException {
         if (!vertices.contains(vertex)) {
             vertices.add(vertex);
             return true;

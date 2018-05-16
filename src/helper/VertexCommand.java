@@ -1,7 +1,7 @@
 package helper;
 
 import Exception.Vertex.VertexAttributeException;
-import edge.Edge;
+import Exception.Vertex.VertexTypeException;
 import factory.vertex.VertexFactory;
 import graph.Graph;
 import vertex.Vertex;
@@ -17,7 +17,7 @@ class VertexCommand extends Command {
     }
 
     @Override
-    void add(List<String> args) throws VertexAttributeException {
+    void add(List<String> args) throws VertexAttributeException, VertexTypeException {
         Pattern Rule = Pattern.compile("\"(.*)\"");
         Matcher matcher = Rule.matcher(args.get(0));
         String label;
@@ -74,8 +74,8 @@ class VertexCommand extends Command {
         } else
             return;
         StringBuilder OptionalCommand = new StringBuilder();
-        for (int i = 4; i < args.size(); i++) {
-            OptionalCommand.append(args.get(i));
+        for (String arg : args) {
+            OptionalCommand.append(arg);
         }
         Rule = Pattern.compile("label=(.*)");
         matcher = Rule.matcher(OptionalCommand);

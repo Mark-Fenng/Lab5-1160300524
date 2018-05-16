@@ -3,6 +3,7 @@ package factory.graph;
 import Exception.*;
 import Exception.Edge.EdgeVertexException;
 import Exception.Vertex.VertexAttributeException;
+import Exception.Vertex.VertexTypeException;
 import factory.edge.EdgeFactory;
 import graph.Graph;
 import graph.NetworkTopology;
@@ -17,7 +18,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class GraphTopologyFactory {
-    public static Graph createGraph(String filePath) throws IOException, FormatException, EdgeVertexException, VertexAttributeException {
+    public static Graph createGraph(String filePath) throws IOException, FormatException, EdgeVertexException, VertexAttributeException, VertexTypeException {
         Graph NetworkTopology;
         Pattern regex;
         Matcher matcher;
