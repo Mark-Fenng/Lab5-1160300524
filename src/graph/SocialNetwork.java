@@ -26,6 +26,11 @@ public class SocialNetwork extends ConcreteGraph {
     public boolean addEdge(Edge edge) throws EdgeVertexException, EdgeTypeException {
         if (!((edge instanceof ForwardConnection) || (edge instanceof FriendConnection) || (edge instanceof CommentConnection)))
             throw new EdgeTypeException(getLabel());
+
+        // 避免单重边中存在多充边，如果存在，就不添加这条边
+        if (super.edges().stream().filter(item -> item.equals(edge)).count() != 0)
+            return false;
+
         if (!super.edges().contains(edge)) {
             double newWeight = edge.getWeight();
             super.edges().forEach(item -> item.setWeight(item.getWeight() * (1.0 - newWeight)));

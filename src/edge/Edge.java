@@ -145,6 +145,24 @@ abstract public class Edge {
         return obj != null && obj instanceof Edge && ((Edge) obj).getLabel().equals(this.getLabel());
     }
 
+    /**
+     * 判断两个边是否有相同的顶点
+     *
+     * @param edge 传入的新边
+     * @return 是否相等的boolean值
+     */
+    public boolean equals(Edge edge) {
+        for (Vertex item : edge.sourceVertices()) {
+            if (!sourceVertices().contains(item))
+                return false;
+        }
+        for (Vertex item : edge.targetVertices()) {
+            if (!targetVertices().contains(item))
+                return false;
+        }
+        return true;
+    }
+
     @Override
     public int hashCode() {
         return this.label.hashCode();

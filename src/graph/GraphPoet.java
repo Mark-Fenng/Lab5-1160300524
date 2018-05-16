@@ -8,6 +8,8 @@ import edge.WordEdge;
 import vertex.Vertex;
 import vertex.Word;
 
+import java.util.stream.Collectors;
+
 public class GraphPoet extends ConcreteGraph {
     public GraphPoet(String label) {
         super(label);
@@ -24,6 +26,7 @@ public class GraphPoet extends ConcreteGraph {
     public boolean addEdge(Edge edge) throws EdgeVertexException, EdgeTypeException {
         if (!(edge instanceof WordEdge))
             throw new EdgeTypeException(getLabel());
-        return super.addEdge(edge);
+        // 避免单重边中存在多充边，如果存在，就不添加这条边
+        return super.edges().stream().filter(item -> item.equals(edge)).count() == 0 && super.addEdge(edge);
     }
 }
