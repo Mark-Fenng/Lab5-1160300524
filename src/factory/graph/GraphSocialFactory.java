@@ -1,5 +1,6 @@
 package factory.graph;
 
+import Exception.Edge.EdgeTypeException;
 import Exception.Edge.EdgeVertexException;
 import Exception.FormatException;
 import Exception.Vertex.VertexAttributeException;
@@ -18,7 +19,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class GraphSocialFactory {
-    public static Graph createGraph(String filePath) throws IOException, FormatException, EdgeVertexException, VertexAttributeException, VertexTypeException {
+    public static Graph createGraph(String filePath) throws IOException, FormatException, EdgeVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException {
         Graph socialNetwork;
         Pattern regex;
         Matcher matcher;

@@ -1,5 +1,6 @@
 package helper;
 
+import Exception.Edge.EdgeTypeException;
 import Exception.Edge.EdgeVertexException;
 import edge.Edge;
 import factory.edge.EdgeFactory;
@@ -17,7 +18,7 @@ class EdgeCommand extends Command {
     }
 
     @Override
-    void add(List<String> args) throws EdgeVertexException {
+    void add(List<String> args) throws EdgeVertexException, EdgeTypeException {
         Pattern Rule = Pattern.compile("\"(.*)\"");
         Matcher matcher = Rule.matcher(args.get(0));
         String label;

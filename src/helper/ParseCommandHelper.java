@@ -1,5 +1,6 @@
 package helper;
 
+import Exception.Edge.EdgeTypeException;
 import Exception.Edge.EdgeVertexException;
 import Exception.FormatException;
 import Exception.TypeException;
@@ -57,7 +58,7 @@ public class ParseCommandHelper {
      * @param filePath 含有图语法信息的语法输入
      * @throws IOException 文件读写的异常
      */
-    public static void Command(String filePath) throws IOException, FormatException, TypeException, EdgeVertexException, VertexAttributeException, VertexTypeException {
+    public static void Command(String filePath) throws IOException, FormatException, TypeException, EdgeVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException {
         Graph graph = GraphFactory.createGraph(filePath);
         List<String> params;
         Scanner in = new Scanner(System.in);
@@ -73,7 +74,7 @@ public class ParseCommandHelper {
         }
     }
 
-    private static void command(List<String> args, Command cmd) throws EdgeVertexException, VertexAttributeException, VertexTypeException {
+    private static void command(List<String> args, Command cmd) throws EdgeVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException {
         Pattern commandRule = Pattern.compile("--(.*)");
         Matcher matcher = commandRule.matcher(args.get(0));
         String command;
@@ -98,7 +99,7 @@ public class ParseCommandHelper {
         }
     }
 
-    private static void type(List<String> args, Graph graph) throws EdgeVertexException, VertexAttributeException, VertexTypeException {
+    private static void type(List<String> args, Graph graph) throws EdgeVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException {
         if (args.size() < 3)
             return;
         String type = args.get(0);
