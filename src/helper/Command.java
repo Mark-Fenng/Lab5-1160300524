@@ -1,5 +1,6 @@
 package helper;
 
+import Exception.*;
 import Exception.Edge.EdgeTypeException;
 import Exception.Edge.EdgeVertexException;
 import Exception.Vertex.VertexAttributeException;
@@ -21,7 +22,7 @@ abstract class Command {
      *
      * @param args 用户输入的新对象的属性
      */
-    abstract void add(List<String> args) throws EdgeVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException;
+    abstract void add(List<String> args) throws EdgeVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, FormatException;
 
     /**
      * 从图中删除用户指定的对象

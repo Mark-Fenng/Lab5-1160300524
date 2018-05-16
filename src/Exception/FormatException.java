@@ -11,4 +11,13 @@ public class FormatException extends Exception {
     public FormatException(String message, int LineNumber) {
         super("Format Error Occur at Line " + LineNumber + "\n" + message);
     }
+
+    /**
+     * 一个文件格式错误，但无法提供具体出错的行数
+     *
+     * @param message 异常的具体提示信息
+     */
+    public FormatException(String message) {
+        super("Format Error Occur \n" + message);
+    }
 }

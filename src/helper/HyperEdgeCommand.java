@@ -1,5 +1,6 @@
 package helper;
 
+import Exception.*;
 import Exception.Edge.EdgeTypeException;
 import Exception.Edge.EdgeVertexException;
 import edge.Edge;
@@ -21,7 +22,7 @@ class HyperEdgeCommand extends Command {
     }
 
     @Override
-    void add(List<String> args) throws EdgeVertexException, EdgeTypeException {
+    void add(List<String> args) throws EdgeVertexException, EdgeTypeException, FormatException {
         Pattern Rule = Pattern.compile("\"(.*)\"");
         Matcher matcher = Rule.matcher(args.get(0));
         String label;

@@ -1,13 +1,17 @@
 package factory.graph;
 
+import Exception.Edge.DirectedEdgeException;
 import Exception.Edge.EdgeTypeException;
 import Exception.Edge.EdgeVertexException;
+import Exception.Edge.UndirectedEdgeException;
 import Exception.FormatException;
 import Exception.TypeException;
 import Exception.Vertex.VertexAttributeException;
 import Exception.Vertex.VertexTypeException;
+import factory.edge.EdgeFactory;
 import graph.Graph;
 
+import javax.activation.UnsupportedDataTypeException;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,7 +19,7 @@ import java.util.List;
 import java.util.regex.*;
 
 abstract public class GraphFactory {
-    public static Graph createGraph(String filePath) throws IOException, TypeException, FormatException, EdgeVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException {
+    public static Graph createGraph(String filePath) throws IOException, TypeException, FormatException, EdgeVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, UndirectedEdgeException, DirectedEdgeException {
         BufferedReader fileReader = new BufferedReader(new FileReader(filePath));
         String content;
         int countLine = 1; // 统计文件的行数，便于报错
@@ -127,7 +131,7 @@ abstract public class GraphFactory {
      * @throws IOException     包含图信息的固定格式文件读取的异常
      * @throws FormatException 传入的文件的格式不符合要求异常，处理异常时要求给出异常的提示信息，并允许用户重新读入新的的文件，
      */
-    public static List<List<String>> getEdges(String filePath) throws IOException, FormatException {
+    public static List<List<String>> getEdges(String filePath) throws IOException, FormatException, DirectedEdgeException, UndirectedEdgeException {
         List<List<String>> vertices = new ArrayList<>();
         BufferedReader fileReader = new BufferedReader(new FileReader(filePath));
         Pattern regex;
@@ -157,6 +161,13 @@ abstract public class GraphFactory {
             boolean edgeFind = false;
             if (matcher.find()) {
                 vertices.add(new ArrayList<>(Arrays.asList(matcher.group(1), matcher.group(2), matcher.group(3), matcher.group(4), matcher.group(5), matcher.group(6))));
+                try {
+                    // 当返回值是false时，表明文件中读入的边是否是有向边的信息是错误的
+                    if (!EdgeFactory.EdgeType(matcher.group(1), matcher.group(2), matcher.group(6).equals("Yes")))
+                        throw new UndirectedEdgeException(matcher.group(1), countLine); // 无向边中出现了有向边的定义，只是发出警告，不停止运行
+                } catch (DirectedEdgeException e) {
+                    throw new DirectedEdgeException(matcher.group(1), countLine);
+                }
                 edgeFind = true;
             }
             regex = Pattern.compile("^HyperEdge\\s*=\\s*<\"(.*)\",\\s*\"(.*)\"(?:,\\s*\\{(.*)})*?>$");
