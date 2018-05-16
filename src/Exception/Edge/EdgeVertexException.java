@@ -11,12 +11,4 @@ public class EdgeVertexException extends Exception {
         super(message);
     }
 
-    public EdgeVertexException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public EdgeVertexException(Throwable cause) {
-        super(cause);
-    }
-
 }

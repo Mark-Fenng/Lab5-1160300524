@@ -25,7 +25,7 @@ public class GraphPoetFactory {
         List<List<String>> vertexCut = GraphFactory.getVertices(filePath);
         List<Vertex> vertices = new ArrayList<>();
         for (List<String> list : vertexCut) {
-            Vertex newVertex = VertexFactory.createVertex(list.get(0), list.get(1), null);
+            Vertex newVertex = VertexFactory.createVertex(list.get(0), list.get(1), new String[0]);
             vertices.add(newVertex);
             poet.addVertex(newVertex);
         }

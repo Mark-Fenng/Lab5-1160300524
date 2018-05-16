@@ -1,11 +1,21 @@
 package graph;
 
 import Exception.Edge.EdgeVertexException;
+import Exception.Vertex.VertexTypeException;
 import edge.Edge;
+import vertex.Person;
+import vertex.Vertex;
 
 public class SocialNetwork extends ConcreteGraph {
     public SocialNetwork(String label) {
         super(label);
+    }
+
+    @Override
+    public boolean addVertex(Vertex vertex) throws VertexTypeException {
+        if (!(vertex instanceof Person))
+            throw new VertexTypeException(vertex.getLabel());
+        return super.addVertex(vertex);
     }
 
     @Override

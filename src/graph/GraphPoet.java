@@ -12,7 +12,7 @@ public class GraphPoet extends ConcreteGraph {
     @Override
     public boolean addVertex(Vertex vertex) throws VertexTypeException {
         if (!(vertex instanceof Word))
-            throw new VertexTypeException("The Vertex : " + vertex + " should not in this Graph");
+            throw new VertexTypeException(vertex.getLabel());
         return super.addVertex(vertex);
     }
 }

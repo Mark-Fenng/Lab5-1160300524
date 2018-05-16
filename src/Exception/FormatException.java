@@ -11,13 +11,4 @@ public class FormatException extends Exception {
     public FormatException(String message, int LineNumber) {
         super("Format Error Occur at Line " + LineNumber + "\n" + message);
     }
-
-    public FormatException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public FormatException(Throwable cause) {
-        super(cause);
-    }
-
 }

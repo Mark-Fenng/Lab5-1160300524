@@ -25,7 +25,7 @@ public class Server extends Vertex {
 //            }
             ip = args[0];
         } else {
-            throw new VertexAttributeException("The Vertex : " + getLabel() + " doesn't have wrong number of attributes");
+            throw new VertexAttributeException(getLabel());
         }
     }
 

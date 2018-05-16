@@ -18,7 +18,7 @@ public class Movie extends Vertex {
             country = args[1];
             IMDB = Double.parseDouble(args[2]);
         } else {
-            throw new VertexAttributeException("The Vertex : " + getLabel() + " doesn't have wrong number of attributes");
+            throw new VertexAttributeException(getLabel());
         }
     }
 }

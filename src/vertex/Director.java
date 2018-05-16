@@ -16,7 +16,7 @@ public class Director extends Vertex {
             age = Integer.parseInt(args[0]);
             gender = args[1];
         } else {
-            throw new VertexAttributeException("The Vertex : " + getLabel() + " doesn't have wrong number of attributes");
+            throw new VertexAttributeException(getLabel());
         }
     }
 }
