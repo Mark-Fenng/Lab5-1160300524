@@ -1,7 +1,7 @@
 package graph;
 
 import Exception.Edge.EdgeTypeException;
-import Exception.Edge.EdgeVertexException;
+import Exception.Edge.EdgeNullVertexException;
 import Exception.Vertex.VertexTypeException;
 import edge.Edge;
 import vertex.Vertex;
@@ -99,10 +99,10 @@ public class ConcreteGraph implements Graph {
 
 
     @Override
-    public boolean addEdge(Edge edge) throws EdgeVertexException, EdgeTypeException {
+    public boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException {
         for (Vertex item : edge.vertices()) {
             if (!vertices.contains(item))
-                throw new EdgeVertexException("The Vertex : " + item + " have not been define before");
+                throw new EdgeNullVertexException("The Vertex : " + item + " have not been define before");
         }
         if (!edges.contains(edge)) {
             edges.add(edge);

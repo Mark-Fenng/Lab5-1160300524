@@ -1,5 +1,6 @@
 package edge;
 
+import Exception.Edge.EdgeVertexTypeException;
 import vertex.Vertex;
 
 import java.util.HashSet;
@@ -15,7 +16,7 @@ public class HyperEdge extends Edge {
     }
 
     @Override
-    public boolean addVertices(List<Vertex> vertices) {
+    public boolean addVertices(List<Vertex> vertices) throws EdgeVertexTypeException {
         if (vertices.size() > 0) {
             if (super.vertices.size() == 0) {
                 super.vertices.addAll(vertices.stream().filter(item -> !super.vertices.contains(item)).collect(Collectors.toList()));

@@ -1,7 +1,7 @@
 package graph;
 
 import Exception.Edge.EdgeTypeException;
-import Exception.Edge.EdgeVertexException;
+import Exception.Edge.EdgeNullVertexException;
 import Exception.Vertex.VertexTypeException;
 import edge.Edge;
 import edge.NetworkConnection;
@@ -20,7 +20,7 @@ public class NetworkTopology extends ConcreteGraph {
     }
 
     @Override
-    public boolean addEdge(Edge edge) throws EdgeVertexException, EdgeTypeException {
+    public boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException {
         if (!(edge instanceof NetworkConnection))
             throw new EdgeTypeException(getLabel());
         // 避免单重边中存在多充边，如果存在，就不添加这条边

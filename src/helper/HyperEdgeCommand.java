@@ -1,14 +1,17 @@
 package helper;
 
 import Exception.*;
+import Exception.Edge.EdgeLoopException;
 import Exception.Edge.EdgeTypeException;
-import Exception.Edge.EdgeVertexException;
+import Exception.Edge.EdgeNullVertexException;
+import Exception.Edge.EdgeVertexTypeException;
 import edge.Edge;
 import edge.HyperEdge;
 import factory.edge.EdgeFactory;
 import graph.Graph;
 import vertex.Vertex;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,7 +25,7 @@ class HyperEdgeCommand extends Command {
     }
 
     @Override
-    void add(List<String> args) throws EdgeVertexException, EdgeTypeException, FormatException {
+    void add(List<String> args) throws EdgeNullVertexException, EdgeTypeException, FormatException, IOException {
         Pattern Rule = Pattern.compile("\"(.*)\"");
         Matcher matcher = Rule.matcher(args.get(0));
         String label;
@@ -45,21 +48,29 @@ class HyperEdgeCommand extends Command {
                 .collect(Collectors.toList());
         if (matcher.find()) {
             type = matcher.group(1);
-            Edge HyperEdge = EdgeFactory.createEdge(label, type, vertices, -1);
-            if (graph.addEdge(HyperEdge))
-                System.out.println("Add hyper edge successfully");
-            else
+            try {
+                Edge HyperEdge = EdgeFactory.createEdge(label, type, vertices, -1);
+                if (graph.addEdge(HyperEdge))
+                    System.out.println("Add hyper edge successfully");
+                else
+                    System.err.println("Add fail!");
+            } catch (EdgeVertexTypeException | EdgeLoopException e) {
                 System.err.println("Add fail!");
+            }
         } else {
             Edge hyperEdge = graph.edges()
                     .stream()
                     .filter(item -> item.getLabel().equals(label))
                     .findFirst()
                     .orElse(null);
-            if (hyperEdge instanceof HyperEdge)
-                hyperEdge.addVertices(vertices);
-            else
-                System.err.println("The edge you input is not hyper edge");
+            try {
+                if (hyperEdge instanceof HyperEdge)
+                    hyperEdge.addVertices(vertices);
+                else
+                    System.err.println("The edge you input is not hyper edge");
+            } catch (EdgeVertexTypeException | EdgeLoopException e) {
+                System.err.println("Add fail!");
+            }
         }
     }
 

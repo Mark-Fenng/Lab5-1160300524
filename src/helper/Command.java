@@ -2,11 +2,12 @@ package helper;
 
 import Exception.*;
 import Exception.Edge.EdgeTypeException;
-import Exception.Edge.EdgeVertexException;
+import Exception.Edge.EdgeNullVertexException;
 import Exception.Vertex.VertexAttributeException;
 import Exception.Vertex.VertexTypeException;
 import graph.Graph;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -22,7 +23,7 @@ abstract class Command {
      *
      * @param args 用户输入的新对象的属性
      */
-    abstract void add(List<String> args) throws EdgeVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, FormatException;
+    abstract void add(List<String> args) throws EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, FormatException, IOException;
 
     /**
      * 从图中删除用户指定的对象

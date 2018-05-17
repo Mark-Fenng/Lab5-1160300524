@@ -1,5 +1,7 @@
 package edge;
 
+import Exception.Edge.EdgeLoopException;
+import Exception.Edge.EdgeVertexTypeException;
 import vertex.*;
 
 import java.util.HashSet;
@@ -79,7 +81,7 @@ abstract public class Edge {
      * @param vertices list 形式的点的集合
      * @return true :添加成功 false:添加失败
      */
-    abstract public boolean addVertices(List<Vertex> vertices);
+    abstract public boolean addVertices(List<Vertex> vertices) throws EdgeLoopException, EdgeVertexTypeException;
 
     /**
      * 用于判断某个点是否是这个边的顶点，如果是，返回true,如果不是，返回false

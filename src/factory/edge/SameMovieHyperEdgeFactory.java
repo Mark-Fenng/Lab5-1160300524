@@ -1,18 +1,20 @@
 package factory.edge;
 
+import Exception.Edge.EdgeLoopException;
+import Exception.Edge.EdgeVertexTypeException;
 import edge.Edge;
-import edge.MovieActorRelation;
 import edge.SameMovieHyperEdge;
+import vertex.Actor;
 import vertex.Vertex;
 
 import java.util.List;
 
 class SameMovieHyperEdgeFactory {
-    static Edge createEdge(String label, List<Vertex> vertices, double weight) {
+    static Edge createEdge(String label, List<Vertex> vertices, double weight) throws EdgeLoopException, EdgeVertexTypeException {
         Edge SameMovieHyper = new SameMovieHyperEdge(label, weight);
-        if (vertices.get(0).equals(vertices.get(1))) {
-            throw new UnsupportedOperationException("One movie actor edge can't be a loop");
-        }
+        // 出现边中点的类型异常时抛出异常
+        if (vertices.stream().filter(item -> !(item instanceof Actor)).count() != 0)
+            throw new EdgeVertexTypeException(label);
         SameMovieHyper.addVertices(vertices);
         return SameMovieHyper;
     }

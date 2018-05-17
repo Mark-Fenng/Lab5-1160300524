@@ -1,7 +1,7 @@
 package graph;
 
 import Exception.Edge.EdgeTypeException;
-import Exception.Edge.EdgeVertexException;
+import Exception.Edge.EdgeNullVertexException;
 import Exception.Vertex.VertexTypeException;
 import edge.CommentConnection;
 import edge.Edge;
@@ -23,7 +23,7 @@ public class SocialNetwork extends ConcreteGraph {
     }
 
     @Override
-    public boolean addEdge(Edge edge) throws EdgeVertexException, EdgeTypeException {
+    public boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException {
         if (!((edge instanceof ForwardConnection) || (edge instanceof FriendConnection) || (edge instanceof CommentConnection)))
             throw new EdgeTypeException(getLabel());
 

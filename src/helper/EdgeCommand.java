@@ -1,8 +1,10 @@
 package helper;
 
 import Exception.*;
+import Exception.Edge.EdgeLoopException;
 import Exception.Edge.EdgeTypeException;
-import Exception.Edge.EdgeVertexException;
+import Exception.Edge.EdgeNullVertexException;
+import Exception.Edge.EdgeVertexTypeException;
 import edge.Edge;
 import factory.edge.EdgeFactory;
 import graph.Graph;
@@ -19,7 +21,7 @@ class EdgeCommand extends Command {
     }
 
     @Override
-    void add(List<String> args) throws EdgeVertexException, EdgeTypeException, FormatException {
+    void add(List<String> args) throws EdgeNullVertexException, EdgeTypeException, FormatException {
         Pattern Rule = Pattern.compile("\"(.*)\"");
         Matcher matcher = Rule.matcher(args.get(0));
         String label;
@@ -73,11 +75,15 @@ class EdgeCommand extends Command {
                     stream().
                     filter(item -> item.getLabel().equals(label1) || item.getLabel().equals(label2))
                     .collect(Collectors.toList());
-            Edge newEdge = EdgeFactory.createEdge(label, type, vertices, weight);
-            if (graph.addEdge(newEdge))
-                System.out.println("Add edge successfully");
-            else
+            try {
+                Edge newEdge = EdgeFactory.createEdge(label, type, vertices, weight);
+                if (graph.addEdge(newEdge))
+                    System.out.println("Add edge successfully");
+                else
+                    System.err.println("Add fail!");
+            } catch (EdgeVertexTypeException | EdgeLoopException e) {
                 System.err.println("Add fail!");
+            }
         }
     }
 

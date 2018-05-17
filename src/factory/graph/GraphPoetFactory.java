@@ -1,12 +1,10 @@
 package factory.graph;
 
-import Exception.Edge.DirectedEdgeException;
-import Exception.Edge.EdgeTypeException;
-import Exception.Edge.EdgeVertexException;
-import Exception.Edge.UndirectedEdgeException;
+import Exception.Edge.*;
 import Exception.FormatException;
 import Exception.Vertex.VertexAttributeException;
 import Exception.Vertex.VertexTypeException;
+import LoggerFactory.LoggerFactory;
 import factory.edge.EdgeFactory;
 import graph.Graph;
 import graph.GraphPoet;
@@ -16,10 +14,11 @@ import factory.vertex.VertexFactory;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class GraphPoetFactory {
-    public static Graph createGraph(String filePath) throws IOException, FormatException, EdgeVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, UndirectedEdgeException, DirectedEdgeException {
+    public static Graph createGraph(String filePath) throws IOException, FormatException, EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, UndirectedEdgeException, DirectedEdgeException {
         Graph poet;
         // graph name
         String graphName = GraphFactory.GraphLabel(filePath);
@@ -37,7 +36,12 @@ public class GraphPoetFactory {
             List<Vertex> vertexInEdge = new ArrayList<>();
             vertexInEdge.addAll(vertices.stream().filter(item -> item.getLabel().equals(list.get(3))).collect(Collectors.toList()));
             vertexInEdge.addAll(vertices.stream().filter(item -> item.getLabel().equals(list.get(4))).collect(Collectors.toList()));
-            poet.addEdge(EdgeFactory.createEdge(list.get(0), list.get(1), vertexInEdge, Double.parseDouble(list.get(2))));
+            try {
+                poet.addEdge(EdgeFactory.createEdge(list.get(0), list.get(1), vertexInEdge, Double.parseDouble(list.get(2))));
+            } catch (EdgeVertexTypeException | EdgeLoopException e) {
+                Logger logger = LoggerFactory.getLogger("Exception", "./Lab.log");
+                logger.info(e.toString());
+            }
         }
         return poet;
     }

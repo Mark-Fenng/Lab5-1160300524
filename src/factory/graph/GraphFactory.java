@@ -2,7 +2,7 @@ package factory.graph;
 
 import Exception.Edge.DirectedEdgeException;
 import Exception.Edge.EdgeTypeException;
-import Exception.Edge.EdgeVertexException;
+import Exception.Edge.EdgeNullVertexException;
 import Exception.Edge.UndirectedEdgeException;
 import Exception.FormatException;
 import Exception.TypeException;
@@ -11,7 +11,6 @@ import Exception.Vertex.VertexTypeException;
 import factory.edge.EdgeFactory;
 import graph.Graph;
 
-import javax.activation.UnsupportedDataTypeException;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,7 +18,7 @@ import java.util.List;
 import java.util.regex.*;
 
 abstract public class GraphFactory {
-    public static Graph createGraph(String filePath) throws IOException, TypeException, FormatException, EdgeVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, UndirectedEdgeException, DirectedEdgeException {
+    public static Graph createGraph(String filePath) throws IOException, TypeException, FormatException, EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, UndirectedEdgeException, DirectedEdgeException {
         BufferedReader fileReader = new BufferedReader(new FileReader(filePath));
         String content;
         int countLine = 1; // 统计文件的行数，便于报错

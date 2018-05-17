@@ -2,13 +2,16 @@ package factory.edge;
 
 import Exception.Edge.DirectedEdgeException;
 import Exception.*;
+import Exception.Edge.EdgeLoopException;
+import Exception.Edge.EdgeTypeException;
+import Exception.Edge.EdgeVertexTypeException;
 import edge.Edge;
 import vertex.Vertex;
 
 import java.util.List;
 
 public class EdgeFactory {
-    public static Edge createEdge(String label, String type, List<Vertex> vertices, double weight) throws FormatException {
+    public static Edge createEdge(String label, String type, List<Vertex> vertices, double weight) throws FormatException, EdgeLoopException, EdgeVertexTypeException {
         switch (type) {
             case "WordNeighborhood":
                 return poetEdgeFactory.createEdge(label, vertices, weight);

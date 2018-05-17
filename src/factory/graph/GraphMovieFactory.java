@@ -1,9 +1,6 @@
 package factory.graph;
 
-import Exception.Edge.DirectedEdgeException;
-import Exception.Edge.EdgeTypeException;
-import Exception.Edge.EdgeVertexException;
-import Exception.Edge.UndirectedEdgeException;
+import Exception.Edge.*;
 import Exception.FormatException;
 import Exception.Vertex.VertexAttributeException;
 import Exception.Vertex.VertexTypeException;
@@ -16,12 +13,16 @@ import vertex.Vertex;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import LoggerFactory.*;
+
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class GraphMovieFactory {
-    public static Graph createGraph(String filePath) throws IOException, FormatException, EdgeVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, UndirectedEdgeException, DirectedEdgeException {
+    public static Graph createGraph(String filePath) throws IOException, FormatException, EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, UndirectedEdgeException, DirectedEdgeException {
         Graph movie;
         Pattern regex;
         Matcher matcher;
@@ -54,7 +55,12 @@ public class GraphMovieFactory {
             if (list.size() == 6) {
                 vertexInEdge.addAll(vertices.stream().filter(item -> item.getLabel().equals(list.get(3))).collect(Collectors.toList()));
                 vertexInEdge.addAll(vertices.stream().filter(item -> item.getLabel().equals(list.get(4))).collect(Collectors.toList()));
-                movie.addEdge(EdgeFactory.createEdge(list.get(0), list.get(1), vertexInEdge, Double.parseDouble(list.get(2))));
+                try {
+                    movie.addEdge(EdgeFactory.createEdge(list.get(0), list.get(1), vertexInEdge, Double.parseDouble(list.get(2))));
+                } catch (EdgeVertexTypeException | EdgeLoopException e) {
+                    Logger logger = LoggerFactory.getLogger("Exception", "./Lab.log");
+                    logger.info(e.toString());
+                }
             } else if (list.size() == 3) {
                 String hyperStr = list.get(2);
                 hyperStr = hyperStr.replace(" ", "");
@@ -64,7 +70,12 @@ public class GraphMovieFactory {
                     String itemFinal = item;
                     vertexInEdge.addAll(vertices.stream().filter(o -> o.getLabel().equals(itemFinal)).collect(Collectors.toList()));
                 }
-                movie.addEdge(EdgeFactory.createEdge(list.get(0), list.get(1), vertexInEdge, -1));
+                try {
+                    movie.addEdge(EdgeFactory.createEdge(list.get(0), list.get(1), vertexInEdge, -1));
+                } catch (EdgeVertexTypeException | EdgeLoopException e) {
+                    Logger logger = LoggerFactory.getLogger("Exception", "./Lab.log");
+                    logger.info(e.toString());
+                }
             }
         }
         return movie;
