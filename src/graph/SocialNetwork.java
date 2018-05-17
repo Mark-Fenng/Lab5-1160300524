@@ -3,6 +3,7 @@ package graph;
 import Exception.Edge.EdgeTypeException;
 import Exception.Edge.EdgeNullVertexException;
 import Exception.Edge.EdgeWeightException;
+import Exception.Vertex.VertexLabelException;
 import Exception.Vertex.VertexTypeException;
 import edge.CommentConnection;
 import edge.Edge;
@@ -11,20 +12,22 @@ import edge.FriendConnection;
 import vertex.Person;
 import vertex.Vertex;
 
+import java.io.IOException;
+
 public class SocialNetwork extends ConcreteGraph {
     public SocialNetwork(String label) {
         super(label);
     }
 
     @Override
-    public boolean addVertex(Vertex vertex) throws VertexTypeException {
+    public boolean addVertex(Vertex vertex) throws VertexTypeException, VertexLabelException {
         if (!(vertex instanceof Person))
             throw new VertexTypeException(vertex.getLabel());
         return super.addVertex(vertex);
     }
 
     @Override
-    public boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException, EdgeWeightException {
+    public boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException, EdgeWeightException, IOException {
         if (!((edge instanceof ForwardConnection) || (edge instanceof FriendConnection) || (edge instanceof CommentConnection)))
             throw new EdgeTypeException(getLabel());
 

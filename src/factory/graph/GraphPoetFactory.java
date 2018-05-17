@@ -3,6 +3,7 @@ package factory.graph;
 import Exception.Edge.*;
 import Exception.FormatException;
 import Exception.Vertex.VertexAttributeException;
+import Exception.Vertex.VertexLabelException;
 import Exception.Vertex.VertexTypeException;
 import LoggerFactory.LoggerFactory;
 import factory.edge.EdgeFactory;
@@ -18,7 +19,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class GraphPoetFactory {
-    public static Graph createGraph(String filePath) throws IOException, FormatException, EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, UndirectedEdgeException, DirectedEdgeException, HyperEdgeException, EdgeWeightException {
+    public static Graph createGraph(String filePath) throws IOException, FormatException, EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, UndirectedEdgeException, DirectedEdgeException, HyperEdgeException, EdgeWeightException, VertexLabelException {
         Graph poet;
         // graph name
         String graphName = GraphFactory.GraphLabel(filePath);

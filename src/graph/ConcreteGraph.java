@@ -3,11 +3,15 @@ package graph;
 import Exception.Edge.EdgeTypeException;
 import Exception.Edge.EdgeNullVertexException;
 import Exception.Edge.EdgeWeightException;
+import Exception.Vertex.VertexLabelException;
 import Exception.Vertex.VertexTypeException;
+import LoggerFactory.LoggerFactory;
 import edge.Edge;
 import vertex.Vertex;
 
+import java.io.IOException;
 import java.util.*;
+import java.util.logging.Logger;
 
 /**
  * <p>
@@ -39,12 +43,10 @@ public class ConcreteGraph implements Graph {
     }
 
     @Override
-    public boolean addVertex(Vertex vertex) throws VertexTypeException {
-        if (!vertices.contains(vertex)) {
-            vertices.add(vertex);
-            return true;
-        } else
-            return false;
+    public boolean addVertex(Vertex vertex) throws VertexTypeException, VertexLabelException {
+        if (vertices.contains(vertex))
+            throw new VertexLabelException(label);
+        return vertices.add(vertex);
     }
 
     @Override
@@ -100,20 +102,32 @@ public class ConcreteGraph implements Graph {
 
 
     @Override
-    public boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException, EdgeWeightException {
+    public boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException, EdgeWeightException, IOException {
         for (Vertex item : edge.vertices()) {
             if (!vertices.contains(item))
                 throw new EdgeNullVertexException("The Vertex : " + item + " have not been define before");
         }
-        if (!edges.contains(edge)) {
-            edges.add(edge);
-            // add edge to the vertex,as out edges
-            this.vertices.stream().filter(item -> edge.sourceVertices().contains(item)).forEach(item -> item.addOutEdge(edge));
-            // add edge to the vertex as in edges
-            this.vertices.stream().filter(item -> edge.targetVertices().contains(item)).forEach(item -> item.addInEdge(edge));
-            return true;
+        // 如果edge的label在图中已经存在，则自动在边的label后面填完后缀
+        if (edges.contains(edge)) {
+            for (int i = 0; i < 10000; i++) {
+                edge.setLabel(edge.getLabel() + i);
+                if (!edges.contains(edge)) {
+                    Logger logger = LoggerFactory.getLogger("Exception", "./Lab.log");
+                    logger.info("The Edge : \"" + label + "\" Has Repeated Label in the Graph\n" +
+                            "But the New Label : \"" + label + i + "\" is Added to The Graph");
+                    System.out.println("The Edge : \"" + label + "\" Has Repeated Label in the Graph\n" +
+                            "But the New Label : \"" + label + i + "\" is Added to The Graph");
+                    break;
+                }
+            }
         }
-        return false;
+
+        edges.add(edge);
+        // add edge to the vertex,as out edges
+        this.vertices.stream().filter(item -> edge.sourceVertices().contains(item)).forEach(item -> item.addOutEdge(edge));
+        // add edge to the vertex as in edges
+        this.vertices.stream().filter(item -> edge.targetVertices().contains(item)).forEach(item -> item.addInEdge(edge));
+        return true;
     }
 
     @Override

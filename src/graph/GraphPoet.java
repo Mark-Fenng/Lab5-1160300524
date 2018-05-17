@@ -3,11 +3,14 @@ package graph;
 import Exception.Edge.EdgeTypeException;
 import Exception.Edge.EdgeNullVertexException;
 import Exception.Edge.EdgeWeightException;
+import Exception.Vertex.VertexLabelException;
 import Exception.Vertex.VertexTypeException;
 import edge.Edge;
 import edge.WordEdge;
 import vertex.Vertex;
 import vertex.Word;
+
+import java.io.IOException;
 
 public class GraphPoet extends ConcreteGraph {
     public GraphPoet(String label) {
@@ -15,14 +18,14 @@ public class GraphPoet extends ConcreteGraph {
     }
 
     @Override
-    public boolean addVertex(Vertex vertex) throws VertexTypeException {
+    public boolean addVertex(Vertex vertex) throws VertexTypeException, VertexLabelException {
         if (!(vertex instanceof Word))
             throw new VertexTypeException(vertex.getLabel());
         return super.addVertex(vertex);
     }
 
     @Override
-    public boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException, EdgeWeightException {
+    public boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException, EdgeWeightException, IOException {
         if (!(edge instanceof WordEdge))
             throw new EdgeTypeException(getLabel());
         // 避免单重边中存在多充边，如果存在，就不添加这条边

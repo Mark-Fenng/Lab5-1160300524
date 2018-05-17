@@ -6,6 +6,7 @@ import Exception.Edge.EdgeNullVertexException;
 import Exception.Edge.EdgeWeightException;
 import Exception.Edge.HyperEdgeException;
 import Exception.Vertex.VertexAttributeException;
+import Exception.Vertex.VertexLabelException;
 import Exception.Vertex.VertexTypeException;
 import graph.Graph;
 
@@ -25,7 +26,7 @@ abstract class Command {
      *
      * @param args 用户输入的新对象的属性
      */
-    abstract void add(List<String> args) throws EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, FormatException, IOException, HyperEdgeException, EdgeWeightException;
+    abstract void add(List<String> args) throws EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, FormatException, IOException, HyperEdgeException, EdgeWeightException, VertexLabelException;
 
     /**
      * 从图中删除用户指定的对象

@@ -2,6 +2,7 @@ package helper;
 
 import Exception.Edge.EdgeWeightException;
 import Exception.Vertex.VertexAttributeException;
+import Exception.Vertex.VertexLabelException;
 import Exception.Vertex.VertexTypeException;
 import factory.vertex.VertexFactory;
 import graph.Graph;
@@ -18,7 +19,7 @@ class VertexCommand extends Command {
     }
 
     @Override
-    void add(List<String> args) throws VertexAttributeException, VertexTypeException {
+    void add(List<String> args) throws VertexAttributeException, VertexTypeException, VertexLabelException {
         Pattern Rule = Pattern.compile("\"(.*)\"");
         Matcher matcher = Rule.matcher(args.get(0));
         String label;

@@ -4,6 +4,7 @@ import Exception.Edge.*;
 import Exception.FormatException;
 import Exception.TypeException;
 import Exception.Vertex.VertexAttributeException;
+import Exception.Vertex.VertexLabelException;
 import Exception.Vertex.VertexTypeException;
 import factory.edge.EdgeFactory;
 import graph.Graph;
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.regex.*;
 
 abstract public class GraphFactory {
-    public static Graph createGraph(String filePath) throws IOException, TypeException, FormatException, EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, UndirectedEdgeException, DirectedEdgeException, HyperEdgeException, EdgeWeightException {
+    public static Graph createGraph(String filePath) throws IOException, TypeException, FormatException, EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, UndirectedEdgeException, DirectedEdgeException, HyperEdgeException, EdgeWeightException, VertexLabelException {
         BufferedReader fileReader = new BufferedReader(new FileReader(filePath));
         String content;
         int countLine = 1; // 统计文件的行数，便于报错
@@ -104,7 +105,7 @@ abstract public class GraphFactory {
         // 找到文件中关于点的描述
         while (!(content = fileReader.readLine()).equals("")) {
             countLine++;
-            regex = Pattern.compile("^Vertex\\s*=\\s*<\"(.*)\",\\s*\"(.*)\"(?:,\\s*<(.*)>)?>$");
+            regex = Pattern.compile("^Vertex\\s*=\\s*<\"(\\w+)\",\\s*\"(.*)\"(?:,\\s*<(.*)>)?>$");
             matcher = regex.matcher(content);
             if (matcher.find()) {
                 String label = matcher.group(1);
@@ -153,7 +154,7 @@ abstract public class GraphFactory {
         // 找到文件中关于点的描述
         while ((content = fileReader.readLine()) != null && !content.equals("")) {
             countLine++;
-            regex = Pattern.compile("^Edge\\s*=\\s*<\"(.*)\",\\s*\"(.*)\",\\s*\"(-?[0-9]+\\.?[0-9]*)\",\\s*\"(.*)\",\\s*\"(.*)\",\\s*\"(Yes|No)\">$");
+            regex = Pattern.compile("^Edge\\s*=\\s*<\"(\\w+)\",\\s*\"(.*)\",\\s*\"(-?[0-9]+\\.?[0-9]*)\",\\s*\"(.*)\",\\s*\"(.*)\",\\s*\"(Yes|No)\">$");
             matcher = regex.matcher(content);
             boolean edgeFind = false;
             if (matcher.find()) {
@@ -167,7 +168,7 @@ abstract public class GraphFactory {
                 }
                 edgeFind = true;
             }
-            regex = Pattern.compile("^HyperEdge\\s*=\\s*<\"(.*)\",\\s*\"(.*)\"(?:,\\s*\\{(.*)})*?>$");
+            regex = Pattern.compile("^HyperEdge\\s*=\\s*<\"(\\w+)\",\\s*\"(.*)\"(?:,\\s*\\{(.*)})*?>$");
             matcher = regex.matcher(content);
             if (matcher.find()) {
                 vertices.add(new ArrayList<>(Arrays.asList(matcher.group(1), matcher.group(2), matcher.group(3))));

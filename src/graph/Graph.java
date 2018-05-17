@@ -6,10 +6,12 @@ package graph;
 import Exception.Edge.EdgeTypeException;
 import Exception.Edge.EdgeNullVertexException;
 import Exception.Edge.EdgeWeightException;
+import Exception.Vertex.VertexLabelException;
 import Exception.Vertex.VertexTypeException;
 import edge.Edge;
 import vertex.Vertex;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -22,7 +24,7 @@ public interface Graph {
      * @param vertex Vertex对象,表示一个点
      * @return true: 向图中成功的添加了这个点 false: 图中已经包含了这个点
      */
-    boolean addVertex(Vertex vertex) throws VertexTypeException;
+    boolean addVertex(Vertex vertex) throws VertexTypeException, VertexLabelException;
 
     /**
      * 从图中移除这个点，任何包含这个点的边都会同时被删除
@@ -64,7 +66,7 @@ public interface Graph {
      * @return true: 图中成功添加了这条边 false: 图中已经有了这条边，添加失败
      * @throws EdgeNullVertexException 如果添加的边中含有还未添加的点，会抛出此错误
      */
-    boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException, EdgeWeightException;
+    boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException, EdgeWeightException, IOException;
 
     /**
      * 从图中移除指定的边对象

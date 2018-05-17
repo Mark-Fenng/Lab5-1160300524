@@ -7,6 +7,7 @@ import factory.edge.EdgeFactory;
 import graph.Graph;
 import vertex.Vertex;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -80,6 +81,8 @@ class EdgeCommand extends Command {
                     System.err.println("Add fail!");
             } catch (EdgeVertexTypeException | EdgeLoopException e) {
                 System.err.println("Add fail!");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }

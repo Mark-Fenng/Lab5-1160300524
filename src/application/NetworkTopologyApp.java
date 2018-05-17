@@ -3,6 +3,7 @@ package application;
 import Exception.*;
 import Exception.Edge.*;
 import Exception.Vertex.VertexAttributeException;
+import Exception.Vertex.VertexLabelException;
 import Exception.Vertex.VertexTypeException;
 import graph.Graph;
 import factory.graph.GraphTopologyFactory;
@@ -14,11 +15,11 @@ import java.util.Collection;
 class NetworkTopologyApp {
     private Graph NetworkTopolopyApp;
 
-    public static void main(String[] args) throws IOException, FormatException, EdgeNullVertexException, VertexAttributeException, TypeException, VertexTypeException, EdgeTypeException, UndirectedEdgeException, DirectedEdgeException, HyperEdgeException, EdgeWeightException {
+    public static void main(String[] args) throws IOException, FormatException, EdgeNullVertexException, VertexAttributeException, TypeException, VertexTypeException, EdgeTypeException, UndirectedEdgeException, DirectedEdgeException, HyperEdgeException, EdgeWeightException, VertexLabelException {
         new NetworkTopologyApp("test/graph/data/GraphTopology.txt");
     }
 
-    NetworkTopologyApp(String filePath) throws IOException, FormatException, VertexAttributeException, EdgeNullVertexException, TypeException, VertexTypeException, EdgeTypeException, UndirectedEdgeException, DirectedEdgeException, HyperEdgeException, EdgeWeightException {
+    NetworkTopologyApp(String filePath) throws IOException, FormatException, VertexAttributeException, EdgeNullVertexException, TypeException, VertexTypeException, EdgeTypeException, UndirectedEdgeException, DirectedEdgeException, HyperEdgeException, EdgeWeightException, VertexLabelException {
         NetworkTopolopyApp = GraphTopologyFactory.createGraph(filePath);
         ParseCommandHelper.Command(filePath);
 //        iterator("vertices", NetworkTopolopyApp.vertices());

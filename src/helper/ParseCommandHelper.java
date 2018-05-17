@@ -4,6 +4,7 @@ import Exception.Edge.*;
 import Exception.FormatException;
 import Exception.TypeException;
 import Exception.Vertex.VertexAttributeException;
+import Exception.Vertex.VertexLabelException;
 import Exception.Vertex.VertexTypeException;
 import factory.graph.GraphFactory;
 import graph.Graph;
@@ -57,7 +58,7 @@ public class ParseCommandHelper {
      * @param filePath 含有图语法信息的语法输入
      * @throws IOException 文件读写的异常
      */
-    public static void Command(String filePath) throws IOException, FormatException, TypeException, EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, UndirectedEdgeException, DirectedEdgeException, HyperEdgeException, EdgeWeightException {
+    public static void Command(String filePath) throws IOException, FormatException, TypeException, EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, UndirectedEdgeException, DirectedEdgeException, HyperEdgeException, EdgeWeightException, VertexLabelException {
         Graph graph = GraphFactory.createGraph(filePath);
         List<String> params;
         Scanner in = new Scanner(System.in);
@@ -73,7 +74,7 @@ public class ParseCommandHelper {
         }
     }
 
-    private static void command(List<String> args, Command cmd) throws EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, FormatException, IOException, HyperEdgeException, EdgeWeightException {
+    private static void command(List<String> args, Command cmd) throws EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, FormatException, IOException, HyperEdgeException, EdgeWeightException, VertexLabelException {
         Pattern commandRule = Pattern.compile("--(.*)");
         Matcher matcher = commandRule.matcher(args.get(0));
         String command;
@@ -98,7 +99,7 @@ public class ParseCommandHelper {
         }
     }
 
-    private static void type(List<String> args, Graph graph) throws EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, FormatException, IOException, HyperEdgeException, EdgeWeightException {
+    private static void type(List<String> args, Graph graph) throws EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, FormatException, IOException, HyperEdgeException, EdgeWeightException, VertexLabelException {
         if (args.size() < 3)
             return;
         String type = args.get(0);

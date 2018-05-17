@@ -3,10 +3,12 @@ package graph;
 import Exception.Edge.EdgeTypeException;
 import Exception.Edge.EdgeNullVertexException;
 import Exception.Edge.EdgeWeightException;
+import Exception.Vertex.VertexLabelException;
 import Exception.Vertex.VertexTypeException;
 import edge.*;
 import vertex.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,14 +18,14 @@ public class MovieGraph extends ConcreteGraph {
     }
 
     @Override
-    public boolean addVertex(Vertex vertex) throws VertexTypeException {
+    public boolean addVertex(Vertex vertex) throws VertexTypeException, VertexLabelException {
         if (!((vertex instanceof Actor) || (vertex instanceof Director) || (vertex instanceof Movie)))
             throw new VertexTypeException(vertex.getLabel());
         return super.addVertex(vertex);
     }
 
     @Override
-    public boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException, EdgeWeightException {
+    public boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException, EdgeWeightException, IOException {
         if (!((edge instanceof DirectedEdge) || (edge instanceof MovieActorRelation) || (edge instanceof MovieDirectorRelation) || (edge instanceof SameMovieHyperEdge)))
             throw new EdgeTypeException(getLabel());
         // 避免单重边中存在多充边，如果存在，就不添加这条边
