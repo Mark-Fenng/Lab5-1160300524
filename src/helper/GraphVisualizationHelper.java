@@ -1,10 +1,7 @@
 package helper;
 
 import Exception.*;
-import Exception.Edge.DirectedEdgeException;
-import Exception.Edge.EdgeTypeException;
-import Exception.Edge.EdgeNullVertexException;
-import Exception.Edge.UndirectedEdgeException;
+import Exception.Edge.*;
 import Exception.Vertex.VertexAttributeException;
 import Exception.Vertex.VertexTypeException;
 import edge.Edge;
@@ -52,7 +49,7 @@ public class GraphVisualizationHelper {
         frame.setVisible(true);
     }
 
-    public static void main(String[] args) throws IOException, EdgeNullVertexException, VertexAttributeException, TypeException, FormatException, VertexTypeException, EdgeTypeException, UndirectedEdgeException, DirectedEdgeException {
+    public static void main(String[] args) throws IOException, EdgeNullVertexException, VertexAttributeException, TypeException, FormatException, VertexTypeException, EdgeTypeException, UndirectedEdgeException, DirectedEdgeException, HyperEdgeException {
         Graph poet, socialNetwork, topologyNetwork, movie;
         poet = GraphFactory.createGraph("test/graph/data/GraphPoet.txt");
         socialNetwork = GraphFactory.createGraph("test/graph/data/GraphSocial.txt");

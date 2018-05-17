@@ -1,10 +1,7 @@
 package helper;
 
 import Exception.*;
-import Exception.Edge.EdgeLoopException;
-import Exception.Edge.EdgeTypeException;
-import Exception.Edge.EdgeNullVertexException;
-import Exception.Edge.EdgeVertexTypeException;
+import Exception.Edge.*;
 import edge.Edge;
 import edge.HyperEdge;
 import factory.edge.EdgeFactory;
@@ -56,6 +53,8 @@ class HyperEdgeCommand extends Command {
                     System.err.println("Add fail!");
             } catch (EdgeVertexTypeException | EdgeLoopException e) {
                 System.err.println("Add fail!");
+            } catch (HyperEdgeException e) {
+                e.printStackTrace();
             }
         } else {
             Edge hyperEdge = graph.edges()

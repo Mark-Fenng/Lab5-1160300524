@@ -1,10 +1,7 @@
 package helper;
 
 import Exception.*;
-import Exception.Edge.EdgeLoopException;
-import Exception.Edge.EdgeTypeException;
-import Exception.Edge.EdgeNullVertexException;
-import Exception.Edge.EdgeVertexTypeException;
+import Exception.Edge.*;
 import edge.Edge;
 import factory.edge.EdgeFactory;
 import graph.Graph;
@@ -21,7 +18,7 @@ class EdgeCommand extends Command {
     }
 
     @Override
-    void add(List<String> args) throws EdgeNullVertexException, EdgeTypeException, FormatException {
+    void add(List<String> args) throws EdgeNullVertexException, EdgeTypeException, FormatException, HyperEdgeException {
         Pattern Rule = Pattern.compile("\"(.*)\"");
         Matcher matcher = Rule.matcher(args.get(0));
         String label;
