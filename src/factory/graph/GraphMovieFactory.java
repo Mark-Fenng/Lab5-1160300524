@@ -6,8 +6,8 @@ import Exception.Vertex.VertexAttributeException;
 import Exception.Vertex.VertexTypeException;
 import factory.edge.EdgeFactory;
 import factory.vertex.VertexFactory;
-import graph.ConcreteGraph;
 import graph.Graph;
+import graph.MovieGraph;
 import vertex.Vertex;
 
 import java.io.IOException;
@@ -28,7 +28,7 @@ public class GraphMovieFactory {
         Matcher matcher;
         // graph name
         String graphName = GraphFactory.GraphLabel(filePath);
-        movie = new ConcreteGraph(graphName);
+        movie = new MovieGraph(graphName);
         // get Vertices from the file
         List<List<String>> vertexCut = GraphFactory.getVertices(filePath);
         List<Vertex> vertices = new ArrayList<>();

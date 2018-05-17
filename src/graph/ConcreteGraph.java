@@ -26,10 +26,10 @@ import java.util.*;
  */
 public class ConcreteGraph implements Graph {
     private final String label;
-    private final List<Vertex> vertices = new LinkedList<>();
-    private final List<Edge> edges = new LinkedList<>();
+    protected final List<Vertex> vertices = new LinkedList<>();
+    protected final List<Edge> edges = new LinkedList<>();
 
-    public ConcreteGraph(String label) {
+    ConcreteGraph(String label) {
         this.label = label;
     }
 
