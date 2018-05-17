@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class GraphPoetFactory {
-    public static Graph createGraph(String filePath) throws IOException, FormatException, EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, UndirectedEdgeException, DirectedEdgeException, HyperEdgeException {
+    public static Graph createGraph(String filePath) throws IOException, FormatException, EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, UndirectedEdgeException, DirectedEdgeException, HyperEdgeException, EdgeWeightException {
         Graph poet;
         // graph name
         String graphName = GraphFactory.GraphLabel(filePath);
@@ -37,10 +37,15 @@ public class GraphPoetFactory {
             vertexInEdge.addAll(vertices.stream().filter(item -> item.getLabel().equals(list.get(3))).collect(Collectors.toList()));
             vertexInEdge.addAll(vertices.stream().filter(item -> item.getLabel().equals(list.get(4))).collect(Collectors.toList()));
             try {
-                poet.addEdge(EdgeFactory.createEdge(list.get(0), list.get(1), vertexInEdge, Double.parseDouble(list.get(2))));
+                poet.addEdge(EdgeFactory.createEdge(list.get(0), list.get(1), vertexInEdge, Integer.parseInt(list.get(2))));
+                // 保证输入的weight必须是正整数
+                if (Integer.parseInt(list.get(2)) <= 0)
+                    throw new EdgeWeightException(list.get(0), list.get(2));
             } catch (EdgeVertexTypeException | EdgeLoopException e) {
                 Logger logger = LoggerFactory.getLogger("Exception", "./Lab.log");
                 logger.info(e.toString());
+            } catch (NumberFormatException e) {
+                throw new EdgeWeightException(list.get(0), list.get(2));
             }
         }
         return poet;

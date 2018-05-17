@@ -1,5 +1,6 @@
 package helper;
 
+import Exception.Edge.EdgeWeightException;
 import Exception.Vertex.VertexAttributeException;
 import Exception.Vertex.VertexTypeException;
 import factory.vertex.VertexFactory;
@@ -38,7 +39,7 @@ class VertexCommand extends Command {
     }
 
     @Override
-    void delete(List<String> args) {
+    void delete(List<String> args) throws EdgeWeightException {
         Pattern Rule = Pattern.compile("\"(.*)\"");
         Matcher matcher = Rule.matcher(args.get(0));
         String regex;
@@ -51,7 +52,9 @@ class VertexCommand extends Command {
                 vertices.forEach(item -> System.out.println(item.getLabel()));
                 // 请用户确认是否删除这些内容
                 if (Command.confirm()) {
-                    vertices.forEach(item -> graph.removeVertex(item));
+                    for (Vertex vertex : vertices) {
+                        graph.removeVertex(vertex);
+                    }
                     System.out.println("Delete them successfully");
                 }
             } else {

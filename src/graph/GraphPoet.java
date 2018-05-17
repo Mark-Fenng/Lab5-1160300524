@@ -2,6 +2,7 @@ package graph;
 
 import Exception.Edge.EdgeTypeException;
 import Exception.Edge.EdgeNullVertexException;
+import Exception.Edge.EdgeWeightException;
 import Exception.Vertex.VertexTypeException;
 import edge.Edge;
 import edge.WordEdge;
@@ -21,7 +22,7 @@ public class GraphPoet extends ConcreteGraph {
     }
 
     @Override
-    public boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException {
+    public boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException, EdgeWeightException {
         if (!(edge instanceof WordEdge))
             throw new EdgeTypeException(getLabel());
         // 避免单重边中存在多充边，如果存在，就不添加这条边

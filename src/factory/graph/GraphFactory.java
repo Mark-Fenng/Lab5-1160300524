@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.regex.*;
 
 abstract public class GraphFactory {
-    public static Graph createGraph(String filePath) throws IOException, TypeException, FormatException, EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, UndirectedEdgeException, DirectedEdgeException, HyperEdgeException {
+    public static Graph createGraph(String filePath) throws IOException, TypeException, FormatException, EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, UndirectedEdgeException, DirectedEdgeException, HyperEdgeException, EdgeWeightException {
         BufferedReader fileReader = new BufferedReader(new FileReader(filePath));
         String content;
         int countLine = 1; // 统计文件的行数，便于报错
@@ -123,7 +123,8 @@ abstract public class GraphFactory {
      * 从包含图信息的固定格式文件中单独获取图中点的信息
      *
      * @param filePath 包含图信息的固定格式文件的路径
-     * @return 包含图信息的固定格式文件读取的异常
+     * @return 包含图信息的固定格式文件读取的结果 第一层列表存储所有的边，第二层列表存储一条边的全部信息
+     * 第二层列表中存储的内容次序为  label,type,weight,vertices,yes|no
      * @throws IOException     包含图信息的固定格式文件读取的异常
      * @throws FormatException 传入的文件的格式不符合要求异常，处理异常时要求给出异常的提示信息，并允许用户重新读入新的的文件，
      */
@@ -152,7 +153,7 @@ abstract public class GraphFactory {
         // 找到文件中关于点的描述
         while ((content = fileReader.readLine()) != null && !content.equals("")) {
             countLine++;
-            regex = Pattern.compile("^Edge\\s*=\\s*<\"(.*)\",\\s*\"(.*)\",\\s*\"(.*)\",\\s*\"(.*)\",\\s*\"(.*)\",\\s*\"(Yes|No)\">$");
+            regex = Pattern.compile("^Edge\\s*=\\s*<\"(.*)\",\\s*\"(.*)\",\\s*\"(-?[0-9]+\\.?[0-9]*)\",\\s*\"(.*)\",\\s*\"(.*)\",\\s*\"(Yes|No)\">$");
             matcher = regex.matcher(content);
             boolean edgeFind = false;
             if (matcher.find()) {

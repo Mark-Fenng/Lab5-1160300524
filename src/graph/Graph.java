@@ -5,6 +5,7 @@ package graph;
 
 import Exception.Edge.EdgeTypeException;
 import Exception.Edge.EdgeNullVertexException;
+import Exception.Edge.EdgeWeightException;
 import Exception.Vertex.VertexTypeException;
 import edge.Edge;
 import vertex.Vertex;
@@ -29,7 +30,7 @@ public interface Graph {
      * @param vertex 需要移除的点对象
      * @return true ：移除成功 false: 图中不包含这个点，删除失败
      */
-    boolean removeVertex(Vertex vertex);
+    boolean removeVertex(Vertex vertex) throws EdgeWeightException;
 
     /**
      * 得到图中的所有点对象
@@ -63,7 +64,7 @@ public interface Graph {
      * @return true: 图中成功添加了这条边 false: 图中已经有了这条边，添加失败
      * @throws EdgeNullVertexException 如果添加的边中含有还未添加的点，会抛出此错误
      */
-    boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException;
+    boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException, EdgeWeightException;
 
     /**
      * 从图中移除指定的边对象
@@ -71,7 +72,7 @@ public interface Graph {
      * @param edge 一个边的对象，表示一条边
      * @return true: 成功的从图中删除了这条边 false: 图中没有传入的边对象，删除失败
      */
-    boolean removeEdge(Edge edge);
+    boolean removeEdge(Edge edge) throws EdgeWeightException;
 
     /**
      * 得到图中的所有边对象

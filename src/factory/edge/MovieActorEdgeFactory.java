@@ -2,6 +2,7 @@ package factory.edge;
 
 import Exception.Edge.EdgeLoopException;
 import Exception.Edge.EdgeVertexTypeException;
+import Exception.Edge.EdgeWeightException;
 import edge.Edge;
 import edge.MovieActorRelation;
 import vertex.Actor;
@@ -11,7 +12,10 @@ import vertex.Vertex;
 import java.util.List;
 
 class MovieActorEdgeFactory {
-    static Edge createEdge(String label, List<Vertex> vertices, double weight) throws EdgeLoopException, EdgeVertexTypeException {
+    static Edge createEdge(String label, List<Vertex> vertices, double weight) throws EdgeLoopException, EdgeVertexTypeException, EdgeWeightException {
+        // 演员与电影的边中，权值必须为正整数，否则就抛出异常
+        if ((int) weight <= 0)
+            throw new EdgeWeightException(label, "" + weight);
         Edge MovieActorEdge = new MovieActorRelation(label, weight);
         if (vertices.get(0).equals(vertices.get(1))) {
             throw new EdgeLoopException(label);

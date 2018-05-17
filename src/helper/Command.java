@@ -3,6 +3,7 @@ package helper;
 import Exception.*;
 import Exception.Edge.EdgeTypeException;
 import Exception.Edge.EdgeNullVertexException;
+import Exception.Edge.EdgeWeightException;
 import Exception.Edge.HyperEdgeException;
 import Exception.Vertex.VertexAttributeException;
 import Exception.Vertex.VertexTypeException;
@@ -24,21 +25,21 @@ abstract class Command {
      *
      * @param args 用户输入的新对象的属性
      */
-    abstract void add(List<String> args) throws EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, FormatException, IOException, HyperEdgeException;
+    abstract void add(List<String> args) throws EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, FormatException, IOException, HyperEdgeException, EdgeWeightException;
 
     /**
      * 从图中删除用户指定的对象
      *
      * @param args 用户输入的指定对象的属性
      */
-    abstract void delete(List<String> args);
+    abstract void delete(List<String> args) throws EdgeWeightException;
 
     /**
      * 更新图中指定对象的属性
      *
      * @param args 用户输入的指定对象的属性
      */
-    abstract void update(List<String> args) throws VertexAttributeException;
+    abstract void update(List<String> args) throws VertexAttributeException, EdgeWeightException;
 
     /**
      * 展示图中指定对象的属性

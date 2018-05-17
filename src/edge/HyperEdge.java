@@ -1,6 +1,7 @@
 package edge;
 
 import Exception.Edge.EdgeVertexTypeException;
+import Exception.Edge.EdgeWeightException;
 import vertex.Vertex;
 
 import java.util.HashSet;
@@ -10,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class HyperEdge extends Edge {
 
-    HyperEdge(String label, double weight) {
+    HyperEdge(String label, double weight) throws EdgeWeightException {
         super(label, weight);
         super.setWeight(-1);
     }

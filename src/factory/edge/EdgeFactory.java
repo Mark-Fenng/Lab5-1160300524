@@ -8,7 +8,7 @@ import vertex.Vertex;
 import java.util.List;
 
 public class EdgeFactory {
-    public static Edge createEdge(String label, String type, List<Vertex> vertices, double weight) throws FormatException, EdgeLoopException, EdgeVertexTypeException, HyperEdgeException {
+    public static Edge createEdge(String label, String type, List<Vertex> vertices, double weight) throws FormatException, EdgeLoopException, EdgeVertexTypeException, HyperEdgeException, EdgeWeightException {
         switch (type) {
             case "WordNeighborhood":
                 return poetEdgeFactory.createEdge(label, vertices, weight);

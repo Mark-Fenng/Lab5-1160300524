@@ -1,13 +1,14 @@
 package edge;
 
 import Exception.Edge.EdgeVertexTypeException;
+import Exception.Edge.EdgeWeightException;
 import vertex.Actor;
 import vertex.Vertex;
 
 import java.util.List;
 
 public class SameMovieHyperEdge extends HyperEdge {
-    public SameMovieHyperEdge(String label, double weight) {
+    public SameMovieHyperEdge(String label, double weight) throws EdgeWeightException {
         super(label, weight);
     }
 

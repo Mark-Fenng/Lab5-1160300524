@@ -18,7 +18,7 @@ class EdgeCommand extends Command {
     }
 
     @Override
-    void add(List<String> args) throws EdgeNullVertexException, EdgeTypeException, FormatException, HyperEdgeException {
+    void add(List<String> args) throws EdgeNullVertexException, EdgeTypeException, FormatException, HyperEdgeException, EdgeWeightException {
         Pattern Rule = Pattern.compile("\"(.*)\"");
         Matcher matcher = Rule.matcher(args.get(0));
         String label;
@@ -85,7 +85,7 @@ class EdgeCommand extends Command {
     }
 
     @Override
-    void delete(List<String> args) {
+    void delete(List<String> args) throws EdgeWeightException {
         Pattern Rule = Pattern.compile("\"(.*)\"");
         Matcher matcher = Rule.matcher(args.get(0));
         String regex;
@@ -98,7 +98,9 @@ class EdgeCommand extends Command {
                 edges.forEach(item -> System.out.println(item.getLabel()));
                 // 请用户确认是否删除这些内容
                 if (Command.confirm()) {
-                    edges.forEach(item -> graph.removeEdge(item));
+                    for (Edge edge : edges) {
+                        graph.removeEdge(edge);
+                    }
                     System.out.println("Delete them successfully");
                 }
             } else {
@@ -108,7 +110,7 @@ class EdgeCommand extends Command {
     }
 
     @Override
-    void update(List<String> args) {
+    void update(List<String> args) throws EdgeWeightException {
         Pattern Rule = Pattern.compile("\"(.*)\"");
         Matcher matcher = Rule.matcher(args.get(0));
         String label;

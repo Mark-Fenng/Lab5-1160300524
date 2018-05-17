@@ -2,6 +2,7 @@ package factory.edge;
 
 import Exception.Edge.EdgeLoopException;
 import Exception.Edge.EdgeVertexTypeException;
+import Exception.Edge.EdgeWeightException;
 import Exception.Edge.HyperEdgeException;
 import edge.Edge;
 import edge.SameMovieHyperEdge;
@@ -11,7 +12,7 @@ import vertex.Vertex;
 import java.util.List;
 
 class SameMovieHyperEdgeFactory {
-    static Edge createEdge(String label, List<Vertex> vertices, double weight) throws EdgeLoopException, EdgeVertexTypeException, HyperEdgeException {
+    static Edge createEdge(String label, List<Vertex> vertices, double weight) throws EdgeLoopException, EdgeVertexTypeException, HyperEdgeException, EdgeWeightException {
         Edge SameMovieHyper = new SameMovieHyperEdge(label, weight);
         if (vertices.size() < 2)
             throw new HyperEdgeException(label);

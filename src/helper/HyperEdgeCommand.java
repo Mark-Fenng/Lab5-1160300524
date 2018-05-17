@@ -22,7 +22,7 @@ class HyperEdgeCommand extends Command {
     }
 
     @Override
-    void add(List<String> args) throws EdgeNullVertexException, EdgeTypeException, FormatException, IOException {
+    void add(List<String> args) throws EdgeNullVertexException, EdgeTypeException, FormatException, IOException, EdgeWeightException {
         Pattern Rule = Pattern.compile("\"(.*)\"");
         Matcher matcher = Rule.matcher(args.get(0));
         String label;

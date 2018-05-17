@@ -1,16 +1,29 @@
 package edge;
 
 import Exception.Edge.EdgeLoopException;
-import Exception.Edge.EdgeTypeException;
 import Exception.Edge.EdgeVertexTypeException;
+import Exception.Edge.EdgeWeightException;
 import vertex.Vertex;
 import vertex.Word;
 
 import java.util.List;
 
 public class WordEdge extends DirectedEdge {
-    public WordEdge(String label, double weight) {
+    public WordEdge(String label, double weight) throws EdgeWeightException {
         super(label, weight);
+        if ((int) weight <= 0)
+            throw new EdgeWeightException(label, "" + weight);
+    }
+
+    @Override
+    public double setWeight(double weight) throws EdgeWeightException {
+        try {
+            if (Integer.parseInt("" + weight) <= 0)
+                throw new EdgeWeightException(getLabel(), "" + weight);
+        } catch (NumberFormatException e) {
+            throw new EdgeWeightException(getLabel(), "" + weight);
+        }
+        return super.setWeight(weight);
     }
 
     @Override

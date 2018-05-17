@@ -2,6 +2,7 @@ package edge;
 
 import Exception.Edge.EdgeLoopException;
 import Exception.Edge.EdgeVertexTypeException;
+import Exception.Edge.EdgeWeightException;
 import vertex.Actor;
 import vertex.Movie;
 import vertex.Vertex;
@@ -9,8 +10,10 @@ import vertex.Vertex;
 import java.util.List;
 
 public class MovieActorRelation extends UndirectedEdge {
-    public MovieActorRelation(String label, double weight) {
+    public MovieActorRelation(String label, double weight) throws EdgeWeightException {
         super(label, weight);
+        if ((int) weight <= 0)
+            throw new EdgeWeightException(label, "" + weight);
     }
 
     @Override

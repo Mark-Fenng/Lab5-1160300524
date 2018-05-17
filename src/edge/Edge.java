@@ -2,6 +2,7 @@ package edge;
 
 import Exception.Edge.EdgeLoopException;
 import Exception.Edge.EdgeVertexTypeException;
+import Exception.Edge.EdgeWeightException;
 import vertex.*;
 
 import java.util.HashSet;
@@ -126,7 +127,7 @@ abstract public class Edge {
      * @param weight 权重的新值
      * @return 返回边的权重的旧值
      */
-    public double setWeight(double weight) {
+    public double setWeight(double weight) throws EdgeWeightException {
         double oldWeight = this.weight;
         this.weight = weight;
         return oldWeight;

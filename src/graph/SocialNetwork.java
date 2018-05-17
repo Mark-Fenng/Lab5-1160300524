@@ -2,6 +2,7 @@ package graph;
 
 import Exception.Edge.EdgeTypeException;
 import Exception.Edge.EdgeNullVertexException;
+import Exception.Edge.EdgeWeightException;
 import Exception.Vertex.VertexTypeException;
 import edge.CommentConnection;
 import edge.Edge;
@@ -23,7 +24,7 @@ public class SocialNetwork extends ConcreteGraph {
     }
 
     @Override
-    public boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException {
+    public boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException, EdgeWeightException {
         if (!((edge instanceof ForwardConnection) || (edge instanceof FriendConnection) || (edge instanceof CommentConnection)))
             throw new EdgeTypeException(getLabel());
 
@@ -33,18 +34,24 @@ public class SocialNetwork extends ConcreteGraph {
 
         if (!super.edges().contains(edge)) {
             double newWeight = edge.getWeight();
-            super.edges().forEach(item -> item.setWeight(item.getWeight() * (1.0 - newWeight)));
+            for (Edge item : super.edges)
+                item.setWeight(item.getWeight() * (1.0 - newWeight));
+            for (Edge item : super.edges) {
+                if (item.getWeight() < 0 || item.getWeight() > 1)
+                    throw new EdgeWeightException(getLabel(), "" + item.getWeight());
+            }
             return super.addEdge(edge);
         }
         return false;
     }
 
     @Override
-    public boolean removeEdge(Edge edge) {
+    public boolean removeEdge(Edge edge) throws EdgeWeightException {
         if (super.edges().contains(edge)) {
             double weight = edge.getWeight();
             if (super.edges().size() != 1) {
-                super.edges().forEach(item -> item.setWeight(weight / (1.0 - weight)));
+                for (Edge item : super.edges())
+                    item.setWeight(weight / (1.0 - weight));
             }
             return super.removeEdge(edge);
         }

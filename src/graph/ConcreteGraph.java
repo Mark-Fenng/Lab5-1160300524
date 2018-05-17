@@ -2,6 +2,7 @@ package graph;
 
 import Exception.Edge.EdgeTypeException;
 import Exception.Edge.EdgeNullVertexException;
+import Exception.Edge.EdgeWeightException;
 import Exception.Vertex.VertexTypeException;
 import edge.Edge;
 import vertex.Vertex;
@@ -47,7 +48,7 @@ public class ConcreteGraph implements Graph {
     }
 
     @Override
-    public boolean removeVertex(Vertex vertex) {
+    public boolean removeVertex(Vertex vertex) throws EdgeWeightException {
         if (vertices.remove(vertex)) {
             edges.removeIf(item -> item.vertices().contains(vertex));
             return true;
@@ -99,7 +100,7 @@ public class ConcreteGraph implements Graph {
 
 
     @Override
-    public boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException {
+    public boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException, EdgeWeightException {
         for (Vertex item : edge.vertices()) {
             if (!vertices.contains(item))
                 throw new EdgeNullVertexException("The Vertex : " + item + " have not been define before");
@@ -116,7 +117,7 @@ public class ConcreteGraph implements Graph {
     }
 
     @Override
-    public boolean removeEdge(Edge edge) {
+    public boolean removeEdge(Edge edge) throws EdgeWeightException {
         if (edges.remove(edge)) {
             // add edge to the vertex,as out edges
             this.vertices.stream().filter(item -> edge.sourceVertices().contains(item)).forEach(item -> item.removeEdge(edge));
