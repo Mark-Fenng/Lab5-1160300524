@@ -6,6 +6,9 @@ import Exception.Vertex.VertexTypeException;
 import edge.*;
 import vertex.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class MovieGraph extends ConcreteGraph {
     public MovieGraph(String label) {
         super(label);
@@ -30,7 +33,14 @@ public class MovieGraph extends ConcreteGraph {
     public boolean removeVertex(Vertex vertex) {
         if (vertices.remove(vertex)) {
             // 删除超边中的相应顶点，但不删除这条超边
-            edges.stream().filter(item -> (item instanceof HyperEdge) && item.vertices().contains(vertex)).forEach(item -> ((HyperEdge) item).removeVertex(vertex));
+            List<HyperEdge> hyperEdgeList = edges.stream()
+                    .filter(item -> (item instanceof HyperEdge) && item.vertices().contains(vertex))
+                    .map(item -> (HyperEdge) item)
+                    .collect(Collectors.toList());
+            hyperEdgeList.forEach(item -> item.removeVertex(vertex));
+            hyperEdgeList = hyperEdgeList.stream().filter(item -> item.vertices().size() < 2).collect(Collectors.toList());
+            edges.removeAll(hyperEdgeList);
+            hyperEdgeList.forEach(super::removeEdge);
             // 删除不是超边的 包含要删除点的 边 或者边中点的个数小于2的边
             edges.removeIf(item -> (!(item instanceof HyperEdge) && item.vertices().contains(vertex)) || item.vertices().size() < 2);
             return true;
