@@ -44,7 +44,7 @@ public class GraphPoetFactory {
                     throw new EdgeWeightException(list.get(0), list.get(2));
             } catch (EdgeVertexTypeException | EdgeLoopException e) {
                 Logger logger = LoggerFactory.getLogger("Exception", "./Lab.log");
-                logger.info(e.toString());
+                logger.warning(e.toString()+ "\ngo on read the file\n");
             } catch (NumberFormatException e) {
                 throw new EdgeWeightException(list.get(0), list.get(2));
             }

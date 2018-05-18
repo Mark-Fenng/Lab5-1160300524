@@ -17,7 +17,15 @@ public class LoggerFactory {
     public static Logger getLogger(String name, String FilePath) throws IOException {
         Logger logger = Logger.getLogger(name);
         logger.setUseParentHandlers(false);
+
+        // 设置日志输出的样式
+        SimpleFormatter simpleFormatter = new SimpleFormatter();
+        LogRecord logRecord = new LogRecord(Level.INFO, "%1$tb %1$td, %1$tY %1$tl:%1$tM:%1$tS %1$Tp %2$s%n%4$s: %5$s%n");
+        simpleFormatter.format(logRecord);
+
+        // 以文件的方式处理产生的日志
         FileHandler fileHandler = new FileHandler(FilePath);
+        fileHandler.setFormatter(simpleFormatter);
         logger.addHandler(fileHandler);
         return logger;
     }

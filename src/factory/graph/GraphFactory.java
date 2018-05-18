@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 import java.util.regex.*;
 
 abstract public class GraphFactory {
-    public static Graph createGraph(String filePath) throws IOException, TypeException, FormatException, EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException , DirectedEdgeException, HyperEdgeException, EdgeWeightException, VertexLabelException {
+    public static Graph createGraph(String filePath) throws IOException, TypeException, FormatException, EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, DirectedEdgeException, HyperEdgeException, EdgeWeightException, VertexLabelException {
         BufferedReader fileReader = new BufferedReader(new FileReader(filePath));
         String content;
         int countLine = 1; // 统计文件的行数，便于报错
@@ -131,7 +131,7 @@ abstract public class GraphFactory {
      * @throws IOException     包含图信息的固定格式文件读取的异常
      * @throws FormatException 传入的文件的格式不符合要求异常，处理异常时要求给出异常的提示信息，并允许用户重新读入新的的文件，
      */
-    public static List<List<String>> getEdges(String filePath) throws IOException, FormatException, DirectedEdgeException{
+    public static List<List<String>> getEdges(String filePath) throws IOException, FormatException, DirectedEdgeException {
         List<List<String>> vertices = new ArrayList<>();
         BufferedReader fileReader = new BufferedReader(new FileReader(filePath));
         Pattern regex;
@@ -169,7 +169,7 @@ abstract public class GraphFactory {
                     throw new DirectedEdgeException(matcher.group(1), countLine);
                 } catch (UndirectedEdgeException e) {
                     Logger logger = LoggerFactory.getLogger("Exception", "./Lab.log");
-                    logger.info(e.toString());
+                    logger.warning(e.toString() + "\ngo on read the file\n");
                 }
                 edgeFind = true;
             }

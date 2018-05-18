@@ -60,7 +60,7 @@ public class GraphMovieFactory {
                     movie.addEdge(EdgeFactory.createEdge(list.get(0), list.get(1), vertexInEdge, Double.parseDouble(list.get(2))));
                 } catch (EdgeVertexTypeException | EdgeLoopException e) {
                     Logger logger = LoggerFactory.getLogger("Exception", "./Lab.log");
-                    logger.info(e.toString());
+                    logger.warning(e.toString()+ "\ngo on read the file\n");
                 }
             } else if (list.size() == 3) {
                 String hyperStr = list.get(2);
@@ -75,7 +75,7 @@ public class GraphMovieFactory {
                     movie.addEdge(EdgeFactory.createEdge(list.get(0), list.get(1), vertexInEdge, -1));
                 } catch (EdgeVertexTypeException | EdgeLoopException e) {
                     Logger logger = LoggerFactory.getLogger("Exception", "./Lab.log");
-                    logger.info(e.toString());
+                    logger.warning(e.toString()+ "\ngo on read the file\n");
                 }
             }
         }

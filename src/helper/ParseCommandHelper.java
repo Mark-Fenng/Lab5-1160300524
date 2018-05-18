@@ -80,7 +80,7 @@ public class ParseCommandHelper {
                 } catch (IOException | FormatException | TypeException | EdgeNullVertexException | VertexAttributeException | VertexTypeException | EdgeTypeException | DirectedEdgeException | HyperEdgeException | EdgeWeightException | VertexLabelException e) {
                     try {
                         Logger logger = LoggerFactory.getLogger("Exception", "./Lab.log");
-                        logger.info(e.toString());
+                        logger.severe(e.toString() + "\nInput the file again\n");
                         System.out.println(e.toString());
                         System.out.println("Please establish the graph again");
                     } catch (IOException ignored) {
