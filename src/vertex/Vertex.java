@@ -7,20 +7,18 @@ import edge.*;
 
 /**
  * <p>
- *     Abstraction Function:
- *     label -- 点的唯一标识
- *     inEdges -- 所有入边的集合
- *     outEdges -- 所有出边的集合
+ * Abstraction Function:
+ * label -- 点的唯一标识
+ * inEdges -- 所有入边的集合
+ * outEdges -- 所有出边的集合
  * </p>
- *
  * <p>
- *     Rep Invariant:
- *     如果这个点在无向图中 ，则inEdges.size()=outEdges.size()
+ * Rep Invariant:
+ * 如果这个点在无向图中 ，则inEdges.size()=outEdges.size()
  * </p>
- *
  * <p>
- *     Safety from rep exposure:
- *     label ,inEdges,outEdges 都是private属性
+ * Safety from rep exposure:
+ * label ,inEdges,outEdges 都是private属性
  * </p>
  */
 public abstract class Vertex {
@@ -37,6 +35,7 @@ public abstract class Vertex {
      * 给该顶点添加附加的信息
      *
      * @param args 附加的数据项,一个String表示一个信息单元
+     * @throws VertexAttributeException 当传入的参数不符合这个点的需要时，就会抛出这个异常
      */
     public abstract void fillVertexInfo(String[] args) throws VertexAttributeException;
 

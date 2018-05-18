@@ -23,6 +23,8 @@ public interface Graph {
      *
      * @param vertex Vertex对象,表示一个点
      * @return true: 向图中成功的添加了这个点 false: 图中已经包含了这个点
+     * @throws VertexTypeException  如果添加的点的类型不应该出现在这个边中，则会抛出此异常
+     * @throws VertexLabelException 如果图中已经存在一个Label相同的点，则会抛出此异常
      */
     boolean addVertex(Vertex vertex) throws VertexTypeException, VertexLabelException;
 

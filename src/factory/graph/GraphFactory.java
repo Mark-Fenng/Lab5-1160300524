@@ -128,8 +128,9 @@ abstract public class GraphFactory {
      * @param filePath 包含图信息的固定格式文件的路径
      * @return 包含图信息的固定格式文件读取的结果 第一层列表存储所有的边，第二层列表存储一条边的全部信息
      * 第二层列表中存储的内容次序为  label,type,weight,vertices,yes|no
-     * @throws IOException     包含图信息的固定格式文件读取的异常
-     * @throws FormatException 传入的文件的格式不符合要求异常，处理异常时要求给出异常的提示信息，并允许用户重新读入新的的文件，
+     * @throws IOException           包含图信息的固定格式文件读取的异常
+     * @throws FormatException       传入的文件的格式不符合要求异常，处理异常时要求给出异常的提示信息，并允许用户重新读入新的的文件，
+     * @throws DirectedEdgeException 当边的类型是有向边，若文件的描述是无向边，则抛出此异常
      */
     public static List<List<String>> getEdges(String filePath) throws IOException, FormatException, DirectedEdgeException {
         List<List<String>> vertices = new ArrayList<>();
