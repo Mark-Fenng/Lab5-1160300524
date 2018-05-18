@@ -1,7 +1,10 @@
 package helper;
 
 import Exception.*;
+import Exception.Command.CommandException;
+import Exception.Command.UnsupportedException;
 import Exception.Edge.*;
+import Exception.Graph.GraphNullException;
 import Exception.Vertex.VertexAttributeException;
 import Exception.Vertex.VertexLabelException;
 import Exception.Vertex.VertexTypeException;
@@ -23,28 +26,28 @@ abstract class Command {
      *
      * @param args 用户输入的新对象的属性
      */
-    abstract void add(List<String> args) throws EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, FormatException, IOException, HyperEdgeException, EdgeWeightException, VertexLabelException, TypeException, DirectedEdgeException;
+    abstract void add(List<String> args) throws EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, FormatException, IOException, HyperEdgeException, EdgeWeightException, VertexLabelException, TypeException, DirectedEdgeException, CommandException;
 
     /**
      * 从图中删除用户指定的对象
      *
      * @param args 用户输入的指定对象的属性
      */
-    abstract void delete(List<String> args) throws EdgeWeightException;
+    abstract void delete(List<String> args) throws EdgeWeightException, CommandException, GraphNullException;
 
     /**
      * 更新图中指定对象的属性
      *
      * @param args 用户输入的指定对象的属性
      */
-    abstract void update(List<String> args) throws VertexAttributeException, EdgeWeightException;
+    abstract void update(List<String> args) throws VertexAttributeException, EdgeWeightException, CommandException, GraphNullException;
 
     /**
      * 展示图中指定对象的属性
      *
      * @param args 用户输入的指定对象属性
      */
-    abstract void show(List<String> args);
+    abstract void show(List<String> args) throws UnsupportedException, CommandException, GraphNullException;
 
     /**
      * 在删除指定对象时，向用户确认是否删除

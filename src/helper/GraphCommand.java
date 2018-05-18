@@ -21,10 +21,11 @@ class GraphCommand extends Command {
     }
 
     @Override
-    void add(List<String> args) throws IOException, EdgeTypeException, EdgeWeightException, TypeException, VertexAttributeException, VertexTypeException, VertexLabelException, HyperEdgeException, EdgeNullVertexException, DirectedEdgeException , FormatException {
+    void add(List<String> args) throws IOException, EdgeTypeException, EdgeWeightException, TypeException, VertexAttributeException, VertexTypeException, VertexLabelException, HyperEdgeException, EdgeNullVertexException, DirectedEdgeException, FormatException {
         if (args.size() != 1)
             System.out.println("Error Command!\nGraph --add filepath");
         graph = GraphFactory.createGraph(args.get(0));
+        System.out.println("Establish Graph Successfully");
     }
 
     @Override

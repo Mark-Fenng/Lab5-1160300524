@@ -1,7 +1,10 @@
 package helper;
 
+import Exception.Command.CommandException;
+import Exception.Command.UnsupportedException;
 import Exception.Edge.*;
 import Exception.FormatException;
+import Exception.Graph.GraphNullException;
 import Exception.TypeException;
 import Exception.Vertex.VertexAttributeException;
 import Exception.Vertex.VertexLabelException;
@@ -27,12 +30,12 @@ import java.util.regex.Pattern;
  * <li>label=    改变点的label值</li>
  * <li>argument=   改变点的argument值，即点的属性</li>
  * </ul>
- * <p>vertex --show</p>
+ * <p>vertex --show label</p>
  * <ul>
  * <li>eccentricity 求点的eccentricity值</li>
  * <li>degree 求点的degree值</li>
  * <li>indegree 求点的indegree值</li>
- * <li>求点的outdegree值</li>
+ * <li>outdegree 求点的outdegree值</li>
  * <li>closenessCentrality 求点的closenessCentrality值</li>
  * <li>betweennessCentrality 求点的 betweennessCentrality值</li>
  * </ul>
@@ -82,12 +85,20 @@ public class ParseCommandHelper {
                         System.out.println("Please establish the graph again");
                     } catch (IOException ignored) {
                     }
+                } catch (CommandException e) {
+                    if (!e.getMessage().equals(""))
+                        System.out.println(e.getMessage());
+                    PrintUsage();
+                } catch (UnsupportedException e) {
+                    System.out.println(e.getMessage());
+                } catch (GraphNullException e) {
+                    System.out.println("You must Establish Graph First!\nUsage : Graph --add filepath");
                 }
             }
         }
     }
 
-    private static Graph command(List<String> args, Command cmd) throws EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, FormatException, IOException, HyperEdgeException, EdgeWeightException, VertexLabelException, TypeException, DirectedEdgeException {
+    private static Graph command(List<String> args, Command cmd) throws EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, FormatException, IOException, HyperEdgeException, EdgeWeightException, VertexLabelException, TypeException, DirectedEdgeException, CommandException, UnsupportedException, GraphNullException {
         Pattern commandRule = Pattern.compile("--(.*)");
         Matcher matcher = commandRule.matcher(args.get(0));
         String command;
@@ -108,14 +119,15 @@ public class ParseCommandHelper {
                     cmd.delete(args);
                     break;
                 default:
+                    throw new CommandException("Invalid Command");
             }
         }
         return cmd.graph;
     }
 
-    private static Graph type(List<String> args, Graph graph) throws EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, FormatException, IOException, HyperEdgeException, EdgeWeightException, VertexLabelException, TypeException, DirectedEdgeException {
+    private static Graph type(List<String> args, Graph graph) throws EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, FormatException, IOException, HyperEdgeException, EdgeWeightException, VertexLabelException, TypeException, DirectedEdgeException, CommandException, UnsupportedException, GraphNullException {
         if (args.size() < 3)
-            return null;
+            throw new CommandException("The Argument is not Enough");
         String type = args.get(0);
         args.remove(0);
         switch (type) {
@@ -132,7 +144,40 @@ public class ParseCommandHelper {
                 GraphCommand graphCommand = new GraphCommand(graph);
                 return command(args, graphCommand);
             default:
-                throw new UnsupportedOperationException("usage");
+                throw new CommandException("");
         }
+    }
+
+    static private void PrintUsage() {
+        System.out.println("Invalid Command!");
+        System.out.println("Usage:");
+        System.out.println("vertex --add label type");
+        System.out.println("vertex --delete regex");
+        System.out.println("vertex --update label");
+        System.out.println("\tlabel=[]");
+        System.out.println("\targument=[]");
+        System.out.println("vertex --show");
+        System.out.println("\teccentricity 求点的eccentricity值");
+        System.out.println("\tdegree");
+        System.out.println("\tindegree");
+        System.out.println("\toutdegree");
+        System.out.println("\tclosenessCentrality");
+        System.out.println("\tbetweennessCentrality");
+
+        System.out.println("edge --add label type [weighted=Y|N] [weight] [directed=Y|N] v1, v2");
+        System.out.println("edge --delete regex");
+
+        System.out.println("hyperedge --add");
+        System.out.println("\tlabel type vertex1, ..., vertexn");
+        System.out.println("\tlabel vertex1, ..., vertexn");
+        System.out.println("hyperedge --delete label regex");
+
+        System.out.println("graph --add filepath");
+        System.out.println("graph --show");
+        System.out.println("\tdegreeCentrality");
+        System.out.println("\tradius");
+        System.out.println("\tdiameter");
+        System.out.println("\tvisiable");
+        System.out.println("\tdistance=\"vertex1\"\"vertex2\"");
     }
 }

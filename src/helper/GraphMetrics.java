@@ -1,5 +1,6 @@
 package helper;
 
+import Exception.Command.UnsupportedException;
 import edge.Edge;
 import graph.Graph;
 import vertex.Vertex;
@@ -36,11 +37,12 @@ class GraphMetrics {
      * @param g 传入所求点所在的图
      * @param v 需要求度的点
      * @return 所求点的度，如果传入的图中没有这个点，就会返回0
+     * @throws UnsupportedException 如果输入的图是有向图，则不支持求点的度，只支持求点的入度和出度
      */
-    static double degreeCentrality(Graph g, Vertex v) {
+    static double degreeCentrality(Graph g, Vertex v) throws UnsupportedException {
         if (g.vertices().contains(v)) {
             if (v.getInEdges().size() != v.getOutEdges().size()) {
-                throw new UnsupportedOperationException("Directed edge must define in or out degree centrality");
+                throw new UnsupportedException("Directed edge must define in or out degree centrality");
             }
             return v.getInEdges().size();
         }

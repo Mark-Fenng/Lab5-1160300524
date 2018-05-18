@@ -1,6 +1,9 @@
 package helper;
 
+import Exception.Command.CommandException;
+import Exception.Command.UnsupportedException;
 import Exception.Edge.EdgeWeightException;
+import Exception.Graph.GraphNullException;
 import Exception.Vertex.VertexAttributeException;
 import Exception.Vertex.VertexLabelException;
 import Exception.Vertex.VertexTypeException;
@@ -19,7 +22,7 @@ class VertexCommand extends Command {
     }
 
     @Override
-    void add(List<String> args) throws VertexAttributeException, VertexTypeException, VertexLabelException {
+    void add(List<String> args) throws VertexAttributeException, VertexTypeException, VertexLabelException, CommandException {
         if (graph == null) {
             System.out.println("You must Establish Graph First!\nUsage : Graph --add filepath");
             return;
@@ -30,7 +33,7 @@ class VertexCommand extends Command {
         if (matcher.find())
             label = matcher.group(1);
         else
-            return;
+            throw new CommandException("Lack the Vertex Label");
         matcher = Rule.matcher(args.get(1));
         String type;
         if (matcher.find()) {
@@ -44,10 +47,9 @@ class VertexCommand extends Command {
     }
 
     @Override
-    void delete(List<String> args) throws EdgeWeightException {
+    void delete(List<String> args) throws EdgeWeightException, CommandException, GraphNullException {
         if (graph == null) {
-            System.out.println("You must Establish Graph First!\nUsage : Graph --add filepath");
-            return;
+            throw new GraphNullException("");
         }
         Pattern Rule = Pattern.compile("\"(.*)\"");
         Matcher matcher = Rule.matcher(args.get(0));
@@ -69,14 +71,14 @@ class VertexCommand extends Command {
             } else {
                 System.out.println("Not found the specific vertex");
             }
-        }
+        } else
+            throw new CommandException("Lack \" at Regex");
     }
 
     @Override
-    void update(List<String> args) throws VertexAttributeException, EdgeWeightException {
+    void update(List<String> args) throws VertexAttributeException, EdgeWeightException, CommandException, GraphNullException {
         if (graph == null) {
-            System.out.println("You must Establish Graph First!\nUsage : Graph --add filepath");
-            return;
+            throw new GraphNullException("");
         }
         Pattern Rule = Pattern.compile("\"(.*)\"");
         Matcher matcher = Rule.matcher(args.get(0));
@@ -86,9 +88,9 @@ class VertexCommand extends Command {
             label = matcher.group(1);
             vertex = graph.vertices().stream().filter(item -> item.getLabel().equals(label)).findFirst().orElse(null);
             if (vertex == null)
-                return;
+                throw new CommandException("The Vertex Label can't be Found");
         } else
-            return;
+            throw new CommandException("Lack the Vertex Label");
         StringBuilder OptionalCommand = new StringBuilder();
         for (String arg : args) {
             OptionalCommand.append(arg);
@@ -100,7 +102,8 @@ class VertexCommand extends Command {
             newLabel = matcher.group(1);
             String oldLabel = vertex.setLabel(newLabel);
             System.out.println("Update label successfully , old label is " + oldLabel);
-        }
+        } else
+            throw new CommandException("Lack the Vertex Label");
         Rule = Pattern.compile("argument=(.*)");
         matcher = Rule.matcher(OptionalCommand);
         String argument;
@@ -110,14 +113,15 @@ class VertexCommand extends Command {
             arguments = argument.split(",");
             vertex.fillVertexInfo(arguments);
             System.out.println("The argument of the vertex update successfully");
+        } else {
+            throw new CommandException("Lack the Vertex Argument");
         }
     }
 
     @Override
-    void show(List<String> args) {
+    void show(List<String> args) throws UnsupportedException, CommandException, GraphNullException {
         if (graph == null) {
-            System.out.println("You must Establish Graph First!\nUsage : Graph --add filepath");
-            return;
+            throw new GraphNullException("");
         }
         Pattern Rule = Pattern.compile("\"(.*)\"");
         Matcher matcher = Rule.matcher(args.get(0));
@@ -127,43 +131,49 @@ class VertexCommand extends Command {
             label = matcher.group(1);
             vertex = graph.vertices().stream().filter(item -> item.getLabel().equals(label)).findFirst().orElse(null);
             if (vertex == null)
-                return;
+                throw new CommandException("The Vertex Label can't be Found");
+            args.remove(0);
         } else
-            return;
-        StringBuilder OptionalCommand = new StringBuilder();
-        for (int i = 4; i < args.size(); i++) {
-            OptionalCommand.append(args.get(i));
-        }
+            throw new CommandException("Lack the Vertex Label");
         List<Pattern> Rules = new ArrayList<>();
-        Rules.add(Pattern.compile("eccentricity"));
-        Rules.add(Pattern.compile("degree"));
-        Rules.add(Pattern.compile("indegree"));
-        Rules.add(Pattern.compile("outdegree"));
-        Rules.add(Pattern.compile("closenessCentrality"));
-        Rules.add(Pattern.compile("betweennessCentrality"));
-        matcher = Rules.get(0).matcher(OptionalCommand);
+        Rules.add(Pattern.compile("^eccentricity$"));
+        Rules.add(Pattern.compile("^degree$"));
+        Rules.add(Pattern.compile("^indegree$"));
+        Rules.add(Pattern.compile("^outdegree$"));
+        Rules.add(Pattern.compile("^closenessCentrality$"));
+        Rules.add(Pattern.compile("^betweennessCentrality$"));
+        boolean CommandFlag = false; // 用于标记以上的命令是否有执行过，如果在函数结束时，值还是false，则抛出异常
+        matcher = Rules.get(0).matcher(args.get(0));
         if (matcher.find()) {
             System.out.println("The eccentricity of the vertex : " + GraphMetrics.eccentricity(graph, vertex));
+            CommandFlag = true;
         }
-        matcher = Rules.get(1).matcher(OptionalCommand);
+        matcher = Rules.get(1).matcher(args.get(0));
         if (matcher.find()) {
             System.out.println("The degree of the vertex : " + GraphMetrics.degreeCentrality(graph, vertex));
+            CommandFlag = true;
         }
-        matcher = Rules.get(2).matcher(OptionalCommand);
+        matcher = Rules.get(2).matcher(args.get(0));
         if (matcher.find()) {
             System.out.println("The inDegree of the vertex : " + GraphMetrics.inDegreeCentrality(graph, vertex));
+            CommandFlag = true;
         }
-        matcher = Rules.get(3).matcher(OptionalCommand);
+        matcher = Rules.get(3).matcher(args.get(0));
         if (matcher.find()) {
             System.out.println("The outDegree of the vertex : " + GraphMetrics.outDegreeCentrality(graph, vertex));
+            CommandFlag = true;
         }
-        matcher = Rules.get(4).matcher(OptionalCommand);
+        matcher = Rules.get(4).matcher(args.get(0));
         if (matcher.find()) {
             System.out.println("The closenessCentrality of the vertex : " + GraphMetrics.closenessCentrality(graph, vertex));
+            CommandFlag = true;
         }
-        matcher = Rules.get(5).matcher(OptionalCommand);
+        matcher = Rules.get(5).matcher(args.get(0));
         if (matcher.find()) {
             System.out.println("The betweennessCentrality of the vertex : " + GraphMetrics.betweennessCentrality(graph, vertex));
+            CommandFlag = true;
         }
+        if (!CommandFlag)
+            throw new CommandException(""); // 命令输入的参数有误
     }
 }
