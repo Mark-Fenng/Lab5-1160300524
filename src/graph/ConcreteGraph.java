@@ -32,7 +32,7 @@ import java.util.logging.Logger;
 public class ConcreteGraph implements Graph {
     private final String label;
     protected final List<Vertex> vertices = new LinkedList<>();
-    protected final List<Edge> edges = new LinkedList<>();
+    final List<Edge> edges = new LinkedList<>();
 
     ConcreteGraph(String label) {
         this.label = label;
@@ -109,14 +109,15 @@ public class ConcreteGraph implements Graph {
         }
         // 如果edge的label在图中已经存在，则自动在边的label后面填完后缀
         if (edges.contains(edge)) {
+            String TempLabel = edge.getLabel();
             for (int i = 0; i < 10000; i++) {
-                edge.setLabel(edge.getLabel() + i);
+                edge.setLabel(edge.getLabel() + "_" + i);
                 if (!edges.contains(edge)) {
                     Logger logger = LoggerFactory.getLogger("Exception", "./Lab.log");
-                    logger.info("The Edge : \"" + label + "\" Has Repeated Label in the Graph\n" +
-                            "But the New Label : \"" + label + i + "\" is Added to The Graph");
-                    System.out.println("The Edge : \"" + label + "\" Has Repeated Label in the Graph\n" +
-                            "But the New Label : \"" + label + i + "\" is Added to The Graph");
+                    logger.info("The Edge : \"" + TempLabel + "\" Has Repeated Label in the Graph\n" +
+                            "But the New Label : \"" + TempLabel + "_" + i + "\" is Added to The Graph");
+                    System.out.println("The Edge : \"" + TempLabel + "\" Has Repeated Label in the Graph\n" +
+                            "But the New Label : \"" + TempLabel + "_" + i + "\" is Added to The Graph");
                     break;
                 }
             }
