@@ -1,7 +1,9 @@
 package helper;
 
 import Exception.*;
+import Exception.Command.CommandException;
 import Exception.Edge.*;
+import Exception.Graph.GraphNullException;
 import Exception.Vertex.VertexAttributeException;
 import edge.Edge;
 import edge.HyperEdge;
@@ -23,23 +25,22 @@ class HyperEdgeCommand extends Command {
     }
 
     @Override
-    void add(List<String> args) throws EdgeNullVertexException, EdgeTypeException, FormatException, IOException, EdgeWeightException {
-        if (graph == null) {
-            System.out.println("You must Establish Graph First!\nUsage : Graph --add filepath");
-            return;
-        }
+    void add(List<String> args) throws EdgeNullVertexException, EdgeTypeException, FormatException, IOException, EdgeWeightException, GraphNullException, CommandException {
+        if (graph == null)
+            throw new GraphNullException("");
         Pattern Rule = Pattern.compile("\"(.*)\"");
         Matcher matcher = Rule.matcher(args.get(0));
         String label;
-        if (matcher.find())
+        if (matcher.find()) {
             label = matcher.group(1);
-        else
-            return;
+            args.remove(0);
+        } else
+            throw new CommandException("Lack the Label of Hyper Edge");
         String type;
-        matcher = Rule.matcher(args.get(1));
+        matcher = Rule.matcher(args.get(0));
         StringBuilder OptionalCommand = new StringBuilder("");
-        for (int i = 4; i < args.size(); i++) {
-            OptionalCommand.append(args.get(i));
+        for (String arg : args) {
+            OptionalCommand.append(arg);
         }
         String[] edgesLabels = OptionalCommand.toString().split("\"");
         List<String> edgesList = new ArrayList<>(Arrays.asList(edgesLabels));
@@ -48,6 +49,7 @@ class HyperEdgeCommand extends Command {
                 .stream()
                 .filter(item -> edgesList.contains(item.getLabel()))
                 .collect(Collectors.toList());
+        // 向图中添加一个全新的超边
         if (matcher.find()) {
             type = matcher.group(1);
             try {
@@ -61,12 +63,14 @@ class HyperEdgeCommand extends Command {
             } catch (HyperEdgeException e) {
                 e.printStackTrace();
             }
-        } else {
+        } else { // 向图中已有的超边添加点
             Edge hyperEdge = graph.edges()
                     .stream()
                     .filter(item -> item.getLabel().equals(label))
                     .findFirst()
                     .orElse(null);
+            if (hyperEdge == null)
+                throw new CommandException("The Hyper Edge of This Label can't be found");
             try {
                 if (hyperEdge instanceof HyperEdge)
                     hyperEdge.addVertices(vertices);
@@ -79,11 +83,9 @@ class HyperEdgeCommand extends Command {
     }
 
     @Override
-    void delete(List<String> args) throws EdgeWeightException {
-        if (graph == null) {
-            System.out.println("You must Establish Graph First!\nUsage : Graph --add filepath");
-            return;
-        }
+    void delete(List<String> args) throws EdgeWeightException, GraphNullException, CommandException {
+        if (graph == null)
+            throw new GraphNullException("");
         Pattern Rule = Pattern.compile("\"(.*)\"");
         Matcher matcher = Rule.matcher(args.get(0));
         String label;
@@ -91,10 +93,8 @@ class HyperEdgeCommand extends Command {
         if (matcher.find()) {
             label = matcher.group(1);
             hyperEdge = graph.edges().stream().filter(item -> item.getLabel().equals(label)).findFirst().orElse(null);
-            if (hyperEdge == null) {
-                System.out.println("Can't find the hyper edge!");
-                return;
-            }
+            if (hyperEdge == null)
+                throw new CommandException("The Hyper Edge of This Label can't be found");
             matcher = Rule.matcher(args.get(1));
             String regex;
             if (matcher.find()) {
@@ -117,28 +117,25 @@ class HyperEdgeCommand extends Command {
                         }
                         System.out.println("Delete them successfully!");
                     }
-                }
+                } else
+                    System.out.println("Not found the specific vertex");
             }
         } else {
-            System.out.println("You don't input the edge label!");
+            throw new CommandException("Lack the Label of the Hyper Edge");
         }
     }
 
     @Override
-    void update(List<String> args) throws VertexAttributeException, EdgeWeightException {
-        if (graph == null) {
-            System.out.println("You must Establish Graph First!\nUsage : Graph --add filepath");
-            return;
-        }
-        System.out.println("Don't Support this Command");
+    void update(List<String> args) throws VertexAttributeException, EdgeWeightException, GraphNullException, CommandException {
+        if (graph == null)
+            throw new GraphNullException("");
+        throw new CommandException("");
     }
 
     @Override
-    void show(List<String> args) {
-        if (graph == null) {
-            System.out.println("You must Establish Graph First!\nUsage : Graph --add filepath");
-            return;
-        }
-        System.out.println("Don't Support this Command");
+    void show(List<String> args) throws GraphNullException, CommandException {
+        if (graph == null)
+            throw new GraphNullException("");
+        throw new CommandException("");
     }
 }
