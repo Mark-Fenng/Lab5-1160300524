@@ -78,6 +78,8 @@ public class ParseCommandHelper {
                     try {
                         Logger logger = LoggerFactory.getLogger("Exception", "./Lab.log");
                         logger.info(e.toString());
+                        System.out.println(e.toString());
+                        System.out.println("Please establish the graph again");
                     } catch (IOException ignored) {
                     }
                 }

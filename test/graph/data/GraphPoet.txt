@@ -2,7 +2,7 @@ GraphType = "GraphPoet"
 GraphName = "poet"
 
 VertexType = "Word"
-Vertex = <"to", "Word">
+Vertex = <"", "Word">
 Vertex = <"explore", "Word">
 Vertex = <"strange", "Word">
 Vertex = <"new", "Word">
