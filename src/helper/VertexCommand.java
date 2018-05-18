@@ -20,6 +20,10 @@ class VertexCommand extends Command {
 
     @Override
     void add(List<String> args) throws VertexAttributeException, VertexTypeException, VertexLabelException {
+        if (graph == null) {
+            System.out.println("You must Establish Graph First!\nUsage : Graph --add filepath");
+            return;
+        }
         Pattern Rule = Pattern.compile("\"(.*)\"");
         Matcher matcher = Rule.matcher(args.get(0));
         String label;
@@ -35,12 +39,16 @@ class VertexCommand extends Command {
             if (graph.addVertex(newVertex))
                 System.out.println("Add vertex successfully!");
             else
-                System.err.println("Add fail!");
+                System.out.println("Add fail!");
         }
     }
 
     @Override
     void delete(List<String> args) throws EdgeWeightException {
+        if (graph == null) {
+            System.out.println("You must Establish Graph First!\nUsage : Graph --add filepath");
+            return;
+        }
         Pattern Rule = Pattern.compile("\"(.*)\"");
         Matcher matcher = Rule.matcher(args.get(0));
         String regex;
@@ -65,7 +73,11 @@ class VertexCommand extends Command {
     }
 
     @Override
-    void update(List<String> args) throws VertexAttributeException {
+    void update(List<String> args) throws VertexAttributeException, EdgeWeightException {
+        if (graph == null) {
+            System.out.println("You must Establish Graph First!\nUsage : Graph --add filepath");
+            return;
+        }
         Pattern Rule = Pattern.compile("\"(.*)\"");
         Matcher matcher = Rule.matcher(args.get(0));
         String label;
@@ -103,6 +115,10 @@ class VertexCommand extends Command {
 
     @Override
     void show(List<String> args) {
+        if (graph == null) {
+            System.out.println("You must Establish Graph First!\nUsage : Graph --add filepath");
+            return;
+        }
         Pattern Rule = Pattern.compile("\"(.*)\"");
         Matcher matcher = Rule.matcher(args.get(0));
         String label;

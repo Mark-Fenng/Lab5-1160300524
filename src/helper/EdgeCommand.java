@@ -2,6 +2,7 @@ package helper;
 
 import Exception.*;
 import Exception.Edge.*;
+import Exception.Vertex.VertexAttributeException;
 import edge.Edge;
 import factory.edge.EdgeFactory;
 import graph.Graph;
@@ -20,6 +21,10 @@ class EdgeCommand extends Command {
 
     @Override
     void add(List<String> args) throws EdgeNullVertexException, EdgeTypeException, FormatException, HyperEdgeException, EdgeWeightException {
+        if (graph == null) {
+            System.out.println("You must Establish Graph First!\nUsage : Graph --add filepath");
+            return;
+        }
         Pattern Rule = Pattern.compile("\"(.*)\"");
         Matcher matcher = Rule.matcher(args.get(0));
         String label;
@@ -78,9 +83,9 @@ class EdgeCommand extends Command {
                 if (graph.addEdge(newEdge))
                     System.out.println("Add edge successfully");
                 else
-                    System.err.println("Add fail!");
+                    System.out.println("Add fail!");
             } catch (EdgeVertexTypeException | EdgeLoopException e) {
-                System.err.println("Add fail!");
+                System.out.println("Add fail!");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -89,6 +94,10 @@ class EdgeCommand extends Command {
 
     @Override
     void delete(List<String> args) throws EdgeWeightException {
+        if (graph == null) {
+            System.out.println("You must Establish Graph First!  Usage : Graph --add filepath");
+            return;
+        }
         Pattern Rule = Pattern.compile("\"(.*)\"");
         Matcher matcher = Rule.matcher(args.get(0));
         String regex;
@@ -113,7 +122,11 @@ class EdgeCommand extends Command {
     }
 
     @Override
-    void update(List<String> args) throws EdgeWeightException {
+    void update(List<String> args) throws EdgeWeightException, VertexAttributeException {
+        if (graph == null) {
+            System.out.println("You must Establish Graph First!\nUsage : Graph --add filepath");
+            return;
+        }
         Pattern Rule = Pattern.compile("\"(.*)\"");
         Matcher matcher = Rule.matcher(args.get(0));
         String label;
@@ -149,6 +162,10 @@ class EdgeCommand extends Command {
 
     @Override
     void show(List<String> args) {
-        throw new UnsupportedOperationException();
+        if (graph == null) {
+            System.out.println("You must Establish Graph First!\nUsage : Graph --add filepath");
+            return;
+        }
+        System.out.println("Don't Support this Command");
     }
 }

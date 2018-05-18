@@ -21,7 +21,7 @@ class GraphPoetApp {
     private Graph graphPoet;
 
     public static void main(String[] args) throws IOException, FormatException, TypeException, EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, UndirectedEdgeException, DirectedEdgeException, HyperEdgeException, EdgeWeightException, VertexLabelException {
-        ParseCommandHelper.Command("test/graph/data/GraphPoet.txt");
+        ParseCommandHelper.Command();
     }
 
     GraphPoetApp(String filePath) throws IOException, FormatException, TypeException, EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, UndirectedEdgeException, DirectedEdgeException, HyperEdgeException, EdgeWeightException, VertexLabelException {

@@ -6,12 +6,15 @@ import Exception.TypeException;
 import Exception.Vertex.VertexAttributeException;
 import Exception.Vertex.VertexLabelException;
 import Exception.Vertex.VertexTypeException;
-import factory.graph.GraphFactory;
 import graph.Graph;
 
 import java.io.IOException;
-import java.util.*;
-import java.util.regex.*;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 点的命令
@@ -55,11 +58,10 @@ public class ParseCommandHelper {
     /**
      * 用于图应用的命令行交互
      *
-     * @param filePath 含有图语法信息的语法输入
      * @throws IOException 文件读写的异常
      */
-    public static void Command(String filePath) throws IOException, FormatException, TypeException, EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, UndirectedEdgeException, DirectedEdgeException, HyperEdgeException, EdgeWeightException, VertexLabelException {
-        Graph graph = GraphFactory.createGraph(filePath);
+    public static void Command() throws IOException, FormatException, TypeException, EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, UndirectedEdgeException, DirectedEdgeException, HyperEdgeException, EdgeWeightException, VertexLabelException {
+        Graph graph = null;
         List<String> params;
         Scanner in = new Scanner(System.in);
         while (true) {
@@ -69,12 +71,12 @@ public class ParseCommandHelper {
                 params = new LinkedList<>(Arrays.asList(input.split(" ")));
                 if (input.equals("exit"))
                     System.exit(0);
-                type(params, graph);
+                graph = type(params, graph);
             }
         }
     }
 
-    private static void command(List<String> args, Command cmd) throws EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, FormatException, IOException, HyperEdgeException, EdgeWeightException, VertexLabelException {
+    private static Graph command(List<String> args, Command cmd) throws EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, FormatException, IOException, HyperEdgeException, EdgeWeightException, VertexLabelException, UndirectedEdgeException, TypeException, DirectedEdgeException {
         Pattern commandRule = Pattern.compile("--(.*)");
         Matcher matcher = commandRule.matcher(args.get(0));
         String command;
@@ -97,30 +99,27 @@ public class ParseCommandHelper {
                 default:
             }
         }
+        return cmd.graph;
     }
 
-    private static void type(List<String> args, Graph graph) throws EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, FormatException, IOException, HyperEdgeException, EdgeWeightException, VertexLabelException {
+    private static Graph type(List<String> args, Graph graph) throws EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, FormatException, IOException, HyperEdgeException, EdgeWeightException, VertexLabelException, UndirectedEdgeException, TypeException, DirectedEdgeException {
         if (args.size() < 3)
-            return;
+            return null;
         String type = args.get(0);
         args.remove(0);
         switch (type) {
             case "vertex":
                 VertexCommand vertexCommand = new VertexCommand(graph);
-                command(args, vertexCommand);
-                break;
+                return command(args, vertexCommand);
             case "edge":
                 EdgeCommand edgeCommand = new EdgeCommand(graph);
-                command(args, edgeCommand);
-                break;
+                return command(args, edgeCommand);
             case "hyperedge":
                 HyperEdgeCommand hyperEdgeCommand = new HyperEdgeCommand(graph);
-                command(args, hyperEdgeCommand);
-                break;
+                return command(args, hyperEdgeCommand);
             case "graph":
                 GraphCommand graphCommand = new GraphCommand(graph);
-                command(args, graphCommand);
-                break;
+                return command(args, graphCommand);
             default:
                 throw new UnsupportedOperationException("usage");
         }

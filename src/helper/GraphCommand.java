@@ -1,8 +1,15 @@
 package helper;
 
+import Exception.*;
+import Exception.Edge.*;
+import Exception.Vertex.VertexAttributeException;
+import Exception.Vertex.VertexLabelException;
+import Exception.Vertex.VertexTypeException;
+import factory.graph.GraphFactory;
 import graph.Graph;
 import vertex.Vertex;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -14,22 +21,36 @@ class GraphCommand extends Command {
     }
 
     @Override
-    void add(List<String> args) {
-        throw new UnsupportedOperationException();
+    void add(List<String> args) throws IOException, EdgeTypeException, EdgeWeightException, TypeException, VertexAttributeException, VertexTypeException, VertexLabelException, HyperEdgeException, EdgeNullVertexException, DirectedEdgeException, UndirectedEdgeException, FormatException {
+        if (args.size() != 1)
+            System.out.println("Error Command!\nGraph --add filepath");
+        graph = GraphFactory.createGraph(args.get(0));
     }
 
     @Override
-    void delete(List<String> args) {
-        throw new UnsupportedOperationException();
+    void delete(List<String> args) throws EdgeWeightException {
+        if (graph == null) {
+            System.out.println("You must Establish Graph First!\nUsage : Graph --add filepath");
+            return;
+        }
+        System.out.println("Don't Support this Command");
     }
 
     @Override
-    void update(List<String> args) {
-        throw new UnsupportedOperationException();
+    void update(List<String> args) throws VertexAttributeException, EdgeWeightException {
+        if (graph == null) {
+            System.out.println("You must Establish Graph First!\nUsage : Graph --add filepath");
+            return;
+        }
+        System.out.println("Don't Support this Command");
     }
 
     @Override
     void show(List<String> args) {
+        if (graph == null) {
+            System.out.println("You must Establish Graph First!\nUsage : Graph --add filepath");
+            return;
+        }
         Matcher matcher;
         StringBuilder OptionalCommand = new StringBuilder();
         for (String arg : args) {
@@ -63,7 +84,7 @@ class GraphCommand extends Command {
             start = graph.vertices().stream().filter(item -> item.getLabel().equals(newMatcher.group(1))).findFirst().orElse(null);
             end = graph.vertices().stream().filter(item -> item.getLabel().equals(newMatcher.group(2))).findFirst().orElse(null);
             if (start == null || end == null) {
-                System.err.println("The input vertex is not in the graph ");
+                System.out.println("The input vertex is not in the graph ");
                 return;
             }
             System.out.println("The distance between the two vertices : " + GraphMetrics.distance(graph, start, end));

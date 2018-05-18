@@ -1,10 +1,7 @@
 package helper;
 
 import Exception.*;
-import Exception.Edge.EdgeTypeException;
-import Exception.Edge.EdgeNullVertexException;
-import Exception.Edge.EdgeWeightException;
-import Exception.Edge.HyperEdgeException;
+import Exception.Edge.*;
 import Exception.Vertex.VertexAttributeException;
 import Exception.Vertex.VertexLabelException;
 import Exception.Vertex.VertexTypeException;
@@ -26,7 +23,7 @@ abstract class Command {
      *
      * @param args 用户输入的新对象的属性
      */
-    abstract void add(List<String> args) throws EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, FormatException, IOException, HyperEdgeException, EdgeWeightException, VertexLabelException;
+    abstract void add(List<String> args) throws EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, FormatException, IOException, HyperEdgeException, EdgeWeightException, VertexLabelException, TypeException, DirectedEdgeException, UndirectedEdgeException;
 
     /**
      * 从图中删除用户指定的对象
@@ -55,7 +52,7 @@ abstract class Command {
      * @return true: 用户确认删除 false:用户撤销了删除的操作
      */
     static boolean confirm() {
-        System.err.println("Are you sure to delete them? (Yes/no)");
+        System.out.println("Are you sure to delete them? (Yes/no)");
         Scanner scanner = new Scanner(System.in);
         String input = "";
         if (scanner.hasNextLine()) {

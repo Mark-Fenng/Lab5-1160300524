@@ -16,6 +16,6 @@ class MovieGraphApp {
     }
 
     MovieGraphApp(String filePath) throws IOException, EdgeNullVertexException, VertexAttributeException, TypeException, FormatException, VertexTypeException, EdgeTypeException, UndirectedEdgeException, DirectedEdgeException, HyperEdgeException, EdgeWeightException, VertexLabelException {
-        ParseCommandHelper.Command(filePath);
+        ParseCommandHelper.Command();
     }
 }

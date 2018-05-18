@@ -21,7 +21,7 @@ class NetworkTopologyApp {
 
     NetworkTopologyApp(String filePath) throws IOException, FormatException, VertexAttributeException, EdgeNullVertexException, TypeException, VertexTypeException, EdgeTypeException, UndirectedEdgeException, DirectedEdgeException, HyperEdgeException, EdgeWeightException, VertexLabelException {
         NetworkTopolopyApp = GraphTopologyFactory.createGraph(filePath);
-        ParseCommandHelper.Command(filePath);
+        ParseCommandHelper.Command();
 //        iterator("vertices", NetworkTopolopyApp.vertices());
 //        iterator("edges", NetworkTopolopyApp.edges());
 //        for (Vertex a : NetworkTopolopyApp.vertices()) {

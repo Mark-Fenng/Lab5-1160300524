@@ -2,6 +2,7 @@ package helper;
 
 import Exception.*;
 import Exception.Edge.*;
+import Exception.Vertex.VertexAttributeException;
 import edge.Edge;
 import edge.HyperEdge;
 import factory.edge.EdgeFactory;
@@ -23,6 +24,10 @@ class HyperEdgeCommand extends Command {
 
     @Override
     void add(List<String> args) throws EdgeNullVertexException, EdgeTypeException, FormatException, IOException, EdgeWeightException {
+        if (graph == null) {
+            System.out.println("You must Establish Graph First!\nUsage : Graph --add filepath");
+            return;
+        }
         Pattern Rule = Pattern.compile("\"(.*)\"");
         Matcher matcher = Rule.matcher(args.get(0));
         String label;
@@ -50,9 +55,9 @@ class HyperEdgeCommand extends Command {
                 if (graph.addEdge(HyperEdge))
                     System.out.println("Add hyper edge successfully");
                 else
-                    System.err.println("Add fail!");
+                    System.out.println("Add fail!");
             } catch (EdgeVertexTypeException | EdgeLoopException e) {
-                System.err.println("Add fail!");
+                System.out.println("Add fail!");
             } catch (HyperEdgeException e) {
                 e.printStackTrace();
             }
@@ -66,15 +71,19 @@ class HyperEdgeCommand extends Command {
                 if (hyperEdge instanceof HyperEdge)
                     hyperEdge.addVertices(vertices);
                 else
-                    System.err.println("The edge you input is not hyper edge");
+                    System.out.println("The edge you input is not hyper edge");
             } catch (EdgeVertexTypeException | EdgeLoopException e) {
-                System.err.println("Add fail!");
+                System.out.println("Add fail!");
             }
         }
     }
 
     @Override
-    void delete(List<String> args) {
+    void delete(List<String> args) throws EdgeWeightException {
+        if (graph == null) {
+            System.out.println("You must Establish Graph First!\nUsage : Graph --add filepath");
+            return;
+        }
         Pattern Rule = Pattern.compile("\"(.*)\"");
         Matcher matcher = Rule.matcher(args.get(0));
         String label;
@@ -83,7 +92,7 @@ class HyperEdgeCommand extends Command {
             label = matcher.group(1);
             hyperEdge = graph.edges().stream().filter(item -> item.getLabel().equals(label)).findFirst().orElse(null);
             if (hyperEdge == null) {
-                System.err.println("Can't find the hyper edge!");
+                System.out.println("Can't find the hyper edge!");
                 return;
             }
             matcher = Rule.matcher(args.get(1));
@@ -101,27 +110,35 @@ class HyperEdgeCommand extends Command {
                         for (Vertex item : vertices) {
                             if (hyperEdge instanceof HyperEdge) {
                                 if (!((HyperEdge) hyperEdge).removeVertex(item)) {
-                                    System.err.println("The vertex : " + item.getLabel() + " delete failed!");
+                                    System.out.println("The vertex : " + item.getLabel() + " delete failed!");
                                 }
                             } else
-                                System.err.println("The edge you input is not hyper edge");
+                                System.out.println("The edge you input is not hyper edge");
                         }
                         System.out.println("Delete them successfully!");
                     }
                 }
             }
         } else {
-            System.err.println("You don't input the edge label!");
+            System.out.println("You don't input the edge label!");
         }
     }
 
     @Override
-    void update(List<String> args) {
-        throw new UnsupportedOperationException();
+    void update(List<String> args) throws VertexAttributeException, EdgeWeightException {
+        if (graph == null) {
+            System.out.println("You must Establish Graph First!\nUsage : Graph --add filepath");
+            return;
+        }
+        System.out.println("Don't Support this Command");
     }
 
     @Override
     void show(List<String> args) {
-        throw new UnsupportedOperationException();
+        if (graph == null) {
+            System.out.println("You must Establish Graph First!\nUsage : Graph --add filepath");
+            return;
+        }
+        System.out.println("Don't Support this Command");
     }
 }
