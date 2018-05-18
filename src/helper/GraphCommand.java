@@ -1,7 +1,9 @@
 package helper;
 
 import Exception.*;
+import Exception.Command.CommandException;
 import Exception.Edge.*;
+import Exception.Graph.GraphNullException;
 import Exception.Vertex.VertexAttributeException;
 import Exception.Vertex.VertexLabelException;
 import Exception.Vertex.VertexTypeException;
@@ -29,55 +31,56 @@ class GraphCommand extends Command {
     }
 
     @Override
-    void delete(List<String> args) throws EdgeWeightException {
+    void delete(List<String> args) throws EdgeWeightException, GraphNullException, CommandException {
         if (graph == null) {
-            System.out.println("You must Establish Graph First!\nUsage : Graph --add filepath");
-            return;
+            throw new GraphNullException("");
         }
-        System.out.println("Don't Support this Command");
+        throw new CommandException("");
     }
 
     @Override
-    void update(List<String> args) throws VertexAttributeException, EdgeWeightException {
+    void update(List<String> args) throws VertexAttributeException, EdgeWeightException, GraphNullException, CommandException {
         if (graph == null) {
-            System.out.println("You must Establish Graph First!\nUsage : Graph --add filepath");
-            return;
+            throw new GraphNullException("");
         }
-        System.out.println("Don't Support this Command");
+        throw new CommandException("");
     }
 
     @Override
-    void show(List<String> args) {
-        if (graph == null) {
-            System.out.println("You must Establish Graph First!\nUsage : Graph --add filepath");
-            return;
-        }
+    void show(List<String> args) throws GraphNullException, CommandException {
+        if (graph == null)
+            throw new GraphNullException("");
         Matcher matcher;
         StringBuilder OptionalCommand = new StringBuilder();
         for (String arg : args) {
             OptionalCommand.append(arg);
         }
         List<Pattern> Rules = new ArrayList<>();
-        Rules.add(Pattern.compile("degreeCentrality"));
-        Rules.add(Pattern.compile("radius"));
-        Rules.add(Pattern.compile("diameter"));
-        Rules.add(Pattern.compile("visible"));
-        Rules.add(Pattern.compile("distance=\"(.*)\"\"(.*)\""));
+        Rules.add(Pattern.compile("^degreeCentrality$"));
+        Rules.add(Pattern.compile("^radius$"));
+        Rules.add(Pattern.compile("^diameter$"));
+        Rules.add(Pattern.compile("^visible$"));
+        Rules.add(Pattern.compile("^distance=\"(.*)\"\"(.*)\""));
         matcher = Rules.get(0).matcher(OptionalCommand);
+        boolean CommandFlag = false; // 用于标记以上的命令是否有执行过，如果在函数结束时，值还是false，则抛出异常
         if (matcher.find()) {
             System.out.println("The degreeCentrality of the graph : " + GraphMetrics.degreeCentrality(graph));
+            CommandFlag = true;
         }
         matcher = Rules.get(1).matcher(OptionalCommand);
         if (matcher.find()) {
             System.out.println("The radius of the graph : " + GraphMetrics.radius(graph));
+            CommandFlag = true;
         }
         matcher = Rules.get(2).matcher(OptionalCommand);
         if (matcher.find()) {
             System.out.println("The diameter of the graph : " + GraphMetrics.diameter(graph));
+            CommandFlag = true;
         }
         matcher = Rules.get(3).matcher(OptionalCommand);
         if (matcher.find()) {
             GraphVisualizationHelper.visualize(graph);
+            CommandFlag = true;
         }
         Matcher newMatcher = Rules.get(4).matcher(OptionalCommand);
         if (matcher.find()) {
@@ -89,6 +92,9 @@ class GraphCommand extends Command {
                 return;
             }
             System.out.println("The distance between the two vertices : " + GraphMetrics.distance(graph, start, end));
+            CommandFlag = true;
         }
+        if (!CommandFlag)
+            throw new CommandException(""); // 命令输入的参数有误
     }
 }
