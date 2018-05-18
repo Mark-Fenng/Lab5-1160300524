@@ -7,12 +7,14 @@ import Exception.Vertex.VertexAttributeException;
 import Exception.Vertex.VertexLabelException;
 import Exception.Vertex.VertexTypeException;
 import graph.Graph;
+import LoggerFactory.*;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,6 +47,7 @@ import java.util.regex.Pattern;
  * </ul>
  * <p>hyperedge --delete label regex 删除超边中label符合regex规则的点</p>
  * <p>图的命令</p>
+ * <p>graph --add filepath  通过输入一个固定格式的文件，根据文件中提供的信息建立一个新的图</p>
  * <p>graph --show</p>
  * <ul>
  * <li>degreeCentrality 输出图的degreeCentrality值</li>
@@ -57,10 +60,8 @@ import java.util.regex.Pattern;
 public class ParseCommandHelper {
     /**
      * 用于图应用的命令行交互
-     *
-     * @throws IOException 文件读写的异常
      */
-    public static void Command() throws IOException, FormatException, TypeException, EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, UndirectedEdgeException, DirectedEdgeException, HyperEdgeException, EdgeWeightException, VertexLabelException {
+    public static void Command() {
         Graph graph = null;
         List<String> params;
         Scanner in = new Scanner(System.in);
@@ -71,12 +72,20 @@ public class ParseCommandHelper {
                 params = new LinkedList<>(Arrays.asList(input.split(" ")));
                 if (input.equals("exit"))
                     System.exit(0);
-                graph = type(params, graph);
+                try {
+                    graph = type(params, graph);
+                } catch (IOException | FormatException | TypeException | EdgeNullVertexException | VertexAttributeException | VertexTypeException | EdgeTypeException | DirectedEdgeException | HyperEdgeException | EdgeWeightException | VertexLabelException e) {
+                    try {
+                        Logger logger = LoggerFactory.getLogger("Exception", "./Lab.log");
+                        logger.info(e.toString());
+                    } catch (IOException ignored) {
+                    }
+                }
             }
         }
     }
 
-    private static Graph command(List<String> args, Command cmd) throws EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, FormatException, IOException, HyperEdgeException, EdgeWeightException, VertexLabelException, UndirectedEdgeException, TypeException, DirectedEdgeException {
+    private static Graph command(List<String> args, Command cmd) throws EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, FormatException, IOException, HyperEdgeException, EdgeWeightException, VertexLabelException, TypeException, DirectedEdgeException {
         Pattern commandRule = Pattern.compile("--(.*)");
         Matcher matcher = commandRule.matcher(args.get(0));
         String command;
@@ -102,7 +111,7 @@ public class ParseCommandHelper {
         return cmd.graph;
     }
 
-    private static Graph type(List<String> args, Graph graph) throws EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, FormatException, IOException, HyperEdgeException, EdgeWeightException, VertexLabelException, UndirectedEdgeException, TypeException, DirectedEdgeException {
+    private static Graph type(List<String> args, Graph graph) throws EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, FormatException, IOException, HyperEdgeException, EdgeWeightException, VertexLabelException, TypeException, DirectedEdgeException {
         if (args.size() < 3)
             return null;
         String type = args.get(0);

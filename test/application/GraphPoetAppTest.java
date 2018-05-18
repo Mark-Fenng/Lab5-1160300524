@@ -22,7 +22,7 @@ public class GraphPoetAppTest {
 
     @Before
     public void before() throws Exception {
-        poetApp = new GraphPoetApp("test/graph/data/GraphPoet.txt");
+        poetApp = new GraphPoetApp();
     }
 
     @After

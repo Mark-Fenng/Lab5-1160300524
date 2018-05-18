@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class GraphMovieFactory {
-    public static Graph createGraph(String filePath) throws IOException, FormatException, EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, UndirectedEdgeException, DirectedEdgeException, HyperEdgeException, EdgeWeightException, VertexLabelException {
+    public static Graph createGraph(String filePath) throws IOException, FormatException, EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, DirectedEdgeException, HyperEdgeException, EdgeWeightException, VertexLabelException {
         Graph movie;
         Pattern regex;
         Matcher matcher;

@@ -23,6 +23,6 @@ public class NetworkTopologyAppTest {
 
     @Test
     public void testNetWorkTopologyApp() throws Exception {
-        NetworkTopologyApp networkTopology = new NetworkTopologyApp("test/graph/data/GraphTopology.txt");
+        NetworkTopologyApp networkTopology = new NetworkTopologyApp();
     }
 }

@@ -23,7 +23,7 @@ public class SocialNetworkAppTest {
 
     @Test
     public void testSocialNetworkApp() throws Exception {
-        SocialNetworkApp socialNetwork = new SocialNetworkApp("test/graph/data/GraphSocial.txt");
+        SocialNetworkApp socialNetwork = new SocialNetworkApp();
     }
 
 } 

@@ -7,6 +7,6 @@ public class EdgeTypeException extends Exception {
      * @param EdgeLabel 格式错误的具体提示信息
      */
     public EdgeTypeException(String EdgeLabel) {
-        super("The Edge : \"" + EdgeLabel + "\" has wrong number of attributes");
+        super("The Edge : \"" + EdgeLabel + "\" 's Type is not Fit For this Graph");
     }
 }

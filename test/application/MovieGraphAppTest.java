@@ -23,7 +23,7 @@ public class MovieGraphAppTest {
 
     @Test
     public void testMovieGraphApp() throws Exception {
-        MovieGraphApp movie = new MovieGraphApp("test/graph/data/GraphMovie.txt");
+        MovieGraphApp movie = new MovieGraphApp();
     }
 
 }

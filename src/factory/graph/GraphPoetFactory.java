@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class GraphPoetFactory {
-    public static Graph createGraph(String filePath) throws IOException, FormatException, EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, UndirectedEdgeException, DirectedEdgeException, HyperEdgeException, EdgeWeightException, VertexLabelException {
+    public static Graph createGraph(String filePath) throws IOException, FormatException, EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, DirectedEdgeException, HyperEdgeException, EdgeWeightException, VertexLabelException {
         Graph poet;
         // graph name
         String graphName = GraphFactory.GraphLabel(filePath);

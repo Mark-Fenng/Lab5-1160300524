@@ -23,7 +23,7 @@ abstract class Command {
      *
      * @param args 用户输入的新对象的属性
      */
-    abstract void add(List<String> args) throws EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, FormatException, IOException, HyperEdgeException, EdgeWeightException, VertexLabelException, TypeException, DirectedEdgeException, UndirectedEdgeException;
+    abstract void add(List<String> args) throws EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, FormatException, IOException, HyperEdgeException, EdgeWeightException, VertexLabelException, TypeException, DirectedEdgeException;
 
     /**
      * 从图中删除用户指定的对象
