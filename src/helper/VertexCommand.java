@@ -22,10 +22,9 @@ class VertexCommand extends Command {
     }
 
     @Override
-    void add(List<String> args) throws VertexAttributeException, VertexTypeException, VertexLabelException, CommandException {
+    void add(List<String> args) throws VertexAttributeException, VertexTypeException, VertexLabelException, CommandException, GraphNullException {
         if (graph == null) {
-            System.out.println("You must Establish Graph First!\nUsage : Graph --add filepath");
-            return;
+            throw new GraphNullException("");
         }
         Pattern Rule = Pattern.compile("\"(.*)\"");
         Matcher matcher = Rule.matcher(args.get(0));
