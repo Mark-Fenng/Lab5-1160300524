@@ -77,6 +77,8 @@ public class ParseCommandHelper {
                     System.exit(0);
                 try {
                     graph = type(params, graph);
+                    Logger logger = LoggerFactory.getLogger("Exception", "./Lab.log");
+                    logger.info(input + "\n");
                 } catch (IOException | FormatException | TypeException | EdgeNullVertexException | VertexAttributeException | VertexTypeException | EdgeTypeException | DirectedEdgeException | HyperEdgeException | EdgeWeightException | VertexLabelException e) {
                     try {
                         Logger logger = LoggerFactory.getLogger("Exception", "./Lab.log");

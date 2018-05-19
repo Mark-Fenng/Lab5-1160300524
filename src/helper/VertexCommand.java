@@ -7,12 +7,15 @@ import Exception.Graph.GraphNullException;
 import Exception.Vertex.VertexAttributeException;
 import Exception.Vertex.VertexLabelException;
 import Exception.Vertex.VertexTypeException;
+import LoggerFactory.LoggerFactory;
 import factory.vertex.VertexFactory;
 import graph.Graph;
 import vertex.Vertex;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.regex.*;
 import java.util.stream.Collectors;
 
@@ -62,8 +65,15 @@ class VertexCommand extends Command {
                 vertices.forEach(item -> System.out.println(item.getLabel()));
                 // 请用户确认是否删除这些内容
                 if (Command.confirm()) {
+                    StringBuilder InfoMessage = new StringBuilder("Delete vertices: ");
                     for (Vertex vertex : vertices) {
                         graph.removeVertex(vertex);
+                        InfoMessage.append(" ").append(vertex).append(" ");
+                    }
+                    try {
+                        Logger logger = LoggerFactory.getLogger("Exception", "./Lab.log");
+                        logger.info(InfoMessage + "\n");
+                    } catch (IOException ignored) {
                     }
                     System.out.println("Delete them successfully");
                 }
