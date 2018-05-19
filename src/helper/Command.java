@@ -8,6 +8,7 @@ import Exception.Graph.GraphNullException;
 import Exception.Vertex.VertexAttributeException;
 import Exception.Vertex.VertexLabelException;
 import Exception.Vertex.VertexTypeException;
+import LoggerFactory.MyLogger;
 import graph.Graph;
 
 import java.io.IOException;
@@ -61,6 +62,9 @@ abstract class Command {
         if (scanner.hasNextLine()) {
             input = scanner.nextLine();
         }
-        return input.equals("y") || input.equals("Y") || input.equals("yes") || input.equals("Yes");
+        boolean choice = input.equals("y") || input.equals("Y") || input.equals("yes") || input.equals("Yes");
+        if (!choice)
+            MyLogger.info("User choice not to delete them");
+        return choice;
     }
 }

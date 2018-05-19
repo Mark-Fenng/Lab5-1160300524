@@ -5,7 +5,7 @@ import Exception.Edge.*;
 import Exception.Vertex.VertexAttributeException;
 import Exception.Vertex.VertexLabelException;
 import Exception.Vertex.VertexTypeException;
-import LoggerFactory.LoggerFactory;
+import LoggerFactory.*;
 import factory.edge.EdgeFactory;
 import graph.Graph;
 import graph.NetworkTopology;
@@ -15,7 +15,6 @@ import factory.vertex.VertexFactory;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -52,8 +51,7 @@ public class GraphTopologyFactory {
                 if (Double.parseDouble(list.get(2)) < 0)
                     throw new EdgeWeightException(list.get(0), list.get(2));
             } catch (EdgeVertexTypeException | EdgeLoopException e) {
-                Logger logger = LoggerFactory.getLogger("Exception", "./Lab.log");
-                logger.warning(e.toString()+ "\ngo on read the file\n");
+                MyLogger.warning(e.toString() + "\ngo on read the file");
             }
         }
         return NetworkTopology;

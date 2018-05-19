@@ -78,20 +78,20 @@ public class ParseCommandHelper {
                     MyLogger.info(input);
                     graph = type(params, graph);
                 } catch (IOException | FormatException | TypeException | EdgeNullVertexException | VertexAttributeException | VertexTypeException | EdgeTypeException | DirectedEdgeException | HyperEdgeException | EdgeWeightException | VertexLabelException e) {
-                    MyLogger.severe(e.toString() + "\nInput the file again");
+                    MyLogger.severe(e.toString() + "\nInput the file again\n" + MyLogger.toString(e));
                     System.out.println(e.toString());
                     System.out.println("Please establish the graph again");
                 } catch (CommandException e) {
                     if (!e.getMessage().equals("")) {
-                        MyLogger.severe(e.toString());
+                        MyLogger.severe(e.toString() + "\n" + MyLogger.toString(e));
                         System.out.println(e.getMessage());
                     }
                     PrintUsage();
                 } catch (UnsupportedException e) {
-                    MyLogger.severe(e.toString());
+                    MyLogger.severe(e.toString() + "\n" + MyLogger.toString(e));
                     System.out.println(e.getMessage());
                 } catch (GraphNullException e) {
-                    MyLogger.severe(e.toString());
+                    MyLogger.severe(e.toString() + "\n" + MyLogger.toString(e));
                     System.out.println("You must Establish Graph First!\nUsage : Graph --add filepath");
                 }
             }
@@ -99,7 +99,7 @@ public class ParseCommandHelper {
     }
 
     private static Graph command(List<String> args, Command cmd) throws EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, FormatException, IOException, HyperEdgeException, EdgeWeightException, VertexLabelException, TypeException, DirectedEdgeException, CommandException, UnsupportedException, GraphNullException {
-        Pattern commandRule = Pattern.compile("--(.*)");
+        Pattern commandRule = Pattern.compile("^--(.*)");
         Matcher matcher = commandRule.matcher(args.get(0));
         String command;
         args.remove(0);
@@ -121,7 +121,8 @@ public class ParseCommandHelper {
                 default:
                     throw new CommandException("Invalid Command");
             }
-        }
+        } else
+            throw new CommandException("Invalid Command");
         return cmd.graph;
     }
 
@@ -144,7 +145,7 @@ public class ParseCommandHelper {
                 GraphCommand graphCommand = new GraphCommand(graph);
                 return command(args, graphCommand);
             default:
-                throw new CommandException("");
+                throw new CommandException("Invalid Command");
         }
     }
 

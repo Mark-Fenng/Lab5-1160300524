@@ -5,13 +5,11 @@ import Exception.Edge.EdgeNullVertexException;
 import Exception.Edge.EdgeWeightException;
 import Exception.Vertex.VertexLabelException;
 import Exception.Vertex.VertexTypeException;
-import LoggerFactory.LoggerFactory;
+import LoggerFactory.*;
 import edge.Edge;
 import vertex.Vertex;
 
-import java.io.IOException;
 import java.util.*;
-import java.util.logging.Logger;
 
 /**
  * <p>
@@ -113,15 +111,12 @@ public class ConcreteGraph implements Graph {
             for (int i = 0; i < 10000; i++) {
                 edge.setLabel(edge.getLabel() + "_" + i);
                 if (!edges.contains(edge)) {
-                    try {
-                        Logger logger = LoggerFactory.getLogger("Exception", "./Lab.log");
-                        logger.info("The Edge : \"" + TempLabel + "\" Has Repeated Label in the Graph\n" +
-                                "But the New Label : \"" + TempLabel + "_" + i + "\" is Added to The Graph");
-                        System.out.println("The Edge : \"" + TempLabel + "\" Has Repeated Label in the Graph\n" +
-                                "But the New Label : \"" + TempLabel + "_" + i + "\" is Added to The Graph");
-                        break;
-                    } catch (IOException ignored) {
-                    }
+                    MyLogger.info("The Edge : \"" + TempLabel + "\" Has Repeated Label in the Graph\n" +
+                            "But the New Label : \"" + TempLabel + "_" + i + "\" is Added to The Graph");
+                    System.out.println("The Edge : \"" + TempLabel + "\" Has Repeated Label in the Graph\n" +
+                            "But the New Label : \"" + TempLabel + "_" + i + "\" is Added to The Graph");
+                    break;
+
                 }
             }
         }

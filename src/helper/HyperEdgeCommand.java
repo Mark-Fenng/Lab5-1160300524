@@ -5,6 +5,7 @@ import Exception.Command.CommandException;
 import Exception.Edge.*;
 import Exception.Graph.GraphNullException;
 import Exception.Vertex.VertexAttributeException;
+import LoggerFactory.MyLogger;
 import edge.Edge;
 import edge.HyperEdge;
 import factory.edge.EdgeFactory;
@@ -54,11 +55,15 @@ class HyperEdgeCommand extends Command {
             type = matcher.group(1);
             try {
                 Edge HyperEdge = EdgeFactory.createEdge(label, type, vertices, -1);
-                if (graph.addEdge(HyperEdge))
+                if (graph.addEdge(HyperEdge)) {
+                    MyLogger.info("Add hyper edge successfully");
                     System.out.println("Add hyper edge successfully");
-                else
+                } else {
+                    MyLogger.info("Add fail!");
                     System.out.println("Add fail!");
+                }
             } catch (EdgeVertexTypeException | EdgeLoopException e) {
+                MyLogger.info("Add fail!");
                 System.out.println("Add fail!");
             } catch (HyperEdgeException e) {
                 e.printStackTrace();
@@ -74,9 +79,12 @@ class HyperEdgeCommand extends Command {
             try {
                 if (hyperEdge instanceof HyperEdge)
                     hyperEdge.addVertices(vertices);
-                else
+                else {
+                    MyLogger.info("The edge you input is not hyper edge");
                     System.out.println("The edge you input is not hyper edge");
+                }
             } catch (EdgeVertexTypeException | EdgeLoopException e) {
+                MyLogger.info("Add fail!");
                 System.out.println("Add fail!");
             }
         }
@@ -107,18 +115,27 @@ class HyperEdgeCommand extends Command {
                     System.out.println(vertices.size() + " vertices are found:");
                     vertices.forEach(item -> System.out.println(item.getLabel()));
                     if (confirm()) {
+                        StringBuilder InfoMessage = new StringBuilder("Delete vertices: ");
                         for (Vertex item : vertices) {
                             if (hyperEdge instanceof HyperEdge) {
                                 if (!((HyperEdge) hyperEdge).removeVertex(item)) {
+                                    MyLogger.info("The vertex : " + item.getLabel() + " delete failed!");
                                     System.out.println("The vertex : " + item.getLabel() + " delete failed!");
+                                } else {
+                                    InfoMessage.append(" ").append(hyperEdge).append(" ");
                                 }
-                            } else
+                            } else {
+                                MyLogger.info("The edge you input is not hyper edge");
                                 System.out.println("The edge you input is not hyper edge");
+                            }
                         }
+                        MyLogger.info(InfoMessage.toString());
                         System.out.println("Delete them successfully!");
                     }
-                } else
+                } else {
+                    MyLogger.info("Not found the specific vertex");
                     System.out.println("Not found the specific vertex");
+                }
             }
         } else {
             throw new CommandException("Lack the Label of the Hyper Edge");

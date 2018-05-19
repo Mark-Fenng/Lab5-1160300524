@@ -169,8 +169,7 @@ abstract public class GraphFactory {
                 } catch (DirectedEdgeException e) {
                     throw new DirectedEdgeException(matcher.group(1), countLine);
                 } catch (UndirectedEdgeException e) {
-                    Logger logger = LoggerFactory.getLogger("Exception", "./Lab.log");
-                    logger.warning(e.toString() + "\ngo on read the file\n");
+                    MyLogger.warning(e.toString() + "\ngo on read the file");
                 }
                 edgeFind = true;
             }

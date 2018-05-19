@@ -42,4 +42,12 @@ public class MyLogger {
         } catch (IOException ignored) {
         }
     }
+
+    public static String toString(Exception e) {
+        StringBuilder StackTrace = new StringBuilder();
+        for (StackTraceElement item : e.getStackTrace()) {
+            StackTrace.append(item).append("\n");
+        }
+        return StackTrace.toString();
+    }
 }
