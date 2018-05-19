@@ -14,7 +14,7 @@ class GraphPoetApp {
     }
 
     GraphPoetApp() {
-        ParseCommandHelper.Command();
+        ParseCommandHelper.command();
     }
 
     /**

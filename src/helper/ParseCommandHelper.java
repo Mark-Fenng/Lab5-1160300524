@@ -63,7 +63,7 @@ public class ParseCommandHelper {
     /**
      * 用于图应用的命令行交互
      */
-    public static void Command() {
+    public static void command() {
         Graph graph = null;
         List<String> params;
         Scanner in = new Scanner(System.in);

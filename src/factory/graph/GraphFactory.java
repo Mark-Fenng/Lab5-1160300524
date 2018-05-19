@@ -164,7 +164,7 @@ abstract public class GraphFactory {
                 vertices.add(new ArrayList<>(Arrays.asList(matcher.group(1), matcher.group(2), matcher.group(3), matcher.group(4), matcher.group(5), matcher.group(6))));
                 try {
                     // 当返回值是false时，表明文件中读入的边是否是有向边的信息是错误的
-                    if (!EdgeFactory.EdgeType(matcher.group(1), matcher.group(2), matcher.group(6).equals("Yes")))
+                    if (!EdgeFactory.edgeType(matcher.group(1), matcher.group(2), matcher.group(6).equals("Yes")))
                         throw new UndirectedEdgeException(matcher.group(1), countLine); // 无向边中出现了有向边的定义，只是发出警告，不停止运行
                 } catch (DirectedEdgeException e) {
                     throw new DirectedEdgeException(matcher.group(1), countLine);

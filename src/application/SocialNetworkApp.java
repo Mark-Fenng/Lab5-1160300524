@@ -9,6 +9,6 @@ class SocialNetworkApp {
     }
 
     SocialNetworkApp() {
-        ParseCommandHelper.Command();
+        ParseCommandHelper.command();
     }
 }

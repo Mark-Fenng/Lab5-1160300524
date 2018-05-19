@@ -9,6 +9,6 @@ class NetworkTopologyApp {
     }
 
     NetworkTopologyApp() {
-        ParseCommandHelper.Command();
+        ParseCommandHelper.command();
     }
 }

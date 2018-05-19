@@ -9,6 +9,6 @@ class MovieGraphApp {
     }
 
     MovieGraphApp() {
-        ParseCommandHelper.Command();
+        ParseCommandHelper.command();
     }
 }

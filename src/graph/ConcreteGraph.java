@@ -150,4 +150,9 @@ public class ConcreteGraph implements Graph {
     public boolean equals(Object obj) {
         return obj != null && obj instanceof ConcreteGraph && ((ConcreteGraph) obj).getLabel().equals(this.getLabel());
     }
+
+    @Override
+    public int hashCode() {
+        return label.hashCode();
+    }
 }

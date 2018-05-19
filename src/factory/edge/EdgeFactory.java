@@ -31,7 +31,7 @@ public class EdgeFactory {
         }
     }
 
-    public static boolean EdgeType(String label, String type, boolean directed) throws DirectedEdgeException, FormatException {
+    public static boolean edgeType(String label, String type, boolean directed) throws DirectedEdgeException, FormatException {
         switch (type) {
             case "WordNeighborhood":
                 return directed;
