@@ -6,9 +6,9 @@ import java.util.Arrays;
 import java.util.Calendar;
 
 public class Movie extends Vertex {
-    private int year; // 电影上映年份
-    private String country; // 电影的拍摄国家
-    private double IMDB; // IMDB上面的电影评分
+    private int year = 2000; // 电影上映年份
+    private String country = "China"; // 电影的拍摄国家
+    private double IMDB = 10.0; // IMDB上面的电影评分
 
     public Movie(String label) {
         super(label);
@@ -21,11 +21,12 @@ public class Movie extends Vertex {
                 year = Integer.parseInt(args[0]);
                 country = args[1];
                 IMDB = Double.parseDouble(args[2]);
+                IMDB = Double.parseDouble(String.format("%.2f", IMDB));  // 只取小数点后两位
 
                 // 获得当前的年份
                 Calendar cal = Calendar.getInstance();
                 int currentYear = cal.get(Calendar.YEAR);
-                if (year < 1900 || year > currentYear + 5 || IMDB < 0 || IMDB > 10) // 电影上映的年份在[1900,当前年份+5] IMDB评分在[0,10]之间
+                if (year < 1900 || year > currentYear || IMDB < 0 || IMDB > 10) // 电影上映的年份在[1900,当前年份] IMDB评分在[0,10]之间
                     throw new VertexAttributeException(getLabel());
             } catch (NumberFormatException e) {
                 throw new VertexAttributeException(getLabel());
@@ -44,9 +45,9 @@ public class Movie extends Vertex {
     public int hashCode() {
         Object[] objects = new Object[4];
         objects[0] = this.getLabel();
-        objects[1] = this.getCountry();
+        objects[1] = this.getYear();
         objects[2] = this.getIMDB();
-        objects[3] = this.getYear();
+        objects[3] = this.getCountry();
         return Arrays.hashCode(objects);
     }
 

@@ -16,7 +16,7 @@ public class LoggerFactory {
      */
     static Logger getLogger(String name, String FilePath) throws IOException {
         Logger logger = Logger.getLogger(name);
-        logger.setUseParentHandlers(false);
+        logger.setUseParentHandlers(false); // 设置此可以只在文件中输出，不在控制台打印
 
         // 设置日志输出的样式
         SimpleFormatter simpleFormatter = new SimpleFormatter();
