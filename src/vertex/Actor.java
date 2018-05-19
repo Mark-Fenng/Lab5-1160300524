@@ -5,8 +5,8 @@ import Exception.Vertex.VertexAttributeException;
 import java.util.Arrays;
 
 public class Actor extends Vertex {
-    private int age; // 演员的年龄
-    private String gender;
+    private int age = 0; // 演员的年龄
+    private String gender = "";
 
     public Actor(String label) {
         super(label);

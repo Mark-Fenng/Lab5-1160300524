@@ -179,5 +179,4 @@ public class PersonTest {
         p2.fillVertexInfo(args);
         assertEquals(12, p2.getAge());
     }
-
 } 
