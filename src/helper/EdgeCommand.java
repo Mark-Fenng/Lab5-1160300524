@@ -81,11 +81,15 @@ class EdgeCommand extends Command {
                     .collect(Collectors.toList());
             try {
                 Edge newEdge = EdgeFactory.createEdge(label, type, vertices, weight);
-                if (graph.addEdge(newEdge))
+                if (graph.addEdge(newEdge)) {
+                    MyLogger.info("Add edge successfully");
                     System.out.println("Add edge successfully");
-                else
+                } else {
+                    MyLogger.warning("Add fail!");
                     System.out.println("Add fail!");
+                }
             } catch (EdgeVertexTypeException | EdgeLoopException e) {
+                MyLogger.warning(e.toString());
                 System.out.println("Add fail!");
             }
         }
@@ -116,6 +120,7 @@ class EdgeCommand extends Command {
                     System.out.println("Delete them successfully");
                 }
             } else {
+                MyLogger.warning("Not found the specific edge");
                 System.out.println("Not found the specific edge");
             }
         } else
@@ -150,6 +155,7 @@ class EdgeCommand extends Command {
         if (matcher.find()) {
             weight = Double.parseDouble(matcher.group(1));
             edge.setWeight(weight);
+            MyLogger.info("Update weight successfully");
             System.out.println("Update weight successfully");
             CommandFlag = true;
         }
@@ -159,6 +165,7 @@ class EdgeCommand extends Command {
         if (matcher.find()) {
             newLabel = matcher.group(1);
             String oldLabel = edge.setLabel(newLabel);
+            MyLogger.info("Update label successfully , the old label is " + oldLabel);
             System.out.println("Update label successfully , the old label is " + oldLabel);
             CommandFlag = true;
         }
