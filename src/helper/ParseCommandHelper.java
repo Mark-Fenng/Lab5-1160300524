@@ -17,7 +17,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -76,24 +75,23 @@ public class ParseCommandHelper {
                 if (input.equals("exit"))
                     System.exit(0);
                 try {
+                    MyLogger.info(input);
                     graph = type(params, graph);
-                    Logger logger = LoggerFactory.getLogger("Exception", "./Lab.log");
-                    logger.info(input + "\n");
                 } catch (IOException | FormatException | TypeException | EdgeNullVertexException | VertexAttributeException | VertexTypeException | EdgeTypeException | DirectedEdgeException | HyperEdgeException | EdgeWeightException | VertexLabelException e) {
-                    try {
-                        Logger logger = LoggerFactory.getLogger("Exception", "./Lab.log");
-                        logger.severe(e.toString() + "\nInput the file again\n");
-                        System.out.println(e.toString());
-                        System.out.println("Please establish the graph again");
-                    } catch (IOException ignored) {
-                    }
+                    MyLogger.severe(e.toString() + "\nInput the file again");
+                    System.out.println(e.toString());
+                    System.out.println("Please establish the graph again");
                 } catch (CommandException e) {
-                    if (!e.getMessage().equals(""))
+                    if (!e.getMessage().equals("")) {
+                        MyLogger.severe(e.toString());
                         System.out.println(e.getMessage());
+                    }
                     PrintUsage();
                 } catch (UnsupportedException e) {
+                    MyLogger.severe(e.toString());
                     System.out.println(e.getMessage());
                 } catch (GraphNullException e) {
+                    MyLogger.severe(e.toString());
                     System.out.println("You must Establish Graph First!\nUsage : Graph --add filepath");
                 }
             }

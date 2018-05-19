@@ -5,15 +5,13 @@ import Exception.Command.CommandException;
 import Exception.Edge.*;
 import Exception.Graph.GraphNullException;
 import Exception.Vertex.VertexAttributeException;
-import LoggerFactory.LoggerFactory;
+import LoggerFactory.*;
 import edge.Edge;
 import factory.edge.EdgeFactory;
 import graph.Graph;
 import vertex.Vertex;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -114,11 +112,7 @@ class EdgeCommand extends Command {
                         graph.removeEdge(edge);
                         InfoMessage.append(" ").append(edge).append(" ");
                     }
-                    try {
-                        Logger logger = LoggerFactory.getLogger("Exception", "./Lab.log");
-                        logger.info(InfoMessage + "\n");
-                    } catch (IOException ignored) {
-                    }
+                    MyLogger.info(InfoMessage.toString());
                     System.out.println("Delete them successfully");
                 }
             } else {

@@ -14,7 +14,7 @@ public class LoggerFactory {
      * @return 满足自己要求的logger对象
      * @throws IOException 输入的日志路径不合法异常
      */
-    public static Logger getLogger(String name, String FilePath) throws IOException {
+    static Logger getLogger(String name, String FilePath) throws IOException {
         Logger logger = Logger.getLogger(name);
         logger.setUseParentHandlers(false);
 

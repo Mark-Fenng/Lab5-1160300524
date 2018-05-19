@@ -7,15 +7,13 @@ import Exception.Graph.GraphNullException;
 import Exception.Vertex.VertexAttributeException;
 import Exception.Vertex.VertexLabelException;
 import Exception.Vertex.VertexTypeException;
-import LoggerFactory.LoggerFactory;
+import LoggerFactory.*;
 import factory.vertex.VertexFactory;
 import graph.Graph;
 import vertex.Vertex;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.regex.*;
 import java.util.stream.Collectors;
 
@@ -41,10 +39,13 @@ class VertexCommand extends Command {
         if (matcher.find()) {
             type = matcher.group(1);
             Vertex newVertex = VertexFactory.createVertex(label, type, null);
-            if (graph.addVertex(newVertex))
+            if (graph.addVertex(newVertex)) {
+                MyLogger.info("Add vertex successfully!");
                 System.out.println("Add vertex successfully!");
-            else
+            } else {
+                MyLogger.warning("Add fail!");
                 System.out.println("Add fail!");
+            }
         }
     }
 
@@ -70,14 +71,11 @@ class VertexCommand extends Command {
                         graph.removeVertex(vertex);
                         InfoMessage.append(" ").append(vertex).append(" ");
                     }
-                    try {
-                        Logger logger = LoggerFactory.getLogger("Exception", "./Lab.log");
-                        logger.info(InfoMessage + "\n");
-                    } catch (IOException ignored) {
-                    }
+                    MyLogger.info(InfoMessage.toString());
                     System.out.println("Delete them successfully");
                 }
             } else {
+                MyLogger.warning("Not found the specific vertex");
                 System.out.println("Not found the specific vertex");
             }
         } else
@@ -110,6 +108,7 @@ class VertexCommand extends Command {
         if (matcher.find()) {
             newLabel = matcher.group(1);
             String oldLabel = vertex.setLabel(newLabel);
+            MyLogger.info("Update label successfully , old label is " + oldLabel);
             System.out.println("Update label successfully , old label is " + oldLabel);
         } else
             throw new CommandException("Lack the Vertex Label");
@@ -121,6 +120,7 @@ class VertexCommand extends Command {
             argument = matcher.group(1);
             arguments = argument.split(",");
             vertex.fillVertexInfo(arguments);
+            MyLogger.info("The argument of the vertex update successfully");
             System.out.println("The argument of the vertex update successfully");
         } else {
             throw new CommandException("Lack the Vertex Argument");
@@ -154,31 +154,37 @@ class VertexCommand extends Command {
         boolean CommandFlag = false; // 用于标记以上的命令是否有执行过，如果在函数结束时，值还是false，则抛出异常
         matcher = Rules.get(0).matcher(args.get(0));
         if (matcher.find()) {
+            MyLogger.info("The eccentricity of the vertex : " + GraphMetrics.eccentricity(graph, vertex));
             System.out.println("The eccentricity of the vertex : " + GraphMetrics.eccentricity(graph, vertex));
             CommandFlag = true;
         }
         matcher = Rules.get(1).matcher(args.get(0));
         if (matcher.find()) {
+            MyLogger.info("The degree of the vertex : " + GraphMetrics.degreeCentrality(graph, vertex));
             System.out.println("The degree of the vertex : " + GraphMetrics.degreeCentrality(graph, vertex));
             CommandFlag = true;
         }
         matcher = Rules.get(2).matcher(args.get(0));
         if (matcher.find()) {
+            MyLogger.info("The inDegree of the vertex : " + GraphMetrics.inDegreeCentrality(graph, vertex));
             System.out.println("The inDegree of the vertex : " + GraphMetrics.inDegreeCentrality(graph, vertex));
             CommandFlag = true;
         }
         matcher = Rules.get(3).matcher(args.get(0));
         if (matcher.find()) {
+            MyLogger.info("The outDegree of the vertex : " + GraphMetrics.outDegreeCentrality(graph, vertex));
             System.out.println("The outDegree of the vertex : " + GraphMetrics.outDegreeCentrality(graph, vertex));
             CommandFlag = true;
         }
         matcher = Rules.get(4).matcher(args.get(0));
         if (matcher.find()) {
+            MyLogger.info("The closenessCentrality of the vertex : " + GraphMetrics.closenessCentrality(graph, vertex));
             System.out.println("The closenessCentrality of the vertex : " + GraphMetrics.closenessCentrality(graph, vertex));
             CommandFlag = true;
         }
         matcher = Rules.get(5).matcher(args.get(0));
         if (matcher.find()) {
+            MyLogger.info("The betweennessCentrality of the vertex : " + GraphMetrics.betweennessCentrality(graph, vertex));
             System.out.println("The betweennessCentrality of the vertex : " + GraphMetrics.betweennessCentrality(graph, vertex));
             CommandFlag = true;
         }
