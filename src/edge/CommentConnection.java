@@ -2,7 +2,7 @@ package edge;
 
 import Exception.Edge.EdgeLoopException;
 import Exception.Edge.EdgeVertexTypeException;
-import vertex.Actor;
+import vertex.Person;
 import vertex.Vertex;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public class CommentConnection extends DirectedEdge {
     @Override
     public boolean addVertices(List<Vertex> vertices) throws EdgeLoopException, EdgeVertexTypeException {
         // 出现边中点的类型异常时抛出异常
-        if (vertices.stream().filter(item -> !(item instanceof Actor)).count() != 0)
+        if (vertices.stream().filter(item -> !(item instanceof Person)).count() != 0)
             throw new EdgeVertexTypeException(getLabel());
         return super.addVertices(vertices);
     }

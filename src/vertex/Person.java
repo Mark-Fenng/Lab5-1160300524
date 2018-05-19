@@ -6,8 +6,8 @@ import edge.Edge;
 import java.util.Arrays;
 
 public class Person extends Vertex {
-    private String gender;
-    private int age;
+    private String gender = "F";
+    private int age = 0;
     private double weight = 0;
 
     @Override
@@ -41,11 +41,21 @@ public class Person extends Vertex {
         super(label);
     }
 
-    private String getGender() {
+    /**
+     * 获得用户的性别
+     *
+     * @return 用户的性别
+     */
+    String getGender() {
         return gender;
     }
 
-    private int getAge() {
+    /**
+     * 获得用户的年龄
+     *
+     * @return 用户的年龄
+     */
+    int getAge() {
         return age;
     }
 
@@ -53,7 +63,15 @@ public class Person extends Vertex {
     public void fillVertexInfo(String[] args) throws NumberFormatException, VertexAttributeException {
         if (args.length == 2) {
             gender = args[0];
-            age = Integer.parseInt(args[1]);
+            if (!(gender.equals("M") || gender.equals("F"))) // 非正常的性别
+                throw new VertexAttributeException(getLabel());
+            try {
+                age = Integer.parseInt(args[1]);
+                if (age < 0 || age > 150) // 非正常的年龄输入
+                    throw new VertexAttributeException(getLabel());
+            } catch (NumberFormatException e) { // 非正常的年龄输入，不是一个整数
+                throw new VertexAttributeException(getLabel());
+            }
         } else {
             throw new VertexAttributeException(getLabel());
         }

@@ -8,7 +8,7 @@ import vertex.Vertex;
 import java.util.List;
 
 public class FriendConnection extends DirectedEdge {
-    FriendConnection(String label, double weight) {
+    public FriendConnection(String label, double weight) {
         super(label, weight);
     }
 

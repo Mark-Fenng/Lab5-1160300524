@@ -8,7 +8,7 @@ import vertex.Vertex;
 import java.util.List;
 
 public class ForwardConnection extends DirectedEdge {
-    ForwardConnection(String label, double weight) {
+    public ForwardConnection(String label, double weight) {
         super(label, weight);
     }
 

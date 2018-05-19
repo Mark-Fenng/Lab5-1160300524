@@ -7,6 +7,6 @@ public class EdgeVertexTypeException extends Exception {
      * @param EdgeLabel 发生异常的边的label
      */
     public EdgeVertexTypeException(String EdgeLabel) {
-        super("The Edge : \"" + EdgeLabel + "\" can't occur loop");
+        super("The Edge : \"" + EdgeLabel + "\" has wrong type of vertices");
     }
 }
