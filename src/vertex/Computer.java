@@ -6,13 +6,13 @@ import java.util.Arrays;
 
 public class Computer extends Vertex {
     //    private int[] ip = new int[4];
-    private String ip;
+    private String ip = "";
 
     public Computer(String label) {
         super(label);
     }
 
-    private String getIp() {
+    String getIp() {
         return ip;
     }
 
@@ -27,11 +27,6 @@ public class Computer extends Vertex {
         } else {
             throw new VertexAttributeException(getLabel());
         }
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
     }
 
     @Override

@@ -6,13 +6,13 @@ import java.util.Arrays;
 
 public class Router extends Vertex {
     //    private int[] ip = new int[4];
-    private String ip;
+    private String ip = "";
 
     public Router(String label) {
         super(label);
     }
 
-    private String getIp() {
+    String getIp() {
         return ip;
     }
 
@@ -27,11 +27,6 @@ public class Router extends Vertex {
         } else {
             throw new VertexAttributeException(getLabel());
         }
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
     }
 
     @Override
