@@ -102,7 +102,7 @@ public class ConcreteGraph implements Graph {
 
 
     @Override
-    public boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException, EdgeWeightException, IOException {
+    public boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException, EdgeWeightException {
         for (Vertex item : edge.vertices()) {
             if (!vertices.contains(item))
                 throw new EdgeNullVertexException("The Vertex : " + item + " have not been define before");
@@ -113,12 +113,15 @@ public class ConcreteGraph implements Graph {
             for (int i = 0; i < 10000; i++) {
                 edge.setLabel(edge.getLabel() + "_" + i);
                 if (!edges.contains(edge)) {
-                    Logger logger = LoggerFactory.getLogger("Exception", "./Lab.log");
-                    logger.info("The Edge : \"" + TempLabel + "\" Has Repeated Label in the Graph\n" +
-                            "But the New Label : \"" + TempLabel + "_" + i + "\" is Added to The Graph");
-                    System.out.println("The Edge : \"" + TempLabel + "\" Has Repeated Label in the Graph\n" +
-                            "But the New Label : \"" + TempLabel + "_" + i + "\" is Added to The Graph");
-                    break;
+                    try {
+                        Logger logger = LoggerFactory.getLogger("Exception", "./Lab.log");
+                        logger.info("The Edge : \"" + TempLabel + "\" Has Repeated Label in the Graph\n" +
+                                "But the New Label : \"" + TempLabel + "_" + i + "\" is Added to The Graph");
+                        System.out.println("The Edge : \"" + TempLabel + "\" Has Repeated Label in the Graph\n" +
+                                "But the New Label : \"" + TempLabel + "_" + i + "\" is Added to The Graph");
+                        break;
+                    } catch (IOException ignored) {
+                    }
                 }
             }
         }

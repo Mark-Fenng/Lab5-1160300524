@@ -33,6 +33,7 @@ public interface Graph {
      *
      * @param vertex 需要移除的点对象
      * @return true ：移除成功 false: 图中不包含这个点，删除失败
+     * @throws EdgeWeightException 在删除边时，如果引起了其他边的weight值不符合图的要求，则抛出这个异常，主要应对SocialGraph的异常
      */
     boolean removeVertex(Vertex vertex) throws EdgeWeightException;
 
@@ -67,14 +68,17 @@ public interface Graph {
      * @param edge 一个边的对象，表示一条边
      * @return true: 图中成功添加了这条边 false: 图中已经有了这条边，添加失败
      * @throws EdgeNullVertexException 如果添加的边中含有还未添加的点，会抛出此错误
+     * @throws EdgeTypeException       在向图中添加边时，如果添加的边的类型不符合这种图的要求，则会抛出此异常
+     * @throws EdgeWeightException     在向图中添加边时，如果边的权重不符合图的要求，则抛出此异常
      */
-    boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException, EdgeWeightException, IOException;
+    boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException, EdgeWeightException;
 
     /**
      * 从图中移除指定的边对象
      *
      * @param edge 一个边的对象，表示一条边
      * @return true: 成功的从图中删除了这条边 false: 图中没有传入的边对象，删除失败
+     * @throws EdgeWeightException 将图中的某条边删除时，如果引起了其他边的权重不符合图的要求，则抛出此异常，主要应对SocialGraph
      */
     boolean removeEdge(Edge edge) throws EdgeWeightException;
 

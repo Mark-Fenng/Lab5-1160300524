@@ -87,8 +87,6 @@ class EdgeCommand extends Command {
                     System.out.println("Add fail!");
             } catch (EdgeVertexTypeException | EdgeLoopException e) {
                 System.out.println("Add fail!");
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
     }

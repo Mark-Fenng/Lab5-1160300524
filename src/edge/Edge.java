@@ -81,6 +81,8 @@ abstract public class Edge {
      *
      * @param vertices list 形式的点的集合
      * @return true :添加成功 false:添加失败
+     * @throws EdgeLoopException       如果边的两个顶点是同一个点，即删除loop,某些类型的边不允许这种情况发生
+     * @throws EdgeVertexTypeException 如果添加的顶点中包含不符合这种类型边要求的点(点的类型不符合要求)，则抛出此异常
      */
     abstract public boolean addVertices(List<Vertex> vertices) throws EdgeLoopException, EdgeVertexTypeException;
 
@@ -126,6 +128,7 @@ abstract public class Edge {
      *
      * @param weight 权重的新值
      * @return 返回边的权重的旧值
+     * @throws EdgeWeightException 某些边对设置的权值有要求，如果输入的权值不符合边的要求，就会抛出此异常
      */
     public double setWeight(double weight) throws EdgeWeightException {
         double oldWeight = this.weight;
