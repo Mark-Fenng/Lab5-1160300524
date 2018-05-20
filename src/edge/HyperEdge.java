@@ -19,11 +19,8 @@ public class HyperEdge extends Edge {
     @Override
     public boolean addVertices(List<Vertex> vertices) throws EdgeVertexTypeException {
         if (vertices.size() > 0) {
-            if (super.vertices.size() == 0) {
-                super.vertices.addAll(vertices.stream().filter(item -> !super.vertices.contains(item)).collect(Collectors.toList()));
-                return true;
-            }
-            return false;
+            super.vertices.addAll(vertices.stream().filter(item -> !super.vertices.contains(item)).collect(Collectors.toList()));
+            return true;
         } else {
             throw new RuntimeException("the hyper edge must have one more vertex");
         }
