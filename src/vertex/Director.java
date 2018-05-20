@@ -4,9 +4,17 @@ import Exception.Vertex.VertexAttributeException;
 
 import java.util.Arrays;
 
+/**
+ * RI  person的age在[0,150] gender必须是"M"|"F"
+ */
 public class Director extends Vertex {
     private int age = 0; // 导演的年龄
     private String gender = ""; // 导演的性别
+
+    private void checkRep() {
+        assert (age < 0 || age > 150);
+        assert (!gender.equals("M") || !gender.equals("F"));
+    }
 
     public Director(String label) {
         super(label);

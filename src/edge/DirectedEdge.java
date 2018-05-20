@@ -8,9 +8,19 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * RI:
+ * 所有点!=null
+ */
 public class DirectedEdge extends Edge {
     DirectedEdge(String label, double weight) {
         super(label, weight);
+    }
+
+    private void checkRep() {
+        for (Vertex item : vertices) {
+            assert (item != null);
+        }
     }
 
     @Override

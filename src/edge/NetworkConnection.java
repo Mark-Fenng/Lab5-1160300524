@@ -6,9 +6,16 @@ import vertex.*;
 
 import java.util.List;
 
+/**
+ * RI: weight>0
+ */
 public class NetworkConnection extends UndirectedEdge {
     public NetworkConnection(String label, double weight) {
         super(label, weight);
+    }
+
+    private void checkRep() {
+        assert (getWeight() > 0);
     }
 
     @Override

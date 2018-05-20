@@ -8,6 +8,9 @@ import vertex.Word;
 
 import java.util.List;
 
+/**
+ * RI : weight>0
+ */
 public class WordEdge extends DirectedEdge {
     public WordEdge(String label, double weight) throws EdgeWeightException {
         super(label, weight);
@@ -17,6 +20,10 @@ public class WordEdge extends DirectedEdge {
         } catch (NumberFormatException e) {
             throw new EdgeWeightException(getLabel(), "" + weight);
         }
+    }
+
+    private void checkRep() {
+        assert (getWeight() < 0);
     }
 
     @Override

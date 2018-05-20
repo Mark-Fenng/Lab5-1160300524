@@ -4,12 +4,23 @@ import Exception.Vertex.VertexAttributeException;
 
 import java.util.Arrays;
 
+/**
+ * RI ip的每一个部分的值都在[0,255]的范围内
+ */
 public class Computer extends Vertex {
     //    private int[] ip = new int[4];
     private String ip = "";
 
     public Computer(String label) {
         super(label);
+    }
+
+    private void checkRep() {
+        String values[] = ip.split("\\.");
+        for (String value : values) {
+            int ipValue = Integer.parseInt(value);
+            assert ipValue >= 0 && ipValue <= 255;
+        }
     }
 
     String getIp() {

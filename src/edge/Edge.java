@@ -40,6 +40,12 @@ abstract public class Edge {
         this.weight = weight;
     }
 
+    private void checkRep() {
+        assert (label != null);
+        for (Vertex item : vertices)
+            assert (item != null);
+    }
+
     /**
      * 得到边的label属性值
      * 是一个 observer函数

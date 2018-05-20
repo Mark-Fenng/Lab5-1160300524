@@ -5,10 +5,18 @@ import edge.Edge;
 
 import java.util.Arrays;
 
+/**
+ * RI  person的age在[0,150] gender必须是"M"|"F"
+ */
 public class Person extends Vertex {
     private String gender = "F";
     private int age = 0;
     private double weight = 0;
+
+    private void checkRep() {
+        assert (age < 0 || age > 150);
+        assert (!gender.equals("M") || !gender.equals("F"));
+    }
 
     @Override
     public boolean addInEdge(Edge inEdge) {

@@ -9,11 +9,18 @@ import vertex.Vertex;
 
 import java.util.List;
 
+/**
+ * RI: weight>0
+ */
 public class MovieActorRelation extends UndirectedEdge {
     public MovieActorRelation(String label, double weight) throws EdgeWeightException {
         super(label, weight);
         if ((int) weight <= 0)
             throw new EdgeWeightException(label, "" + weight);
+    }
+
+    private void checkRep() {
+        assert (getWeight() > 0);
     }
 
     @Override

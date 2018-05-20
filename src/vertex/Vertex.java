@@ -27,6 +27,10 @@ public abstract class Vertex {
     private final List<Edge> inEdges = new LinkedList<>(); // 入边
     private final List<Edge> outEdges = new LinkedList<>(); // 出边
 
+    private void checkRep() {
+        assert (label != null);
+    }
+
     Vertex(String label) {
         this.label = label;
     }

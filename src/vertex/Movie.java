@@ -5,13 +5,21 @@ import Exception.Vertex.VertexAttributeException;
 import java.util.Arrays;
 import java.util.Calendar;
 
+/**
+ * RI 电影的上映年份year 在[1900,2018]，IMDb评分在[0,10]
+ */
 public class Movie extends Vertex {
     private int year = 2000; // 电影上映年份
     private String country = "China"; // 电影的拍摄国家
-    private double IMDB = 10.0; // IMDB上面的电影评分
+    private double IMDb = 10.0; // IMDb上面的电影评分
 
     public Movie(String label) {
         super(label);
+    }
+
+    private void checkRep() {
+        assert (year < 1900 || year > 2018);
+        assert (IMDb < 0 || IMDb > 10);
     }
 
     @Override
@@ -20,13 +28,13 @@ public class Movie extends Vertex {
             try {
                 year = Integer.parseInt(args[0]);
                 country = args[1];
-                IMDB = Double.parseDouble(args[2]);
-                IMDB = Double.parseDouble(String.format("%.2f", IMDB));  // 只取小数点后两位
+                IMDb = Double.parseDouble(args[2]);
+                IMDb = Double.parseDouble(String.format("%.2f", IMDb));  // 只取小数点后两位
 
                 // 获得当前的年份
                 Calendar cal = Calendar.getInstance();
                 int currentYear = cal.get(Calendar.YEAR);
-                if (year < 1900 || year > currentYear || IMDB < 0 || IMDB > 10) // 电影上映的年份在[1900,当前年份] IMDB评分在[0,10]之间
+                if (year < 1900 || year > currentYear || IMDb < 0 || IMDb > 10) // 电影上映的年份在[1900,当前年份] IMDb评分在[0,10]之间
                     throw new VertexAttributeException(getLabel());
             } catch (NumberFormatException e) {
                 throw new VertexAttributeException(getLabel());
@@ -38,7 +46,7 @@ public class Movie extends Vertex {
 
     @Override
     public boolean equals(Object obj) {
-        return obj != null && obj instanceof Movie && ((Movie) obj).getLabel().equals(this.getLabel()) && ((Movie) obj).getCountry().equals(this.getCountry()) && ((Movie) obj).getYear() == this.getYear() && Math.abs(((Movie) obj).getIMDB() - this.getIMDB()) < 0.0001;
+        return obj != null && obj instanceof Movie && ((Movie) obj).getLabel().equals(this.getLabel()) && ((Movie) obj).getCountry().equals(this.getCountry()) && ((Movie) obj).getYear() == this.getYear() && Math.abs(((Movie) obj).getIMDb() - this.getIMDb()) < 0.0001;
     }
 
     @Override
@@ -46,7 +54,7 @@ public class Movie extends Vertex {
         Object[] objects = new Object[4];
         objects[0] = this.getLabel();
         objects[1] = this.getYear();
-        objects[2] = this.getIMDB();
+        objects[2] = this.getIMDb();
         objects[3] = this.getCountry();
         return Arrays.hashCode(objects);
     }
@@ -70,11 +78,11 @@ public class Movie extends Vertex {
     }
 
     /**
-     * 获得电影的IMDB评分
+     * 获得电影的IMDb评分
      *
-     * @return 电影的IMDB评分
+     * @return 电影的IMDb评分
      */
-    double getIMDB() {
-        return IMDB;
+    double getIMDb() {
+        return IMDb;
     }
 }

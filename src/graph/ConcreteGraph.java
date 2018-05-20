@@ -7,6 +7,7 @@ import Exception.Vertex.VertexLabelException;
 import Exception.Vertex.VertexTypeException;
 import LoggerFactory.*;
 import edge.Edge;
+import edge.HyperEdge;
 import vertex.Vertex;
 
 import java.util.*;
@@ -32,6 +33,11 @@ public class ConcreteGraph implements Graph {
     protected final List<Vertex> vertices = new LinkedList<>();
     final List<Edge> edges = new LinkedList<>();
 
+    private void checkRep() {
+        for (Edge item : edges)
+            assert !(item instanceof HyperEdge) || item.vertices().size() >= 2;
+    }
+
     ConcreteGraph(String label) {
         this.label = label;
     }
@@ -42,17 +48,21 @@ public class ConcreteGraph implements Graph {
 
     @Override
     public boolean addVertex(Vertex vertex) throws VertexTypeException, VertexLabelException {
+        checkRep();
         if (vertices.contains(vertex))
             throw new VertexLabelException(label);
+        checkRep();
         return vertices.add(vertex);
     }
 
     @Override
     public boolean removeVertex(Vertex vertex) throws EdgeWeightException {
+        checkRep();
         if (vertices.remove(vertex)) {
             edges.removeIf(item -> item.vertices().contains(vertex));
             return true;
         }
+        checkRep();
         return false;
     }
 
@@ -101,6 +111,7 @@ public class ConcreteGraph implements Graph {
 
     @Override
     public boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException, EdgeWeightException {
+        checkRep();
         for (Vertex item : edge.vertices()) {
             if (!vertices.contains(item))
                 throw new EdgeNullVertexException("The Vertex : " + item + " have not been define before");
@@ -126,11 +137,13 @@ public class ConcreteGraph implements Graph {
         this.vertices.stream().filter(item -> edge.sourceVertices().contains(item)).forEach(item -> item.addOutEdge(edge));
         // add edge to the vertex as in edges
         this.vertices.stream().filter(item -> edge.targetVertices().contains(item)).forEach(item -> item.addInEdge(edge));
+        checkRep();
         return true;
     }
 
     @Override
     public boolean removeEdge(Edge edge) throws EdgeWeightException {
+        checkRep();
         if (edges.remove(edge)) {
             // add edge to the vertex,as out edges
             this.vertices.stream().filter(item -> edge.sourceVertices().contains(item)).forEach(item -> item.removeEdge(edge));
@@ -138,6 +151,7 @@ public class ConcreteGraph implements Graph {
             this.vertices.stream().filter(item -> edge.targetVertices().contains(item)).forEach(item -> item.removeEdge(edge));
             return true;
         }
+        checkRep();
         return false;
     }
 

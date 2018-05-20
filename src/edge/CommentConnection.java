@@ -7,9 +7,17 @@ import vertex.Vertex;
 
 import java.util.List;
 
+/**
+ * RI: weight在[0,1]
+ */
 public class CommentConnection extends DirectedEdge {
     public CommentConnection(String label, double weight) {
         super(label, weight);
+    }
+
+    private void checkRep() {
+        assert (getWeight() < 0 || getWeight() > 1);
+        assert vertices().size() == 0 || (vertices.get(0).equals(vertices.get(1)));
     }
 
     @Override

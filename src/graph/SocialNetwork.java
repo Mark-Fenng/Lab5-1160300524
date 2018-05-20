@@ -12,22 +12,32 @@ import edge.FriendConnection;
 import vertex.Person;
 import vertex.Vertex;
 
-import java.io.IOException;
-
 public class SocialNetwork extends ConcreteGraph {
     public SocialNetwork(String label) {
         super(label);
+    }
+
+    private void checkRep() {
+        double sum = 0;
+        if (edges.size() != 0) {
+            for (Edge item : edges()) {
+                sum += item.getWeight();
+            }
+            assert !(Math.abs(sum - 1) > 0.001);
+        }
     }
 
     @Override
     public boolean addVertex(Vertex vertex) throws VertexTypeException, VertexLabelException {
         if (!(vertex instanceof Person))
             throw new VertexTypeException(vertex.getLabel());
+        checkRep();
         return super.addVertex(vertex);
     }
 
     @Override
     public boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException, EdgeWeightException {
+        checkRep();
         if (!((edge instanceof ForwardConnection) || (edge instanceof FriendConnection) || (edge instanceof CommentConnection)))
             throw new EdgeTypeException(getLabel());
 
@@ -37,11 +47,15 @@ public class SocialNetwork extends ConcreteGraph {
 
         if (!super.edges().contains(edge)) {
             double newWeight = edge.getWeight();
-            for (Edge item : super.edges)
-                item.setWeight(item.getWeight() * (1.0 - newWeight));
-            for (Edge item : super.edges) {
-                if (item.getWeight() < 0 || item.getWeight() > 1)
-                    throw new EdgeWeightException(getLabel(), "" + item.getWeight());
+            if (edges.size() == 0) { // 如果图中只有一条边，那么这条边的weight必须是1
+                edge.setWeight(1);
+            } else {
+                for (Edge item : super.edges)
+                    item.setWeight(item.getWeight() * (1.0 - newWeight));
+                for (Edge item : super.edges) {
+                    if (item.getWeight() < 0 || item.getWeight() > 1)
+                        throw new EdgeWeightException(getLabel(), "" + item.getWeight());
+                }
             }
             return super.addEdge(edge);
         }
@@ -50,6 +64,7 @@ public class SocialNetwork extends ConcreteGraph {
 
     @Override
     public boolean removeEdge(Edge edge) throws EdgeWeightException {
+        checkRep();
         if (super.edges().contains(edge)) {
             double weight = edge.getWeight();
             if (super.edges().size() != 1) {
@@ -58,6 +73,7 @@ public class SocialNetwork extends ConcreteGraph {
             }
             return super.removeEdge(edge);
         }
+        checkRep();
         return false;
     }
 }

@@ -7,9 +7,19 @@ import vertex.Vertex;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * RI:
+ * 所有点!=null
+ */
 public class UndirectedEdge extends Edge {
     UndirectedEdge(String label, double weight) {
         super(label, weight);
+    }
+
+    private void checkRep() {
+        for (Vertex item : vertices) {
+            assert (item != null);
+        }
     }
 
     @Override

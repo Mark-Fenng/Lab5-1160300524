@@ -103,12 +103,12 @@ public class MovieTest {
         Object[] objects = new Object[4];
         objects[0] = m1.getLabel();
         objects[1] = m1.getYear();
-        objects[2] = m1.getIMDB();
+        objects[2] = m1.getIMDb();
         objects[3] = m1.getCountry();
         assertEquals(Arrays.hashCode(objects), m1.hashCode());
         objects[0] = m2.getLabel();
         objects[1] = m2.getYear();
-        objects[2] = m2.getIMDB();
+        objects[2] = m2.getIMDb();
         objects[3] = m2.getCountry();
         assertEquals(Arrays.hashCode(objects), m2.hashCode());
     }
@@ -146,18 +146,18 @@ public class MovieTest {
     }
 
     /**
-     * Method: getIMDB()
+     * Method: getIMDb()
      */
     @Test
-    public void testGetIMDB() throws Exception {
+    public void testGetIMDb() throws Exception {
         String[] args = new String[3];
         args[0] = "1900";
         args[1] = "China";
         args[2] = "7.62";
         m1.fillVertexInfo(args);
-        assertEquals(7.62, m1.getIMDB(), 0.00001);
+        assertEquals(7.62, m1.getIMDb(), 0.00001);
         args[2] = "5.56";
         m2.fillVertexInfo(args);
-        assertEquals(5.56, m2.getIMDB(), 0.00001);
+        assertEquals(5.56, m2.getIMDb(), 0.00001);
     }
 } 
