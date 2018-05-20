@@ -1,6 +1,9 @@
 package LoggerFactory;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.*;
 
 public class LoggerFactory {
@@ -14,7 +17,7 @@ public class LoggerFactory {
      * @return 满足自己要求的logger对象
      * @throws IOException 输入的日志路径不合法异常
      */
-    static Logger getLogger(String name, String FilePath) throws IOException {
+    static List<Object> getLogger(String name, String FilePath) throws IOException {
         Logger logger = Logger.getLogger(name);
         logger.setUseParentHandlers(false); // 设置此可以只在文件中输出，不在控制台打印
 
@@ -24,9 +27,9 @@ public class LoggerFactory {
         simpleFormatter.format(logRecord);
 
         // 以文件的方式处理产生的日志
-        FileHandler fileHandler = new FileHandler(FilePath);
+        FileHandler fileHandler = new FileHandler(FilePath, 100000000, 1, true);  // 参数依次是 文件路径 一个文件的最大byte数，文件的个数，是否追加内容
         fileHandler.setFormatter(simpleFormatter);
         logger.addHandler(fileHandler);
-        return logger;
+        return new ArrayList<>(Arrays.asList(logger, fileHandler));
     }
 }

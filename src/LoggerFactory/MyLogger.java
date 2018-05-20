@@ -1,6 +1,8 @@
 package LoggerFactory;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
 public class MyLogger {
@@ -11,8 +13,9 @@ public class MyLogger {
      */
     public static void info(String message) {
         try {
-            Logger logger = LoggerFactory.getLogger("Exception", "./Lab.log");
-            logger.info(message + "\n");
+            List<Object> logger = LoggerFactory.getLogger("Exception", "./Lab.log");
+            ((Logger) logger.get(0)).info(message + "\n");
+            ((FileHandler) logger.get(1)).close();
         } catch (IOException ignored) {
         }
     }
@@ -24,8 +27,9 @@ public class MyLogger {
      */
     public static void warning(String message) {
         try {
-            Logger logger = LoggerFactory.getLogger("Exception", "./Lab.log");
-            logger.warning(message + "\n");
+            List<Object> logger = LoggerFactory.getLogger("Exception", "./Lab.log");
+            ((Logger) logger.get(0)).warning(message + "\n");
+            ((FileHandler) logger.get(1)).close();
         } catch (IOException ignored) {
         }
     }
@@ -37,8 +41,9 @@ public class MyLogger {
      */
     public static void severe(String message) {
         try {
-            Logger logger = LoggerFactory.getLogger("Exception", "./Lab.log");
-            logger.severe(message + "\n");
+            List<Object> logger = LoggerFactory.getLogger("Exception", "./Lab.log");
+            ((Logger) logger.get(0)).severe(message + "\n");
+            ((FileHandler) logger.get(1)).close();
         } catch (IOException ignored) {
         }
     }
