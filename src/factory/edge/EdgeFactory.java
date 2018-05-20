@@ -39,13 +39,11 @@ public class EdgeFactory {
             case "CommentTie":
                 return directed;
             case "NetworkConnection":
-                if (directed)
-                    throw new DirectedEdgeException(label);
-                return true;
             case "MovieDirectorRelation":
             case "MovieActorRelation":
-                return directed;
             case "SameMovieHyperEdge":
+                if (directed)
+                    throw new DirectedEdgeException(label);
                 return true;
             default:
                 throw new FormatException("The Edge Type is not Supported");
