@@ -11,14 +11,18 @@ import java.util.List;
 public class WordEdge extends DirectedEdge {
     public WordEdge(String label, double weight) throws EdgeWeightException {
         super(label, weight);
-        if ((int) weight <= 0)
-            throw new EdgeWeightException(label, "" + weight);
+        try {
+            if (Math.abs((int) weight - weight) > 0.001 || weight < 0)
+                throw new EdgeWeightException(getLabel(), "" + weight);
+        } catch (NumberFormatException e) {
+            throw new EdgeWeightException(getLabel(), "" + weight);
+        }
     }
 
     @Override
     public double setWeight(double weight) throws EdgeWeightException {
         try {
-            if (Integer.parseInt("" + weight) <= 0)
+            if (Math.abs((int) weight - weight) > 0.001 || weight < 0)
                 throw new EdgeWeightException(getLabel(), "" + weight);
         } catch (NumberFormatException e) {
             throw new EdgeWeightException(getLabel(), "" + weight);

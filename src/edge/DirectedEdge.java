@@ -29,14 +29,16 @@ public class DirectedEdge extends Edge {
     @Override
     public Set<Vertex> sourceVertices() {
         Set<Vertex> source = new HashSet<>();
-        source.add(super.vertices.get(0));
+        if (super.vertices.size() != 0)
+            source.add(super.vertices.get(0));
         return source;
     }
 
     @Override
     public Set<Vertex> targetVertices() {
         Set<Vertex> target = new HashSet<>();
-        target.add(super.vertices.get(1));
+        if (super.vertices.size() != 0)
+            target.add(super.vertices.get(1));
         return target;
     }
 }
