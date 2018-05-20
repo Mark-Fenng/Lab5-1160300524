@@ -34,11 +34,11 @@ public class EdgeFactory {
     public static boolean edgeType(String label, String type, boolean directed) throws DirectedEdgeException, FormatException {
         switch (type) {
             case "WordNeighborhood":
-                return directed;
-            case "NetworkConnection":
             case "ForwardTie":
             case "FriendTie":
             case "CommentTie":
+                return directed;
+            case "NetworkConnection":
                 if (directed)
                     throw new DirectedEdgeException(label);
                 return true;

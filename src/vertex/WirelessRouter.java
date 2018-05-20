@@ -26,6 +26,7 @@ public class WirelessRouter extends Vertex {
                     if (ipValue < 0 || ipValue > 255) // ip的每一个部分的值都在[0,255]的范围内
                         throw new VertexAttributeException(getLabel());
                 }
+                ip = args[0];
             } catch (NumberFormatException e) {
                 throw new VertexAttributeException(getLabel());
             }

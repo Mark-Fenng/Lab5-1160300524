@@ -37,13 +37,13 @@ public class DirectorTest {
     public void testFillVertexInfo() throws Exception {
         // 传入正常的参数
         String[] args = new String[2];
-        args[0] = "M";
-        args[1] = "12";
+        args[0] = "12";
+        args[1] = "M";
         d1.fillVertexInfo(args);
 
         //传入非正常的参数
-        args[0] = "K";
-        args[1] = "1.2";
+        args[0] = "1.2";
+        args[1] = "K";
         try {
             d1.fillVertexInfo(args);
             assert (false);
@@ -70,11 +70,11 @@ public class DirectorTest {
         d2.setLabel("d1");
         assertTrue(d1.equals(d2));
         String[] args = new String[2];
-        args[0] = "M";
-        args[1] = "12";
+        args[0] = "12";
+        args[1] = "M";
         d1.fillVertexInfo(args);
-        args[0] = "F";
-        args[1] = "11";
+        args[0] = "12";
+        args[1] = "F";
         d2.fillVertexInfo(args);
         assertFalse(d1.equals(d2));
     }
@@ -85,14 +85,14 @@ public class DirectorTest {
     @Test
     public void testGetGender() throws Exception {
         String[] args = new String[2];
-        args[0] = "M";
-        args[1] = "11";
+        args[0] = "12";
+        args[1] = "M";
         d1.fillVertexInfo(args);
-        assertEquals(args[0], d1.getGender());
-        args[0] = "F";
-        args[1] = "12";
+        assertEquals(args[1], d1.getGender());
+        args[0] = "12";
+        args[1] = "F";
         d2.fillVertexInfo(args);
-        assertEquals(args[0], d2.getGender());
+        assertEquals(args[1], d2.getGender());
     }
 
     /**
@@ -101,12 +101,12 @@ public class DirectorTest {
     @Test
     public void testGetAge() throws Exception {
         String[] args = new String[2];
-        args[0] = "M";
-        args[1] = "11";
+        args[0] = "11";
+        args[1] = "M";
         d1.fillVertexInfo(args);
         assertEquals(11, d1.getAge());
-        args[0] = "F";
-        args[1] = "12";
+        args[0] = "12";
+        args[1] = "F";
         d2.fillVertexInfo(args);
         assertEquals(12, d2.getAge());
     }

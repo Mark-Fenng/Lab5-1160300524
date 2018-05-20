@@ -1,5 +1,6 @@
 package helper;
 
+import Exception.Command.UnsupportedException;
 import factory.graph.*;
 import graph.Graph;
 import org.junit.Test;
@@ -63,7 +64,7 @@ public class GraphMetricsTest {
         try {
             System.out.println(GraphMetrics.degreeCentrality(poet, poet.vertices().stream().filter(item -> item.getLabel().equals("to")).findFirst().orElse(null)));
             assert (false);
-        } catch (UnsupportedOperationException ignored) {
+        } catch (UnsupportedException ignored) {
         }
         assertEquals(1, GraphMetrics.inDegreeCentrality(poet, poet.vertices().stream().filter(item -> item.getLabel().equals("to")).findFirst().orElse(null)), 0.00001);
     }
