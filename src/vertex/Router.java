@@ -20,7 +20,7 @@ public class Router extends Vertex {
     public void fillVertexInfo(String[] args) throws NumberFormatException, VertexAttributeException {
         if (args.length == 1) {
             try {
-                String values[] = args[0].split(".");
+                String values[] = args[0].split("\\.");
                 for (String value : values) {
                     int ipValue = Integer.parseInt(value);
                     if (ipValue < 0 || ipValue > 255) // ip的每一个部分的值都在[0,255]的范围内

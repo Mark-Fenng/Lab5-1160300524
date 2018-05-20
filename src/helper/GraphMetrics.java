@@ -26,7 +26,7 @@ class GraphMetrics {
         int size = g.vertices().size();
         for (Vertex item : g.vertices())
             sum += maxDegree - item.getInEdges().size();
-        return sum / (size * size - 3 * size + 2);
+        return sum / (double) (size * size - 3 * size + 2);
     }
 
     /**
@@ -236,7 +236,7 @@ class GraphMetrics {
                         e[i][j] = e[i][k] + e[k][j];
                         path.get(i).get(j).removeIf(item -> true);
                         path.get(i).get(j).add(k);
-                    } else if (e[i][k] + e[k][j] == e[i][j] && e[i][j] != INFINITE) {
+                    } else if (Math.abs(e[i][k] + e[k][j] - e[i][j]) < 0.0001 && e[i][j] != INFINITE) {
                         path.get(i).get(j).add(k);
                     }
                 }
