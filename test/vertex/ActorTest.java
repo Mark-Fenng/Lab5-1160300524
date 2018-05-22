@@ -36,13 +36,13 @@ public class ActorTest {
     public void testFillVertexInfo() throws Exception {
         // 传入正常的参数
         String[] args = new String[2];
-        args[0] = "12";
-        args[1] = "M";
+        args[0] = "M";
+        args[1] = "12";
         a1.fillVertexInfo(args);
 
         //传入非正常的参数
-        args[0] = "1.2";
-        args[1] = "K";
+        args[1] = "1.2";
+        args[0] = "K";
         try {
             a1.fillVertexInfo(args);
             assert (false);
@@ -66,14 +66,14 @@ public class ActorTest {
     @Test
     public void testGetGender() throws Exception {
         String[] args = new String[2];
-        args[0] = "12";
-        args[1] = "M";
+        args[1] = "12";
+        args[0] = "M";
         a1.fillVertexInfo(args);
-        assertEquals(args[1], a1.getGender());
-        args[0] = "12";
-        args[1] = "F";
+        assertEquals(args[0], a1.getGender());
+        args[1] = "12";
+        args[0] = "F";
         a2.fillVertexInfo(args);
-        assertEquals(args[1], a2.getGender());
+        assertEquals(args[0], a2.getGender());
     }
 
     /**
@@ -82,12 +82,12 @@ public class ActorTest {
     @Test
     public void testGetAge() throws Exception {
         String[] args = new String[2];
-        args[0] = "11";
-        args[1] = "M";
+        args[1] = "11";
+        args[0] = "M";
         a1.fillVertexInfo(args);
         assertEquals(11, a1.getAge());
-        args[0] = "12";
-        args[1] = "F";
+        args[1] = "12";
+        args[0] = "F";
         a2.fillVertexInfo(args);
         assertEquals(12, a2.getAge());
     }
@@ -101,11 +101,11 @@ public class ActorTest {
         a2.setLabel("a1");
         assertTrue(a1.equals(a2));
         String[] args = new String[2];
-        args[0] = "12";
-        args[1] = "M";
+        args[1] = "12";
+        args[0] = "M";
         a1.fillVertexInfo(args);
-        args[0] = "12";
-        args[1] = "F";
+        args[1] = "12";
+        args[0] = "F";
         a2.fillVertexInfo(args);
         assertFalse(a1.equals(a2));
     }

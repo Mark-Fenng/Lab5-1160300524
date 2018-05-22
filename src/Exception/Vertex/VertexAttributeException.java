@@ -7,6 +7,6 @@ public class VertexAttributeException extends Exception {
      * @param VertexLabel 发生异常的点的label
      */
     public VertexAttributeException(String VertexLabel) {
-        super("The Vertex : \"" + VertexLabel + "\" has wrong number of attributes");
+        super("The Vertex : \"" + VertexLabel + "\" has wrong attributes");
     }
 }

@@ -3,11 +3,11 @@ GraphName = "MyFavoriteMovies"
 
 VertexType = "Movie", "Actor", "Director"
 Vertex = <"TheShawshankRedemption", "Movie", <"1994","USA","9.3">>
-Vertex = <"FrankDarabont", "Director", <"59","M">>
-Vertex = <"MorganFreeman", "Actor", <"81","M">>
-Vertex = <"TimRobbins", "Actor", <"60","M">>
+Vertex = <"FrankDarabont", "Director", <"M","59">>
+Vertex = <"MorganFreeman", "Actor", <"M","81">>
+Vertex = <"TimRobbins", "Actor", <"M","60">>
 Vertex = <"TheGreenMile", "Movie", <"1999","USA","8.5">>
-Vertex = <"TomHanks", "Actor", <"62","M">>
+Vertex = <"TomHanks", "Actor", <"M","62">>
 
 EdgeType = "MovieActorRelation","MovieDirectorRelation","SameMovieHyperEdge"
 Edge = <"SRFD", "MovieDirectorRelation", "-1", "TheShawshankRedemption", "FrankDarabont", "No">

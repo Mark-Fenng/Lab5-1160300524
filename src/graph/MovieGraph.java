@@ -49,7 +49,7 @@ public class MovieGraph extends ConcreteGraph {
                 super.removeEdge(hyperEdge);
             }
             // 删除不是超边的 包含要删除点的 边 或者边中点的个数小于2的边
-            edges.removeIf(item -> (!(item instanceof HyperEdge) && item.vertices().contains(vertex)) || item.vertices().size() < 2);
+            edges.removeIf(item -> (!(item instanceof HyperEdge) && item.vertices().contains(vertex)));
             return true;
         }
         return false;
