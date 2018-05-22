@@ -31,13 +31,13 @@ public class SocialNetwork extends ConcreteGraph {
     public boolean addVertex(Vertex vertex) throws VertexTypeException, VertexLabelException {
         if (!(vertex instanceof Person))
             throw new VertexTypeException(vertex.getLabel());
-        checkRep();
+//        checkRep();
         return super.addVertex(vertex);
     }
 
     @Override
     public boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException, EdgeWeightException {
-        checkRep();
+//        checkRep();
         if (!((edge instanceof ForwardConnection) || (edge instanceof FriendConnection) || (edge instanceof CommentConnection)))
             throw new EdgeTypeException(getLabel());
 
@@ -64,7 +64,7 @@ public class SocialNetwork extends ConcreteGraph {
 
     @Override
     public boolean removeEdge(Edge edge) throws EdgeWeightException {
-        checkRep();
+//        checkRep();
         if (super.edges().contains(edge)) {
             double weight = edge.getWeight();
             if (super.edges().size() != 1) {
@@ -73,7 +73,7 @@ public class SocialNetwork extends ConcreteGraph {
             }
             return super.removeEdge(edge);
         }
-        checkRep();
+//        checkRep();
         return false;
     }
 }

@@ -48,21 +48,21 @@ public class ConcreteGraph implements Graph {
 
     @Override
     public boolean addVertex(Vertex vertex) throws VertexTypeException, VertexLabelException {
-        checkRep();
+//        checkRep();
         if (vertices.contains(vertex))
             throw new VertexLabelException(label);
-        checkRep();
+//        checkRep();
         return vertices.add(vertex);
     }
 
     @Override
     public boolean removeVertex(Vertex vertex) throws EdgeWeightException {
-        checkRep();
+//        checkRep();
         if (vertices.remove(vertex)) {
             edges.removeIf(item -> item.vertices().contains(vertex));
             return true;
         }
-        checkRep();
+//        checkRep();
         return false;
     }
 
@@ -111,7 +111,7 @@ public class ConcreteGraph implements Graph {
 
     @Override
     public boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException, EdgeWeightException {
-        checkRep();
+//        checkRep();
         for (Vertex item : edge.vertices()) {
             if (!vertices.contains(item))
                 throw new EdgeNullVertexException("The Vertex : " + item + " have not been define before");
@@ -137,13 +137,13 @@ public class ConcreteGraph implements Graph {
         this.vertices.stream().filter(item -> edge.sourceVertices().contains(item)).forEach(item -> item.addOutEdge(edge));
         // add edge to the vertex as in edges
         this.vertices.stream().filter(item -> edge.targetVertices().contains(item)).forEach(item -> item.addInEdge(edge));
-        checkRep();
+//        checkRep();
         return true;
     }
 
     @Override
     public boolean removeEdge(Edge edge) throws EdgeWeightException {
-        checkRep();
+//        checkRep();
         if (edges.remove(edge)) {
             // add edge to the vertex,as out edges
             this.vertices.stream().filter(item -> edge.sourceVertices().contains(item)).forEach(item -> item.removeEdge(edge));
@@ -151,7 +151,7 @@ public class ConcreteGraph implements Graph {
             this.vertices.stream().filter(item -> edge.targetVertices().contains(item)).forEach(item -> item.removeEdge(edge));
             return true;
         }
-        checkRep();
+//        checkRep();
         return false;
     }
 
