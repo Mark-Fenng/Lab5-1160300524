@@ -89,4 +89,10 @@ public interface Graph {
      */
     Set<Edge> edges();
 
+    /**
+     * 获得图的label值
+     *
+     * @return 图的label值
+     */
+    String getLabel();
 }

@@ -158,4 +158,6 @@ public abstract class Vertex {
     public int hashCode() {
         return this.getLabel().hashCode();
     }
+
+    abstract public String getVertexInfo();
 }

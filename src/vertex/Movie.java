@@ -2,8 +2,10 @@ package vertex;
 
 import Exception.Vertex.VertexAttributeException;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * RI 电影的上映年份year 在[1900,2018]，IMDb评分在[0,10]
@@ -84,5 +86,15 @@ public class Movie extends Vertex {
      */
     double getIMDb() {
         return IMDb;
+    }
+
+    /**
+     * 返回点中的信息
+     *
+     * @return 包含所有点中信息的字符串
+     */
+    @Override
+    public String getVertexInfo() {
+        return ",<\"" + year + "\",\"" + country + "\",\"" + IMDb + "\">";
     }
 }

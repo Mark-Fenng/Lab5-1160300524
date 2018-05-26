@@ -42,6 +42,7 @@ public class ConcreteGraph implements Graph {
         this.label = label;
     }
 
+    @Override
     public String getLabel() {
         return this.label;
     }

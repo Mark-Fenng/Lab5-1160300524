@@ -2,7 +2,10 @@ package vertex;
 
 import Exception.Vertex.VertexAttributeException;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * RI ip的每一个部分的值都在[0,255]的范围内
@@ -57,5 +60,15 @@ public class Computer extends Vertex {
         objects[0] = this.getLabel();
         objects[1] = ip;
         return Arrays.hashCode(objects);
+    }
+
+    /**
+     * 返回点中的信息
+     *
+     * @return 包含所有点中信息的字符串
+     */
+    @Override
+    public String getVertexInfo() {
+        return ",<\"" + ip + "\">";
     }
 }

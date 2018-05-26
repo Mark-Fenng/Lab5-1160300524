@@ -2,7 +2,10 @@ package vertex;
 
 import Exception.Vertex.VertexAttributeException;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * RI  person的age在[0,150] gender必须是"M"|"F"
@@ -68,5 +71,15 @@ public class Director extends Vertex {
         objects[1] = this.getAge();
         objects[2] = this.getGender();
         return Arrays.hashCode(objects);
+    }
+
+    /**
+     * 返回点中的信息
+     *
+     * @return 包含所有点中信息的字符串
+     */
+    @Override
+    public String getVertexInfo() {
+        return ",<\"" + gender + "\",\"" + age + "\">";
     }
 }
