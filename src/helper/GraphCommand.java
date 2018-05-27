@@ -109,7 +109,7 @@ class GraphCommand extends Command {
                 OutputGraph.output(graph, matcher.group(1));
                 System.out.println("Output the file successfully!");
             } catch (IOException e) {
-                MyLogger.warning("The filePath " + matcher.group(1) + " can't be created\n" + MyLogger.toString(e));
+                MyLogger.severe("The filePath " + matcher.group(1) + " can't be created\n" + MyLogger.toString(e));
                 System.out.println("The filePath " + matcher.group(1) + " can't be created");
             }
             CommandFlag = true;

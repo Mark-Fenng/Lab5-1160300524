@@ -63,7 +63,7 @@ class OutputGraph {
         // 输出超边
         g.edges().stream().filter(item -> item instanceof HyperEdge).forEach(item -> {
             try {
-                fileWriter.write("Edge = <" + item.toString() + ">\n");
+                fileWriter.write("HyperEdge = <" + item.toString() + ">\n");
             } catch (IOException e) {
                 e.printStackTrace();
             }

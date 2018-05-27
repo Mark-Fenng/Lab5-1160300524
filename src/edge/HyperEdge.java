@@ -43,6 +43,8 @@ public class HyperEdge extends Edge {
     public String toString() {
         StringBuilder vertices = new StringBuilder();
         super.vertices.forEach(item -> vertices.append("\"").append(item).append("\", "));
-        return "\"" + getLabel() + "\", \"" + getClass().getName() + "\", \"" + "{" + vertices.substring(0, vertices.length() - 2) + "}";
+        return "\"" + getLabel() + "\", \"" +
+                getClass().getName().split("\\.")[getClass().getName().split("\\.").length - 1]
+                + "\", " + "{" + vertices.substring(0, vertices.length() - 2) + "}";
     }
 }
