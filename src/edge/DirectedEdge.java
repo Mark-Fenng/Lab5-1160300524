@@ -51,4 +51,9 @@ public class DirectedEdge extends Edge {
             target.add(super.vertices.get(1));
         return target;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + " ,\"" + "Yes" + "\"";
+    }
 }

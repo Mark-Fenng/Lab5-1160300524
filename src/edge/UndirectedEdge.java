@@ -44,4 +44,9 @@ public class UndirectedEdge extends Edge {
     public Set<Vertex> targetVertices() {
         return super.vertices();
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + " ,\"" + "No" + "\"";
+    }
 }

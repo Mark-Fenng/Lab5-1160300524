@@ -4,7 +4,6 @@ import Exception.Edge.EdgeVertexTypeException;
 import Exception.Edge.EdgeWeightException;
 import vertex.Vertex;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -38,5 +37,12 @@ public class HyperEdge extends Edge {
 
     public boolean removeVertex(Vertex vertex) {
         return vertices.remove(vertex);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder vertices = new StringBuilder();
+        super.vertices.forEach(item -> vertices.append("\"").append(item).append("\", "));
+        return "\"" + getLabel() + "\", \"" + getClass().getName() + "\", \"" + "{" + vertices.substring(0, vertices.length() - 2) + "}";
     }
 }
