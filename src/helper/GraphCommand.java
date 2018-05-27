@@ -63,7 +63,8 @@ class GraphCommand extends Command {
         Rules.add(Pattern.compile("^radius$"));
         Rules.add(Pattern.compile("^diameter$"));
         Rules.add(Pattern.compile("^visible$"));
-        Rules.add(Pattern.compile("^distance=\"(.*)\"\"(.*)\""));
+        Rules.add(Pattern.compile("^distance\\s*=\\s*\"(.*)\"\"(.*)\""));
+        Rules.add(Pattern.compile("^filePath\\s*=\\s*\"(.*)\"$"));
         matcher = Rules.get(0).matcher(OptionalCommand);
         boolean CommandFlag = false; // 用于标记以上的命令是否有执行过，如果在函数结束时，值还是false，则抛出异常
         if (matcher.find()) {
@@ -100,6 +101,17 @@ class GraphCommand extends Command {
             }
             MyLogger.info("The distance between the two vertices : " + GraphMetrics.distance(graph, start, end));
             System.out.println("The distance between the two vertices : " + GraphMetrics.distance(graph, start, end));
+            CommandFlag = true;
+        }
+        matcher = Rules.get(5).matcher(OptionalCommand);
+        if (matcher.find()) {
+            try {
+                OutputGraph.output(graph, matcher.group(1));
+                System.out.println("Output the file successfully!");
+            } catch (IOException e) {
+                MyLogger.warning("The filePath " + matcher.group(1) + " can't be created\n" + MyLogger.toString(e));
+                System.out.println("The filePath " + matcher.group(1) + " can't be created");
+            }
             CommandFlag = true;
         }
         if (!CommandFlag)

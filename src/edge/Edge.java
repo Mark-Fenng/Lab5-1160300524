@@ -149,7 +149,9 @@ abstract public class Edge {
      */
     @Override
     public String toString() {
-        return "\"" + getLabel() + "\", \"" + getClass().getName() + "\", \"" + getWeight() + "\", \"" + vertices.get(0) + "\", \"" + vertices.get(1) + "\", ";
+        return "\"" + getLabel() + "\", \"" +
+                getClass().getName().split("\\.")[getClass().getName().split("\\.").length - 1]
+                + "\", \"" + getWeight() + "\", \"" + vertices.get(0) + "\", \"" + vertices.get(1) + "\"";
     }
 
     @Override

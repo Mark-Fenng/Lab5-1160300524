@@ -47,6 +47,6 @@ public class UndirectedEdge extends Edge {
 
     @Override
     public String toString() {
-        return super.toString() + " ,\"" + "No" + "\"";
+        return super.toString() + ", \"" + "No" + "\"";
     }
 }

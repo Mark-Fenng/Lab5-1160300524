@@ -27,8 +27,8 @@ public class EdgeTest {
 
     @Before
     public void before() throws Exception {
-        e1 = new WordEdge("e1", 1);
-        e2 = new WordEdge("e2", 2);
+        e1 = new WordNeighborhood("e1", 1);
+        e2 = new WordNeighborhood("e2", 2);
         v1 = new Word("w1");
         v2 = new Word("w2");
     }
@@ -163,7 +163,7 @@ public class EdgeTest {
         e1.addVertices(Arrays.asList(v1, v2));
         e2.addVertices(Arrays.asList(v2, v1));
         assertFalse(e1.equals(e2));
-        e2 = new WordEdge("e3", 1);
+        e2 = new WordNeighborhood("e3", 1);
         e2.addVertices(Arrays.asList(v1, v2));
         assertTrue(e1.equals(e2));
     }

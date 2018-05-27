@@ -11,8 +11,8 @@ import java.util.List;
 /**
  * RI : weight>0
  */
-public class WordEdge extends DirectedEdge {
-    public WordEdge(String label, double weight) throws EdgeWeightException {
+public class WordNeighborhood extends DirectedEdge {
+    public WordNeighborhood(String label, double weight) throws EdgeWeightException {
         super(label, weight);
         try {
             if (Math.abs((int) weight - weight) > 0.001 || weight < 0)

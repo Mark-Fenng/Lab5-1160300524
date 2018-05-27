@@ -5,10 +5,10 @@ import Exception.Edge.EdgeNullVertexException;
 import Exception.Edge.EdgeWeightException;
 import Exception.Vertex.VertexLabelException;
 import Exception.Vertex.VertexTypeException;
-import edge.CommentConnection;
+import edge.CommentTie;
 import edge.Edge;
-import edge.ForwardConnection;
-import edge.FriendConnection;
+import edge.ForwardTie;
+import edge.FriendTie;
 import vertex.Person;
 import vertex.Vertex;
 
@@ -38,7 +38,7 @@ public class SocialNetwork extends ConcreteGraph {
     @Override
     public boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException, EdgeWeightException {
 //        checkRep();
-        if (!((edge instanceof ForwardConnection) || (edge instanceof FriendConnection) || (edge instanceof CommentConnection)))
+        if (!((edge instanceof ForwardTie) || (edge instanceof FriendTie) || (edge instanceof CommentTie)))
             throw new EdgeTypeException(getLabel());
 
         // 避免单重边中存在多充边，如果存在，就不添加这条边

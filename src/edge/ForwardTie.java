@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * RI: weight在[0,1]
  */
-public class ForwardConnection extends DirectedEdge {
-    ForwardConnection(String label, double weight) {
+public class ForwardTie extends DirectedEdge {
+    ForwardTie(String label, double weight) {
         super(label, weight);
     }
 

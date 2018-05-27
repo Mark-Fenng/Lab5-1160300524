@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * RI: weight在[0,1]
  */
-public class CommentConnection extends DirectedEdge {
-    public CommentConnection(String label, double weight) {
+public class CommentTie extends DirectedEdge {
+    public CommentTie(String label, double weight) {
         super(label, weight);
     }
 

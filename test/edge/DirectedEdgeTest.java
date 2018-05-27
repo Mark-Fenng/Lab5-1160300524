@@ -28,8 +28,8 @@ public class DirectedEdgeTest {
 
     @Before
     public void before() throws Exception {
-        e1 = new WordEdge("e1", 1);
-        e2 = new WordEdge("e2", 2);
+        e1 = new WordNeighborhood("e1", 1);
+        e2 = new WordNeighborhood("e2", 2);
         v1 = new Word("w1");
         v2 = new Word("w2");
     }

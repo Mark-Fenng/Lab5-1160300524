@@ -11,8 +11,6 @@ import vertex.Word;
 import java.util.Arrays;
 import java.util.Collections;
 
-import static org.junit.Assert.*;
-
 /**
  * CommentConnection Tester.
  *
@@ -26,8 +24,8 @@ public class CommentConnectionTest {
 
     @Before
     public void before() throws Exception {
-        e1 = new CommentConnection("e1", 1);
-        e2 = new CommentConnection("e2", 2);
+        e1 = new CommentTie("e1", 1);
+        e2 = new CommentTie("e2", 2);
         v1 = new Person("w1");
         v2 = new Person("w2");
     }

@@ -52,10 +52,11 @@ import java.util.regex.Pattern;
  * <p>graph --add filepath  通过输入一个固定格式的文件，根据文件中提供的信息建立一个新的图</p>
  * <p>graph --show</p>
  * <ul>
+ * <li>filePath = "file path"  将图的信息以文件的形式输出</li>
+ * <li>visible 将图的可视化结果输出</li>
  * <li>degreeCentrality 输出图的degreeCentrality值</li>
  * <li>radius 输出图的radius值</li>
  * <li>diameter 输出图的diameter值</li>
- * <li>visible 将图的可视化结果输出</li>
  * <li>distance="vertex1""vertex2" 输出vertex1 与 vertex2 在图中的 distance值</li>
  * </ul>
  */
@@ -175,10 +176,11 @@ public class ParseCommandHelper {
 
         System.out.println("graph --add filepath");
         System.out.println("graph --show");
+        System.out.println("\tvisible");
+        System.out.println("\tfilePath = \"file path\"");
         System.out.println("\tdegreeCentrality");
         System.out.println("\tradius");
         System.out.println("\tdiameter");
-        System.out.println("\tvisiable");
         System.out.println("\tdistance=\"vertex1\"\"vertex2\"");
     }
 }

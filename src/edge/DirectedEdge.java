@@ -54,6 +54,6 @@ public class DirectedEdge extends Edge {
 
     @Override
     public String toString() {
-        return super.toString() + " ,\"" + "Yes" + "\"";
+        return super.toString() + ", \"" + "Yes" + "\"";
     }
 }

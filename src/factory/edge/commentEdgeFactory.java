@@ -2,7 +2,7 @@ package factory.edge;
 
 import Exception.Edge.EdgeLoopException;
 import Exception.Edge.EdgeVertexTypeException;
-import edge.CommentConnection;
+import edge.CommentTie;
 import edge.Edge;
 import vertex.Person;
 import vertex.Vertex;
@@ -11,7 +11,7 @@ import java.util.List;
 
 class commentEdgeFactory {
     static Edge createEdge(String label, List<Vertex> vertices, double weight) throws EdgeLoopException, EdgeVertexTypeException {
-        Edge commentConnection = new CommentConnection(label, weight);
+        Edge commentConnection = new CommentTie(label, weight);
         if (vertices.get(0).equals(vertices.get(1))) {
             throw new EdgeLoopException(label);
         }

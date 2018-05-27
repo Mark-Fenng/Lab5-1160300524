@@ -11,8 +11,6 @@ import vertex.Word;
 import java.util.Arrays;
 import java.util.Collections;
 
-import static org.junit.Assert.*;
-
 /**
  * FriendConnection Tester.
  *
@@ -26,8 +24,8 @@ public class FriendConnectionTest {
 
     @Before
     public void before() throws Exception {
-        e1 = new FriendConnection("e1", 1);
-        e2 = new FriendConnection("e2", 2);
+        e1 = new FriendTie("e1", 1);
+        e2 = new FriendTie("e2", 2);
         v1 = new Person("w1");
         v2 = new Person("w2");
     }

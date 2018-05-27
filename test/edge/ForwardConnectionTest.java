@@ -11,8 +11,6 @@ import vertex.Word;
 import java.util.Arrays;
 import java.util.Collections;
 
-import static org.junit.Assert.*;
-
 /**
  * ForwardConnection Tester.
  *
@@ -26,8 +24,8 @@ public class ForwardConnectionTest {
 
     @Before
     public void before() throws Exception {
-        e1 = new ForwardConnection("e1", 1);
-        e2 = new ForwardConnection("e2", 2);
+        e1 = new ForwardTie("e1", 1);
+        e2 = new ForwardTie("e2", 2);
         v1 = new Person("w1");
         v2 = new Person("w2");
     }

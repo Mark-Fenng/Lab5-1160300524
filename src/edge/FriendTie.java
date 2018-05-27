@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * RI: weight在[0,1] 不存在环
  */
-public class FriendConnection extends DirectedEdge {
-    public FriendConnection(String label, double weight) {
+public class FriendTie extends DirectedEdge {
+    public FriendTie(String label, double weight) {
         super(label, weight);
     }
 

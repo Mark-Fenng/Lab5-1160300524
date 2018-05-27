@@ -6,11 +6,9 @@ import Exception.Edge.EdgeWeightException;
 import Exception.Vertex.VertexLabelException;
 import Exception.Vertex.VertexTypeException;
 import edge.Edge;
-import edge.WordEdge;
+import edge.WordNeighborhood;
 import vertex.Vertex;
 import vertex.Word;
-
-import java.io.IOException;
 
 public class GraphPoet extends ConcreteGraph {
     public GraphPoet(String label) {
@@ -26,7 +24,7 @@ public class GraphPoet extends ConcreteGraph {
 
     @Override
     public boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException, EdgeWeightException{
-        if (!(edge instanceof WordEdge))
+        if (!(edge instanceof WordNeighborhood))
             throw new EdgeTypeException(getLabel());
         // 避免单重边中存在多充边，如果存在，就不添加这条边
         return super.edges().stream().filter(item -> item.equals(edge)).count() == 0 && super.addEdge(edge);

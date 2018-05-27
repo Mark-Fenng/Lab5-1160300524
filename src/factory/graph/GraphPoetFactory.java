@@ -37,12 +37,13 @@ public class GraphPoetFactory {
             vertexInEdge.addAll(vertices.stream().filter(item -> item.getLabel().equals(list.get(3))).collect(Collectors.toList()));
             vertexInEdge.addAll(vertices.stream().filter(item -> item.getLabel().equals(list.get(4))).collect(Collectors.toList()));
             try {
-                poet.addEdge(EdgeFactory.createEdge(list.get(0), list.get(1), vertexInEdge, Integer.parseInt(list.get(2))));
+                double weight = Double.parseDouble(list.get(2));
+                poet.addEdge(EdgeFactory.createEdge(list.get(0), list.get(1), vertexInEdge, (int) weight));
                 // 保证输入的weight必须是正整数
-                if (Integer.parseInt(list.get(2)) <= 0)
+                if (weight <= 0 || Math.abs(weight - (int) weight) > 0.0001)
                     throw new EdgeWeightException(list.get(0), list.get(2));
             } catch (EdgeVertexTypeException | EdgeLoopException e) {
-                MyLogger.warning(e.toString()+ "\ngo on read the file");
+                MyLogger.warning(e.toString() + "\ngo on read the file");
             } catch (NumberFormatException e) {
                 throw new EdgeWeightException(list.get(0), list.get(2));
             }

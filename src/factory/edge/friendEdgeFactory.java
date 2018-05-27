@@ -2,9 +2,8 @@ package factory.edge;
 
 import Exception.Edge.EdgeLoopException;
 import Exception.Edge.EdgeVertexTypeException;
-import edge.CommentConnection;
 import edge.Edge;
-import edge.FriendConnection;
+import edge.FriendTie;
 import vertex.Person;
 import vertex.Vertex;
 
@@ -12,7 +11,7 @@ import java.util.List;
 
 class friendEdgeFactory {
     static Edge createEdge(String label, List<Vertex> vertices, double weight) throws EdgeLoopException, EdgeVertexTypeException {
-        Edge friendConnection = new FriendConnection(label, weight);
+        Edge friendConnection = new FriendTie(label, weight);
         if (vertices.get(0).equals(vertices.get(1))) {
             throw new EdgeLoopException(label);
         }
