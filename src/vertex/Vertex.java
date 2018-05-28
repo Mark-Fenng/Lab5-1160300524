@@ -52,11 +52,11 @@ public abstract class Vertex {
      * @return true: 这条入边添加成功, false: 这条入边添加失败
      */
     public boolean addInEdge(Edge inEdge) {
-        if (!inEdges.contains(inEdge) && inEdge.targetVertices().contains(this)) {
+//        if (!inEdges.contains(inEdge) && inEdge.targetVertices().contains(this)) {
             inEdges.add(inEdge);
             return true;
-        }
-        return false;
+//        }
+//        return false;
     }
 
     /**
@@ -68,11 +68,11 @@ public abstract class Vertex {
      * @return true: 这条入边添加成功, false: 这条入边添加失败
      */
     public boolean addOutEdge(Edge outEdge) {
-        if (!outEdges.contains(outEdge) && outEdge.sourceVertices().contains(this)) {
+//        if (!outEdges.contains(outEdge) && outEdge.sourceVertices().contains(this)) {
             outEdges.add(outEdge);
             return true;
-        }
-        return false;
+//        }
+//        return false;
     }
 
     /**

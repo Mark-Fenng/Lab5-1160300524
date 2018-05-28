@@ -208,7 +208,7 @@ abstract public class GraphFactory {
             }
         }
         long endTime = System.currentTimeMillis();
-        System.out.println("Read vertices finished  Using " + (endTime - startTime) / 1000.0 + " s");
+        System.out.println("Read edges finished  Using " + (endTime - startTime) / 1000.0 + " s");
         fileReader.close();
         return vertices;
     }

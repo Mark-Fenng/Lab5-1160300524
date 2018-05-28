@@ -14,6 +14,7 @@ import factory.vertex.VertexFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,7 +30,6 @@ public class GraphSocialFactory {
         socialNetwork = new SocialNetwork(graphName);
         // get Vertices from the file
         List<List<String>> vertexCut = GraphFactory.getVertices(filePath);
-        List<Vertex> vertices = new ArrayList<>();
         for (List<String> list : vertexCut) {
             regex = Pattern.compile("^\"(.*)\",\\s*\"(.*)\"$");
             matcher = regex.matcher(list.get(2));
@@ -39,16 +39,12 @@ public class GraphSocialFactory {
                 attr[1] = matcher.group(2);
             }
             Vertex newVertex = VertexFactory.createVertex(list.get(0), list.get(1), attr);
-            vertices.add(newVertex);
             socialNetwork.addVertex(newVertex);
         }
         List<List<String>> edgeCut = GraphFactory.getEdges(filePath);
         for (List<String> list : edgeCut) {
-            List<Vertex> vertexInEdge = new ArrayList<>();
-            vertexInEdge.addAll(vertices.stream().filter(item -> item.getLabel().equals(list.get(3))).collect(Collectors.toList()));
-            vertexInEdge.addAll(vertices.stream().filter(item -> item.getLabel().equals(list.get(4))).collect(Collectors.toList()));
             try {
-                socialNetwork.addEdge(EdgeFactory.createEdge(list.get(0), list.get(1), vertexInEdge, Double.parseDouble(list.get(2))));
+                socialNetwork.addEdge(EdgeFactory.createEdge(list.get(0), list.get(1), Arrays.asList(socialNetwork.getVertex(list.get(3)), socialNetwork.getVertex(list.get(4))), Double.parseDouble(list.get(2))));
                 if (Double.parseDouble(list.get(2)) < 0)
                     throw new EdgeWeightException(list.get(0), list.get(2));
             } catch (EdgeVertexTypeException | EdgeLoopException e) {

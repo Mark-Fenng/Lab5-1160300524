@@ -13,14 +13,13 @@ import vertex.Vertex;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import LoggerFactory.*;
 
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public class GraphMovieFactory {
     public static Graph createGraph(String filePath) throws IOException, FormatException, EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, DirectedEdgeException, HyperEdgeException, EdgeWeightException, VertexLabelException {
@@ -32,7 +31,6 @@ public class GraphMovieFactory {
         movie = new MovieGraph(graphName);
         // get Vertices from the file
         List<List<String>> vertexCut = GraphFactory.getVertices(filePath);
-        List<Vertex> vertices = new ArrayList<>();
         for (List<String> list : vertexCut) {
             regex = Pattern.compile("^\"(.*?)\",\\s*\"(.*?)\"(?:,\\s*\"(.*)\")?$");
             matcher = regex.matcher(list.get(2));
@@ -47,17 +45,13 @@ public class GraphMovieFactory {
                 args[1] = matcher.group(2);
             }
             Vertex newVertex = VertexFactory.createVertex(list.get(0), list.get(1), args);
-            vertices.add(newVertex);
             movie.addVertex(newVertex);
         }
         List<List<String>> edgeCut = GraphFactory.getEdges(filePath);
         for (List<String> list : edgeCut) {
-            List<Vertex> vertexInEdge = new ArrayList<>();
             if (list.size() == 6) {
-                vertexInEdge.addAll(vertices.stream().filter(item -> item.getLabel().equals(list.get(3))).collect(Collectors.toList()));
-                vertexInEdge.addAll(vertices.stream().filter(item -> item.getLabel().equals(list.get(4))).collect(Collectors.toList()));
                 try {
-                    movie.addEdge(EdgeFactory.createEdge(list.get(0), list.get(1), vertexInEdge, Double.parseDouble(list.get(2))));
+                    movie.addEdge(EdgeFactory.createEdge(list.get(0), list.get(1), Arrays.asList(movie.getVertex(list.get(3)), movie.getVertex(list.get(4))), Double.parseDouble(list.get(2))));
                 } catch (EdgeVertexTypeException | EdgeLoopException e) {
                     MyLogger.warning(e.toString() + "\ngo on read the file");
                 }
@@ -65,11 +59,8 @@ public class GraphMovieFactory {
                 String hyperStr = list.get(2);
                 hyperStr = hyperStr.replace(" ", "");
                 String[] hyper = hyperStr.split(",");
-                for (String item : hyper) {
-                    item = item.substring(1, item.length() - 1);
-                    String itemFinal = item;
-                    vertexInEdge.addAll(vertices.stream().filter(o -> o.getLabel().equals(itemFinal)).collect(Collectors.toList()));
-                }
+                List<Vertex> vertexInEdge = new ArrayList<>();
+                Arrays.stream(hyper).forEach(item -> vertexInEdge.add(movie.getVertex(item.substring(1, item.length() - 1))));
                 try {
                     movie.addEdge(EdgeFactory.createEdge(list.get(0), list.get(1), vertexInEdge, -1));
                 } catch (EdgeVertexTypeException | EdgeLoopException e) {
