@@ -99,6 +99,7 @@ abstract public class GraphFactory {
      * @throws FormatException 传入的文件的格式不符合要求异常，处理异常时要求给出异常的提示信息，并允许用户重新读入新的的文件，
      */
     public static List<List<String>> getVertices(String filePath) throws IOException, FormatException {
+        long startTime = System.currentTimeMillis();
         List<List<String>> vertices = new ArrayList<>();
         BufferedReader fileReader = Files.newBufferedReader(Paths.get(filePath), StandardCharsets.UTF_8);
         Pattern regex;
@@ -132,6 +133,8 @@ abstract public class GraphFactory {
                 throw new FormatException("\"" + content + "\" format error!\nDefine Vertex format : Vertex = <\"Label\",\"type\",<\"attr1\",...,\"attrk\">>", countLine);
             }
         }
+        long endTime = System.currentTimeMillis();
+        System.out.println("Read vertices finished  Using " + (endTime - startTime) / 1000.0 + " s");
         fileReader.close();
         return vertices;
     }
@@ -147,6 +150,7 @@ abstract public class GraphFactory {
      * @throws DirectedEdgeException 当边的类型是有向边，若文件的描述是无向边，则抛出此异常
      */
     public static List<List<String>> getEdges(String filePath) throws IOException, FormatException, DirectedEdgeException {
+        long startTime = System.currentTimeMillis();
         List<List<String>> vertices = new ArrayList<>();
         BufferedReader fileReader = Files.newBufferedReader(Paths.get(filePath), StandardCharsets.UTF_8);
 //        FileInputStream fin = new FileInputStream("readandshow.txt");
@@ -198,11 +202,13 @@ abstract public class GraphFactory {
             if (matcher.find()) {
                 vertices.add(new ArrayList<>(Arrays.asList(matcher.group(1), matcher.group(2), matcher.group(3))));
             } else if (!edgeFind) {
-                throw new FormatException("\"" + content + "\"format error!\n" +
-                        "Define Edge format : Edge = <\"Label\",\"type\",\"Weight\",\"StartVertex\",\"EndVertex\",\"Yes|No\">\n" +
-                        "Define Hyper Edge format : HyperEdge = <\"Label\",\"Type\",{\"Vertex1\", ..., \"Vertexn\"}>", countLine);
+                throw new FormatException("\"" + content + "\"format error!\n"
+                        + "Define Edge format : Edge = <\"Label\",\"type\",\"Weight\",\"StartVertex\",\"EndVertex\",\"Yes|No\">\n"
+                        + "Define Hyper Edge format : HyperEdge = <\"Label\",\"Type\",{\"Vertex1\", ..., \"Vertexn\"}>", countLine);
             }
         }
+        long endTime = System.currentTimeMillis();
+        System.out.println("Read vertices finished  Using " + (endTime - startTime) / 1000.0 + " s");
         fileReader.close();
         return vertices;
     }

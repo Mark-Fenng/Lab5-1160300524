@@ -95,4 +95,12 @@ public interface Graph {
      * @return 图的label值
      */
     String getLabel();
+
+    /**
+     * 通过传入某个label，获得这个label对应的vertex对象
+     *
+     * @param label
+     * @return
+     */
+    public Vertex getVertex(String label);
 }

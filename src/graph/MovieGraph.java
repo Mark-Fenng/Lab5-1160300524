@@ -8,7 +8,6 @@ import Exception.Vertex.VertexTypeException;
 import edge.*;
 import vertex.*;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,7 +33,8 @@ public class MovieGraph extends ConcreteGraph {
 
     @Override
     public boolean removeVertex(Vertex vertex) throws EdgeWeightException {
-        if (vertices.remove(vertex)) {
+        if (vertices.get(getLabel()) != null) {
+            vertices.remove(vertex.getLabel());
             // 从图中获取包含要删除点的超边
             List<HyperEdge> hyperEdgeList = edges.stream()
                     .filter(item -> (item instanceof HyperEdge) && item.vertices().contains(vertex))

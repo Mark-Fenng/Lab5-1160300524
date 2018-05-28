@@ -30,7 +30,7 @@ import java.util.*;
  */
 public class ConcreteGraph implements Graph {
     private final String label;
-    protected final List<Vertex> vertices = new LinkedList<>();
+    protected final Map<String, Vertex> vertices = new HashMap<>();
     final List<Edge> edges = new LinkedList<>();
 
     private void checkRep() {
@@ -48,18 +48,25 @@ public class ConcreteGraph implements Graph {
     }
 
     @Override
+    public Vertex getVertex(String label) {
+        return vertices.get(label);
+    }
+
+    @Override
     public boolean addVertex(Vertex vertex) throws VertexTypeException, VertexLabelException {
 //        checkRep();
 //        if (vertices.contains(vertex))
 //            throw new VertexLabelException(label);
 //        checkRep();
-        return vertices.add(vertex);
+        vertices.put(vertex.getLabel(), vertex);
+        return true;
     }
 
     @Override
     public boolean removeVertex(Vertex vertex) throws EdgeWeightException {
 //        checkRep();
-        if (vertices.remove(vertex)) {
+        if (vertices.get(vertex.getLabel()) != null) {
+            vertices.remove(vertex.getLabel());
             edges.removeIf(item -> item.vertices().contains(vertex));
             return true;
         }
@@ -69,13 +76,13 @@ public class ConcreteGraph implements Graph {
 
     @Override
     public Set<Vertex> vertices() {
-        return new HashSet<>(vertices);
+        return new HashSet<>(vertices.values());
     }
 
 
     @Override
     public Map<Vertex, List<Double>> sources(Vertex target) {
-        if (vertices.contains(target)) {
+        if (vertices.get(target.getLabel()) != null) {
             Set<Edge> inEdges = target.getInEdges();
             Map<Vertex, List<Double>> result = new HashMap<>();
             for (Edge item : inEdges) {
@@ -93,7 +100,7 @@ public class ConcreteGraph implements Graph {
 
     @Override
     public Map<Vertex, List<Double>> targets(Vertex source) {
-        if (vertices.contains(source)) {
+        if (vertices.get(source.getLabel()) != null) {
             Set<Edge> outEdges = source.getOutEdges();
             Map<Vertex, List<Double>> result = new HashMap<>();
             for (Edge item : outEdges) {
@@ -135,9 +142,9 @@ public class ConcreteGraph implements Graph {
 
         edges.add(edge);
         // add edge to the vertex,as out edges
-        this.vertices.stream().filter(item -> edge.sourceVertices().contains(item)).forEach(item -> item.addOutEdge(edge));
+        edge.sourceVertices().forEach(item -> vertices.get(item.getLabel()).addOutEdge(edge));
         // add edge to the vertex as in edges
-        this.vertices.stream().filter(item -> edge.targetVertices().contains(item)).forEach(item -> item.addInEdge(edge));
+        edge.targetVertices().forEach(item -> vertices.get(item.getLabel()).addInEdge(edge));
 //        checkRep();
         return true;
     }
@@ -147,9 +154,9 @@ public class ConcreteGraph implements Graph {
 //        checkRep();
         if (edges.remove(edge)) {
             // add edge to the vertex,as out edges
-            this.vertices.stream().filter(item -> edge.sourceVertices().contains(item)).forEach(item -> item.removeEdge(edge));
+            edge.sourceVertices().forEach(item -> vertices.get(item.getLabel()).removeEdge(edge));
             // add edge to the vertex as in edges
-            this.vertices.stream().filter(item -> edge.targetVertices().contains(item)).forEach(item -> item.removeEdge(edge));
+            edge.targetVertices().forEach(item -> vertices.get(item.getLabel()).removeEdge(edge));
             return true;
         }
 //        checkRep();

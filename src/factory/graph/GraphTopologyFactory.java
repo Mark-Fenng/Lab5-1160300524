@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public class GraphTopologyFactory {
     public static Graph createGraph(String filePath) throws IOException, FormatException, EdgeNullVertexException, VertexAttributeException, VertexTypeException, EdgeTypeException, DirectedEdgeException, HyperEdgeException, EdgeWeightException, VertexLabelException {
@@ -44,8 +43,8 @@ public class GraphTopologyFactory {
         List<List<String>> edgeCut = GraphFactory.getEdges(filePath);
         for (List<String> list : edgeCut) {
             List<Vertex> vertexInEdge = new ArrayList<>();
-            vertexInEdge.addAll(vertices.stream().filter(item -> item.getLabel().equals(list.get(3))).collect(Collectors.toList()));
-            vertexInEdge.addAll(vertices.stream().filter(item -> item.getLabel().equals(list.get(4))).collect(Collectors.toList()));
+            vertexInEdge.add(NetworkTopology.getVertex(list.get(3)));
+            vertexInEdge.add(NetworkTopology.getVertex(list.get(4)));
             try {
                 NetworkTopology.addEdge(EdgeFactory.createEdge(list.get(0), list.get(1), vertexInEdge, Double.parseDouble(list.get(2))));
                 if (Double.parseDouble(list.get(2)) < 0)
