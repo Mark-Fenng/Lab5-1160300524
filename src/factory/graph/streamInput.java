@@ -2,7 +2,7 @@ package factory.graph;
 
 import java.io.*;
 
-public class streamInput implements ReadeFile {
+public class streamInput implements ReadFile {
     private final InputStreamReader reader;
 
     streamInput(String filePath) throws IOException {

@@ -11,12 +11,6 @@ import graph.Graph;
 import LoggerFactory.*;
 
 import java.io.*;
-import java.nio.Buffer;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -98,7 +92,7 @@ abstract public class GraphFactory {
      * @throws IOException     包含图信息的固定格式文件读取的异常
      * @throws FormatException 传入的文件的格式不符合要求异常，处理异常时要求给出异常的提示信息，并允许用户重新读入新的的文件，
      */
-    public static List<List<String>> getVertices(ReadeFile fileReader) throws IOException, FormatException {
+    public static List<List<String>> getVertices(ReadFile fileReader) throws IOException, FormatException {
         long startTime = System.currentTimeMillis();
         List<List<String>> vertices = new ArrayList<>();
 //        BufferedReader fileReader = Files.newBufferedReader(Paths.get(filePath), StandardCharsets.UTF_8);
@@ -149,7 +143,7 @@ abstract public class GraphFactory {
      * @throws FormatException       传入的文件的格式不符合要求异常，处理异常时要求给出异常的提示信息，并允许用户重新读入新的的文件，
      * @throws DirectedEdgeException 当边的类型是有向边，若文件的描述是无向边，则抛出此异常
      */
-    public static List<List<String>> getEdges(ReadeFile fileReader) throws IOException, FormatException, DirectedEdgeException {
+    public static List<List<String>> getEdges(ReadFile fileReader) throws IOException, FormatException, DirectedEdgeException {
         long startTime = System.currentTimeMillis();
         List<List<String>> vertices = new ArrayList<>();
 //        BufferedReader fileReader = Files.newBufferedReader(Paths.get(filePath), StandardCharsets.UTF_8);
