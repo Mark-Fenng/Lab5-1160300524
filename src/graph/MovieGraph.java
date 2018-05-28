@@ -28,7 +28,8 @@ public class MovieGraph extends ConcreteGraph {
         if (!((edge instanceof DirectedEdge) || (edge instanceof MovieActorRelation) || (edge instanceof MovieDirectorRelation) || (edge instanceof SameMovieHyperEdge)))
             throw new EdgeTypeException(getLabel());
         // 避免单重边中存在多充边，如果存在，就不添加这条边
-        return super.edges().stream().filter(item -> item.equals(edge)).count() == 0 && super.addEdge(edge);
+        return super.addEdge(edge);
+//        return super.edges().stream().filter(item -> item.equals(edge)).count() == 0 && super.addEdge(edge);
     }
 
     @Override
