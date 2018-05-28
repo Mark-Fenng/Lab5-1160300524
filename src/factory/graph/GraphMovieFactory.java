@@ -29,8 +29,9 @@ public class GraphMovieFactory {
         // graph name
         String graphName = GraphFactory.GraphLabel(filePath);
         movie = new MovieGraph(graphName);
+        streamInput reader = new streamInput(filePath);
         // get Vertices from the file
-        List<List<String>> vertexCut = GraphFactory.getVertices(filePath);
+        List<List<String>> vertexCut = GraphFactory.getVertices(reader);
         for (List<String> list : vertexCut) {
             regex = Pattern.compile("^\"(.*?)\",\\s*\"(.*?)\"(?:,\\s*\"(.*)\")?$");
             matcher = regex.matcher(list.get(2));
@@ -47,7 +48,8 @@ public class GraphMovieFactory {
             Vertex newVertex = VertexFactory.createVertex(list.get(0), list.get(1), args);
             movie.addVertex(newVertex);
         }
-        List<List<String>> edgeCut = GraphFactory.getEdges(filePath);
+        reader = new streamInput(filePath);
+        List<List<String>> edgeCut = GraphFactory.getEdges(reader);
         for (List<String> list : edgeCut) {
             if (list.size() == 6) {
                 try {

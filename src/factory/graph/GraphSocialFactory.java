@@ -28,8 +28,9 @@ public class GraphSocialFactory {
         // get graph name
         String graphName = GraphFactory.GraphLabel(filePath);
         socialNetwork = new SocialNetwork(graphName);
+        streamInput reader = new streamInput(filePath);
         // get Vertices from the file
-        List<List<String>> vertexCut = GraphFactory.getVertices(filePath);
+        List<List<String>> vertexCut = GraphFactory.getVertices(reader);
         for (List<String> list : vertexCut) {
             regex = Pattern.compile("^\"(.*)\",\\s*\"(.*)\"$");
             matcher = regex.matcher(list.get(2));
@@ -41,7 +42,8 @@ public class GraphSocialFactory {
             Vertex newVertex = VertexFactory.createVertex(list.get(0), list.get(1), attr);
             socialNetwork.addVertex(newVertex);
         }
-        List<List<String>> edgeCut = GraphFactory.getEdges(filePath);
+        reader = new streamInput(filePath);
+        List<List<String>> edgeCut = GraphFactory.getEdges(reader);
         for (List<String> list : edgeCut) {
             try {
                 socialNetwork.addEdge(EdgeFactory.createEdge(list.get(0), list.get(1), Arrays.asList(socialNetwork.getVertex(list.get(3)), socialNetwork.getVertex(list.get(4))), Double.parseDouble(list.get(2))));

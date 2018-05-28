@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 class OutputGraph {
     static void output(Graph g, String filePath) throws IOException {
+        long startTime = System.currentTimeMillis();
         File file = new File(filePath);
         FileWriter fileWriter = new FileWriter(file);
         // 输出对图的描述
@@ -68,6 +69,8 @@ class OutputGraph {
                 e.printStackTrace();
             }
         });
+        long endTime = System.currentTimeMillis();
+        System.out.println("Write file finish Using " + (endTime - startTime) / 1000.0 + " s");
         fileWriter.close();
     }
 }
