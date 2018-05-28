@@ -50,8 +50,8 @@ public class ConcreteGraph implements Graph {
     @Override
     public boolean addVertex(Vertex vertex) throws VertexTypeException, VertexLabelException {
 //        checkRep();
-        if (vertices.contains(vertex))
-            throw new VertexLabelException(label);
+//        if (vertices.contains(vertex))
+//            throw new VertexLabelException(label);
 //        checkRep();
         return vertices.add(vertex);
     }
@@ -113,25 +113,25 @@ public class ConcreteGraph implements Graph {
     @Override
     public boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException, EdgeWeightException {
 //        checkRep();
-        for (Vertex item : edge.vertices()) {
-            if (!vertices.contains(item))
-                throw new EdgeNullVertexException("The Vertex : " + item + " have not been define before");
-        }
+//        for (Vertex item : edge.vertices()) {
+//            if (!vertices.contains(item))
+//                throw new EdgeNullVertexException("The Vertex : " + item + " have not been define before");
+//        }
         // 如果edge的label在图中已经存在，则自动在边的label后面填完后缀
-        if (edges.contains(edge)) {
-            String TempLabel = edge.getLabel();
-            for (int i = 0; i < 10000; i++) {
-                edge.setLabel(edge.getLabel() + "_" + i);
-                if (!edges.contains(edge)) {
-                    MyLogger.info("The Edge : \"" + TempLabel + "\" Has Repeated Label in the Graph\n" +
-                            "But the New Label : \"" + TempLabel + "_" + i + "\" is Added to The Graph");
-                    System.out.println("The Edge : \"" + TempLabel + "\" Has Repeated Label in the Graph\n" +
-                            "But the New Label : \"" + TempLabel + "_" + i + "\" is Added to The Graph");
-                    break;
-
-                }
-            }
-        }
+//        if (edges.contains(edge)) {
+//            String TempLabel = edge.getLabel();
+//            for (int i = 0; i < 10000; i++) {
+//                edge.setLabel(edge.getLabel() + "_" + i);
+//                if (!edges.contains(edge)) {
+//                    MyLogger.info("The Edge : \"" + TempLabel + "\" Has Repeated Label in the Graph\n" +
+//                            "But the New Label : \"" + TempLabel + "_" + i + "\" is Added to The Graph");
+//                    System.out.println("The Edge : \"" + TempLabel + "\" Has Repeated Label in the Graph\n" +
+//                            "But the New Label : \"" + TempLabel + "_" + i + "\" is Added to The Graph");
+//                    break;
+//
+//                }
+//            }
+//        }
 
         edges.add(edge);
         // add edge to the vertex,as out edges

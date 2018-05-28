@@ -11,6 +11,12 @@ import graph.Graph;
 import LoggerFactory.*;
 
 import java.io.*;
+import java.nio.Buffer;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -94,7 +100,7 @@ abstract public class GraphFactory {
      */
     public static List<List<String>> getVertices(String filePath) throws IOException, FormatException {
         List<List<String>> vertices = new ArrayList<>();
-        BufferedReader fileReader = new BufferedReader(new FileReader(filePath));
+        BufferedReader fileReader = Files.newBufferedReader(Paths.get(filePath), StandardCharsets.UTF_8);
         Pattern regex;
         Matcher matcher;
         String content;
@@ -142,7 +148,10 @@ abstract public class GraphFactory {
      */
     public static List<List<String>> getEdges(String filePath) throws IOException, FormatException, DirectedEdgeException {
         List<List<String>> vertices = new ArrayList<>();
-        BufferedReader fileReader = new BufferedReader(new FileReader(filePath));
+        BufferedReader fileReader = Files.newBufferedReader(Paths.get(filePath), StandardCharsets.UTF_8);
+//        FileInputStream fin = new FileInputStream("readandshow.txt");
+//        FileChannel fc = fin.getChannel();
+//        fc.read(buffer);
         Pattern regex;
         Matcher matcher;
         String content;

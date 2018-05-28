@@ -28,6 +28,7 @@ public class NetworkTopology extends ConcreteGraph {
         if (!(edge instanceof NetworkConnection))
             throw new EdgeTypeException(getLabel());
         // 避免单重边中存在多充边，如果存在，就不添加这条边
-        return super.edges().stream().filter(item -> item.equals(edge)).count() == 0 && super.addEdge(edge);
+        return super.addEdge(edge);
+//        return super.edges().stream().filter(item -> item.equals(edge)).count() == 0 && super.addEdge(edge);
     }
 }
