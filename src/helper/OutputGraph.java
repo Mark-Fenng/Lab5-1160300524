@@ -5,16 +5,12 @@ import edge.HyperEdge;
 import graph.Graph;
 import vertex.Vertex;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.stream.Collectors;
 
 class OutputGraph {
-    static void output(Graph g, String filePath) throws IOException {
+    static void output(Graph g, WriteFile fileWriter) throws IOException {
         long startTime = System.currentTimeMillis();
-        File file = new File(filePath);
-        FileWriter fileWriter = new FileWriter(file);
         // 输出对图的描述
         fileWriter.write("GraphType = \"" + g.getClass().getName().split("\\.")[g.getClass().getName().split("\\.").length - 1] + "\"\n");
         fileWriter.write("GraphName = \"" + g.getLabel() + "\"\n\n");

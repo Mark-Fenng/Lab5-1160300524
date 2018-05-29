@@ -106,7 +106,8 @@ class GraphCommand extends Command {
         matcher = Rules.get(5).matcher(OptionalCommand);
         if (matcher.find()) {
             try {
-                OutputGraph.output(graph, matcher.group(1));
+                WriteFile writeFile = new nioWriter(matcher.group(1));
+                OutputGraph.output(graph, writeFile);
                 System.out.println("Output the file successfully!");
             } catch (IOException e) {
                 MyLogger.severe("The filePath " + matcher.group(1) + " can't be created\n" + MyLogger.toString(e));
