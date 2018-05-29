@@ -6,6 +6,10 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+/**
+ * strategy设计模式
+ * 负责文件读入的一种 使用 nio.Files 读入方式
+ */
 public class filesInput implements ReadFile {
     private final BufferedReader reader;
 

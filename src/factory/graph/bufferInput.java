@@ -1,8 +1,11 @@
 package factory.graph;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 
+/**
+ * strategy设计模式
+ * 负责文件读入的一种 buffered 读入方式
+ */
 public class bufferInput implements ReadFile {
     private final BufferedReader reader;
 

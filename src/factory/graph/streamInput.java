@@ -2,6 +2,10 @@ package factory.graph;
 
 import java.io.*;
 
+/**
+ * strategy设计模式
+ * 负责文件读入的一种 以stream 的读入方式
+ */
 public class streamInput implements ReadFile {
     private final InputStreamReader reader;
 

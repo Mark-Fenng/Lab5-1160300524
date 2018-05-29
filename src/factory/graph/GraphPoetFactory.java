@@ -24,14 +24,14 @@ public class GraphPoetFactory {
         // graph name
         String graphName = GraphFactory.GraphLabel(filePath);
         poet = new GraphPoet(graphName);
-        streamInput reader = new streamInput(filePath);
+        filesInput reader = new filesInput(filePath);
         // get Vertices from the file
         List<List<String>> vertexCut = GraphFactory.getVertices(reader);
         for (List<String> list : vertexCut) {
             Vertex newVertex = VertexFactory.createVertex(list.get(0), list.get(1), new String[0]);
             poet.addVertex(newVertex);
         }
-        reader = new streamInput(filePath);
+        reader = new filesInput(filePath);
         List<List<String>> edgeCut = GraphFactory.getEdges(reader);
         for (List<String> list : edgeCut) {
             try {

@@ -26,7 +26,7 @@ public class GraphTopologyFactory {
         // get graph name
         String graphName = GraphFactory.GraphLabel(filePath);
         NetworkTopology = new NetworkTopology(graphName);
-        streamInput reader = new streamInput(filePath);
+        filesInput reader = new filesInput(filePath);
         // get Vertices from the file
         List<List<String>> vertexCut = GraphFactory.getVertices(reader);
         for (List<String> list : vertexCut) {
@@ -39,7 +39,7 @@ public class GraphTopologyFactory {
             Vertex newVertex = VertexFactory.createVertex(list.get(0), list.get(1), attr);
             NetworkTopology.addVertex(newVertex);
         }
-        reader = new streamInput(filePath);
+        reader = new filesInput(filePath);
         List<List<String>> edgeCut = GraphFactory.getEdges(reader);
         for (List<String> list : edgeCut) {
             try {
