@@ -53,6 +53,19 @@ public class ConcreteGraph implements Graph {
     }
 
     @Override
+    public String setVertexLabel(String label, String newLabel) {
+        Vertex vertex;
+        vertex = vertices.get(label);
+        if (vertex != null) {
+            vertex.setLabel(newLabel);
+            vertices.remove(label);
+            vertices.put(newLabel, vertex);
+            return label;
+        }
+        return null;
+    }
+
+    @Override
     public boolean addVertex(Vertex vertex) throws VertexTypeException, VertexLabelException {
 //        checkRep();
 //        if (vertices.contains(vertex))

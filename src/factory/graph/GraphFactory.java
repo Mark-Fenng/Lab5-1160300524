@@ -136,7 +136,7 @@ abstract public class GraphFactory {
     /**
      * 从包含图信息的固定格式文件中单独获取图中点的信息
      *
-     * @param filePath 包含图信息的固定格式文件的路径
+     * @param fileReader 某种IO策略实现的reader接口
      * @return 包含图信息的固定格式文件读取的结果 第一层列表存储所有的边，第二层列表存储一条边的全部信息
      * 第二层列表中存储的内容次序为  label,type,weight,vertices,yes|no
      * @throws IOException           包含图信息的固定格式文件读取的异常

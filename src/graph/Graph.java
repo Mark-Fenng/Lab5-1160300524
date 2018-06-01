@@ -11,7 +11,6 @@ import Exception.Vertex.VertexTypeException;
 import edge.Edge;
 import vertex.Vertex;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -103,4 +102,13 @@ public interface Graph {
      * @return
      */
     public Vertex getVertex(String label);
+
+    /**
+     * 修改图中某个点的Label值
+     *
+     * @param label    需要改变的vertex的Label
+     * @param newLabel 修改成的新的label
+     * @return 旧的Label值 如果图中没有这个点，就返回null
+     */
+    public String setVertexLabel(String label, String newLabel);
 }

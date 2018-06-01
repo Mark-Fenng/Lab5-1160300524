@@ -93,7 +93,7 @@ class VertexCommand extends Command {
         Vertex vertex;
         if (matcher.find()) {
             label = matcher.group(1);
-            vertex = graph.vertices().stream().filter(item -> item.getLabel().equals(label)).findFirst().orElse(null);
+            vertex = graph.getVertex(label);
             if (vertex == null)
                 throw new CommandException("The Vertex Label can't be Found");
         } else
@@ -107,7 +107,7 @@ class VertexCommand extends Command {
         String newLabel;
         if (matcher.find()) {
             newLabel = matcher.group(1);
-            String oldLabel = vertex.setLabel(newLabel);
+            String oldLabel = graph.setVertexLabel(vertex.getLabel(), newLabel);
             MyLogger.info("Update label successfully , old label is " + oldLabel);
             System.out.println("Update label successfully , old label is " + oldLabel);
         } else
