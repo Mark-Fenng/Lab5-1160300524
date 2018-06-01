@@ -54,6 +54,8 @@ public class ConcreteGraph implements Graph {
 
     @Override
     public String setVertexLabel(String label, String newLabel) {
+        if (vertices.get(newLabel) != null) // 要新修改的Label值已经被其他节点使用了
+            return null;
         Vertex vertex;
         vertex = vertices.get(label);
         if (vertex != null) {
