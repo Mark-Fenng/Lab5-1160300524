@@ -164,7 +164,7 @@ class EdgeCommand extends Command {
         String newLabel;
         if (matcher.find()) {
             newLabel = matcher.group(1);
-            String oldLabel = edge.setLabel(newLabel);
+            String oldLabel = graph.setEdgeLabel(edge.getLabel(), newLabel);
             MyLogger.info("Update label successfully , the old label is " + oldLabel);
             System.out.println("Update label successfully , the old label is " + oldLabel);
             CommandFlag = true;

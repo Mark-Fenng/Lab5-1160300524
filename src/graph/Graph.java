@@ -111,4 +111,13 @@ public interface Graph {
      * @return 旧的Label值 如果图中没有这个点，就返回null
      */
     public String setVertexLabel(String label, String newLabel);
+
+    /**
+     * 修改图中某个点的Label值
+     *
+     * @param label    需要改变的edge的Label
+     * @param newLabel 修改成的新的label
+     * @return 旧的Label值 如果图中没有这个点，就返回null
+     */
+    public String setEdgeLabel(String label, String newLabel);
 }

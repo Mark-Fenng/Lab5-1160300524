@@ -69,6 +69,21 @@ public class ConcreteGraph implements Graph {
     }
 
     @Override
+    public String setEdgeLabel(String label, String newLabel) {
+        if (edges.containsKey(newLabel)) // 要新修改的Label值已经被其他边使用了
+            return null;
+        Edge edge;
+        edge = edges.get(label);
+        if (edge != null) {
+            edge.setLabel(newLabel);
+            edges.remove(label);
+            edges.put(newLabel, edge);
+            return label;
+        }
+        return null;
+    }
+
+    @Override
     public boolean addVertex(Vertex vertex) throws VertexTypeException, VertexLabelException {
 //        checkRep();
         if (vertices.containsKey(vertex))
