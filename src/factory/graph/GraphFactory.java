@@ -95,7 +95,6 @@ abstract public class GraphFactory {
     public static List<List<String>> getVertices(ReadFile fileReader) throws IOException, FormatException {
         long startTime = System.currentTimeMillis();
         List<List<String>> vertices = new ArrayList<>();
-//        BufferedReader fileReader = Files.newBufferedReader(Paths.get(filePath), StandardCharsets.UTF_8);
         Pattern regex;
         Matcher matcher;
         String content;
@@ -146,11 +145,6 @@ abstract public class GraphFactory {
     public static List<List<String>> getEdges(ReadFile fileReader) throws IOException, FormatException, DirectedEdgeException {
         long startTime = System.currentTimeMillis();
         List<List<String>> vertices = new ArrayList<>();
-//        BufferedReader fileReader = Files.newBufferedReader(Paths.get(filePath), StandardCharsets.UTF_8);
-//        BufferedReader fileReader = new BufferedReader(new FileReader(new File(filePath)));
-//        FileInputStream fin = new FileInputStream("readandshow.txt");
-//        FileChannel fc = fin.getChannel();
-//        fc.read(buffer);
         Pattern regex;
         Matcher matcher;
         String content;
