@@ -24,8 +24,8 @@ import edge.*;
 public abstract class Vertex {
     private String label;
 
-    private final List<Edge> inEdges = new LinkedList<>(); // 入边
-    private final List<Edge> outEdges = new LinkedList<>(); // 出边
+    private final Map<String, Edge> inEdges = new HashMap<>(); // 入边
+    private final Map<String, Edge> outEdges = new HashMap(); // 出边
 
     private void checkRep() {
         assert (label != null);
@@ -52,11 +52,11 @@ public abstract class Vertex {
      * @return true: 这条入边添加成功, false: 这条入边添加失败
      */
     public boolean addInEdge(Edge inEdge) {
-//        if (!inEdges.contains(inEdge) && inEdge.targetVertices().contains(this)) {
-            inEdges.add(inEdge);
+        if (!inEdges.containsKey(inEdge.getLabel()) && inEdge.targetVertices().contains(this)) {
+            inEdges.put(inEdge.getLabel(), inEdge);
             return true;
-//        }
-//        return false;
+        }
+        return false;
     }
 
     /**
@@ -68,11 +68,11 @@ public abstract class Vertex {
      * @return true: 这条入边添加成功, false: 这条入边添加失败
      */
     public boolean addOutEdge(Edge outEdge) {
-//        if (!outEdges.contains(outEdge) && outEdge.sourceVertices().contains(this)) {
-            outEdges.add(outEdge);
+        if (!outEdges.containsKey(outEdge) && outEdge.sourceVertices().contains(this)) {
+            outEdges.put(outEdge.getLabel(), outEdge);
             return true;
-//        }
-//        return false;
+        }
+        return false;
     }
 
     /**
@@ -83,25 +83,9 @@ public abstract class Vertex {
      * @param edge 一个Edge对象,表示一条边
      * @return true: 这条边删除成功, false: 这条边删除失败
      */
+
     public boolean removeEdge(Edge edge) {
-        boolean removeInEdge = false, removeOutEdge = false;
-        Iterator<Edge> iterator = inEdges.iterator();
-        while (iterator.hasNext()) {
-            Edge item = iterator.next();
-            if (item.equals(edge)) {
-                iterator.remove();
-                removeInEdge = true;
-            }
-        }
-        iterator = outEdges.iterator();
-        while (iterator.hasNext()) {
-            Edge item = iterator.next();
-            if (item.equals(edge)) {
-                iterator.remove();
-                removeOutEdge = true;
-            }
-        }
-        return removeInEdge || removeOutEdge;
+        return inEdges.remove(edge.getLabel(), edge) || outEdges.remove(edge.getLabel(), edge);
     }
 
     /**
@@ -109,8 +93,8 @@ public abstract class Vertex {
      *
      * @return 这个点包含的所有入边
      */
-    public Set<Edge> getInEdges() {
-        return new HashSet<>(inEdges);
+    public Map<String, Edge> getInEdges() {
+        return inEdges;
     }
 
     /**
@@ -118,8 +102,8 @@ public abstract class Vertex {
      *
      * @return 这个点包含的所有出边
      */
-    public Set<Edge> getOutEdges() {
-        return new HashSet<>(outEdges);
+    public Map<String, Edge> getOutEdges() {
+        return outEdges;
     }
 
     /**

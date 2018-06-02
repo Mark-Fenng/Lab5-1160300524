@@ -11,6 +11,7 @@ import edge.HyperEdge;
 import vertex.Vertex;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -31,10 +32,10 @@ import java.util.*;
 public class ConcreteGraph implements Graph {
     private final String label;
     protected final Map<String, Vertex> vertices = new HashMap<>();
-    final List<Edge> edges = new LinkedList<>();
+    final Map<String, Edge> edges = new HashMap<>();
 
     private void checkRep() {
-        for (Edge item : edges)
+        for (Edge item : edges.values())
             assert !(item instanceof HyperEdge) || item.vertices().size() >= 2;
     }
 
@@ -54,7 +55,7 @@ public class ConcreteGraph implements Graph {
 
     @Override
     public String setVertexLabel(String label, String newLabel) {
-        if (vertices.get(newLabel) != null) // 要新修改的Label值已经被其他节点使用了
+        if (vertices.containsKey(newLabel)) // 要新修改的Label值已经被其他节点使用了
             return null;
         Vertex vertex;
         vertex = vertices.get(label);
@@ -70,8 +71,8 @@ public class ConcreteGraph implements Graph {
     @Override
     public boolean addVertex(Vertex vertex) throws VertexTypeException, VertexLabelException {
 //        checkRep();
-//        if (vertices.contains(vertex))
-//            throw new VertexLabelException(label);
+        if (vertices.containsKey(vertex))
+            throw new VertexLabelException(label);
 //        checkRep();
         vertices.put(vertex.getLabel(), vertex);
         return true;
@@ -80,9 +81,9 @@ public class ConcreteGraph implements Graph {
     @Override
     public boolean removeVertex(Vertex vertex) throws EdgeWeightException {
 //        checkRep();
-        if (vertices.get(vertex.getLabel()) != null) {
+        if (vertices.containsValue(vertex)) {
             vertices.remove(vertex.getLabel());
-            edges.removeIf(item -> item.vertices().contains(vertex));
+            edges.remove(vertex.getLabel(), vertex);
             return true;
         }
 //        checkRep();
@@ -98,7 +99,7 @@ public class ConcreteGraph implements Graph {
     @Override
     public Map<Vertex, List<Double>> sources(Vertex target) {
         if (vertices.get(target.getLabel()) != null) {
-            Set<Edge> inEdges = target.getInEdges();
+            Set<Edge> inEdges = new HashSet<>(target.getInEdges().values());
             Map<Vertex, List<Double>> result = new HashMap<>();
             for (Edge item : inEdges) {
                 Vertex source = item.sourceVertices().stream().filter(o -> !o.equals(target)).findFirst().orElse(null);
@@ -116,7 +117,7 @@ public class ConcreteGraph implements Graph {
     @Override
     public Map<Vertex, List<Double>> targets(Vertex source) {
         if (vertices.get(source.getLabel()) != null) {
-            Set<Edge> outEdges = source.getOutEdges();
+            Set<Edge> outEdges = new HashSet<>(source.getOutEdges().values());
             Map<Vertex, List<Double>> result = new HashMap<>();
             for (Edge item : outEdges) {
                 Vertex target = item.targetVertices().stream().filter(o -> !o.equals(source)).findFirst().orElse(null);
@@ -135,27 +136,27 @@ public class ConcreteGraph implements Graph {
     @Override
     public boolean addEdge(Edge edge) throws EdgeNullVertexException, EdgeTypeException, EdgeWeightException {
 //        checkRep();
-//        for (Vertex item : edge.vertices()) {
-//            if (!vertices.contains(item))
-//                throw new EdgeNullVertexException("The Vertex : " + item + " have not been define before");
-//        }
-        // 如果edge的label在图中已经存在，则自动在边的label后面填完后缀
-//        if (edges.contains(edge)) {
-//            String TempLabel = edge.getLabel();
-//            for (int i = 0; i < 10000; i++) {
-//                edge.setLabel(edge.getLabel() + "_" + i);
-//                if (!edges.contains(edge)) {
-//                    MyLogger.info("The Edge : \"" + TempLabel + "\" Has Repeated Label in the Graph\n" +
-//                            "But the New Label : \"" + TempLabel + "_" + i + "\" is Added to The Graph");
-//                    System.out.println("The Edge : \"" + TempLabel + "\" Has Repeated Label in the Graph\n" +
-//                            "But the New Label : \"" + TempLabel + "_" + i + "\" is Added to The Graph");
-//                    break;
-//
-//                }
-//            }
-//        }
+        for (Vertex item : edge.vertices()) {
+            if (!vertices.containsKey(item.getLabel()))
+                throw new EdgeNullVertexException("The Vertex : " + item + " have not been define before");
+        }
+        //如果edge的label在图中已经存在，则自动在边的label后面填完后缀
+        if (edges.containsKey(edge.getLabel())) {
+            String TempLabel = edge.getLabel();
+            for (int i = 0; i < 10000; i++) {
+                edge.setLabel(edge.getLabel() + "_" + i);
+                if (!edges.containsKey(edge.getLabel())) {
+                    MyLogger.info("The Edge : \"" + TempLabel + "\" Has Repeated Label in the Graph\n" +
+                            "But the New Label : \"" + TempLabel + "_" + i + "\" is Added to The Graph");
+                    System.out.println("The Edge : \"" + TempLabel + "\" Has Repeated Label in the Graph\n" +
+                            "But the New Label : \"" + TempLabel + "_" + i + "\" is Added to The Graph");
+                    break;
 
-        edges.add(edge);
+                }
+            }
+        }
+
+        edges.put(edge.getLabel(), edge);
         // add edge to the vertex,as out edges
         edge.sourceVertices().forEach(item -> vertices.get(item.getLabel()).addOutEdge(edge));
         // add edge to the vertex as in edges
@@ -167,7 +168,7 @@ public class ConcreteGraph implements Graph {
     @Override
     public boolean removeEdge(Edge edge) throws EdgeWeightException {
 //        checkRep();
-        if (edges.remove(edge)) {
+        if (edges.remove(edge.getLabel(), edge)) {
             // add edge to the vertex,as out edges
             edge.sourceVertices().forEach(item -> vertices.get(item.getLabel()).removeEdge(edge));
             // add edge to the vertex as in edges
@@ -180,7 +181,7 @@ public class ConcreteGraph implements Graph {
 
     @Override
     public Set<Edge> edges() {
-        return new HashSet<>(edges);
+        return new HashSet<>(edges.values());
     }
 
     @Override

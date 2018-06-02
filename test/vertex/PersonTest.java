@@ -43,15 +43,15 @@ public class PersonTest {
         Edge edge = EdgeFactory.createEdge("edge1", "FriendTie", vertices, 1);
         assert p2 != null;
         p2.addInEdge(edge);
-        assertEquals(p2.getInEdges().stream().findFirst().orElse(null), edge);
+        assertEquals(p2.getInEdges().values().stream().findFirst().orElse(null), edge);
 
         edge = EdgeFactory.createEdge("edge1", "CommentTie", vertices, 1);
         p2.addInEdge(edge);
-        assertEquals(p2.getInEdges().stream().findFirst().orElse(null), edge);
+        assertEquals(p2.getInEdges().values().stream().findFirst().orElse(null), edge);
 
         edge = EdgeFactory.createEdge("edge1", "ForwardTie", vertices, 1);
         p2.addInEdge(edge);
-        assertEquals(p2.getInEdges().stream().findFirst().orElse(null), edge);
+        assertEquals(p2.getInEdges().values().stream().findFirst().orElse(null), edge);
     }
 
     /**
@@ -64,9 +64,9 @@ public class PersonTest {
         Edge edge = EdgeFactory.createEdge("edge1", "FriendTie", vertices, 1);
         assert p1 != null;
         p1.addOutEdge(edge);
-        assertEquals(p1.getOutEdges().stream().findFirst().orElse(null), edge);
+        assertEquals(p1.getOutEdges().values().stream().findFirst().orElse(null), edge);
         p1.removeEdge(edge);
-        assertEquals(p1.getOutEdges().stream().findFirst().orElse(null), null);
+        assertEquals(p1.getOutEdges().values().stream().findFirst().orElse(null), null);
     }
 
     /**

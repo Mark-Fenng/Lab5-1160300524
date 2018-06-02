@@ -219,7 +219,7 @@ class GraphMetrics {
             for (int j = 1; j < vertices.size(); j++) {
                 Vertex source = vertices.get(i);
                 Vertex target = vertices.get(j);
-                Edge edge = source.getOutEdges().stream().filter(item -> item.vertices().size() <= 2 && item.targetVertices().contains(target)).min((o1, o2) -> (int) (o1.getWeight() - o2.getWeight())).orElse(null);
+                Edge edge = source.getOutEdges().values().stream().filter(item -> item.vertices().size() <= 2 && item.targetVertices().contains(target)).min((o1, o2) -> (int) (o1.getWeight() - o2.getWeight())).orElse(null);
                 if (edge != null) {
                     e[i][j] = edge.getWeight() == -1 ? INFINITE : edge.getWeight(); // 两点之间边的权重
                 } else {

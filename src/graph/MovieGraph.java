@@ -28,16 +28,15 @@ public class MovieGraph extends ConcreteGraph {
         if (!((edge instanceof DirectedEdge) || (edge instanceof MovieActorRelation) || (edge instanceof MovieDirectorRelation) || (edge instanceof SameMovieHyperEdge)))
             throw new EdgeTypeException(getLabel());
         // 避免单重边中存在多充边，如果存在，就不添加这条边
-        return super.addEdge(edge);
-//        return super.edges().stream().filter(item -> item.equals(edge)).count() == 0 && super.addEdge(edge);
+        return !super.edges.containsKey(edge.getLabel()) && super.addEdge(edge);
     }
 
     @Override
     public boolean removeVertex(Vertex vertex) throws EdgeWeightException {
-        if (vertices.get(getLabel()) != null) {
+        if (vertices.containsKey(vertex.getLabel())) {
             vertices.remove(vertex.getLabel());
             // 从图中获取包含要删除点的超边
-            List<HyperEdge> hyperEdgeList = edges.stream()
+            List<HyperEdge> hyperEdgeList = edges.values().stream()
                     .filter(item -> (item instanceof HyperEdge) && item.vertices().contains(vertex))
                     .map(item -> (HyperEdge) item)
                     .collect(Collectors.toList());
@@ -50,7 +49,7 @@ public class MovieGraph extends ConcreteGraph {
                 super.removeEdge(hyperEdge);
             }
             // 删除不是超边的 包含要删除点的 边 或者边中点的个数小于2的边
-            edges.removeIf(item -> (!(item instanceof HyperEdge) && item.vertices().contains(vertex)));
+            edges.entrySet().removeIf((item -> (!(item.getValue() instanceof HyperEdge) && item.getValue().vertices().contains(vertex))));
             return true;
         }
         return false;

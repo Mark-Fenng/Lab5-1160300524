@@ -45,7 +45,7 @@ public class VertexTest {
         Edge edge = EdgeFactory.createEdge("edge1", "WordNeighborhood", vertices, 1);
         assert v2 != null;
         v2.addInEdge(edge);
-        assertEquals(v2.getInEdges().stream().findFirst().orElse(null), edge);
+        assertEquals(v2.getInEdges().values().stream().findFirst().orElse(null), edge);
     }
 
     /**
@@ -58,7 +58,7 @@ public class VertexTest {
         Edge edge = EdgeFactory.createEdge("edge1", "WordNeighborhood", vertices, 1);
         assert v1 != null;
         v1.addOutEdge(edge);
-        assertEquals(v1.getOutEdges().stream().findFirst().orElse(null), edge);
+        assertEquals(v1.getOutEdges().values().stream().findFirst().orElse(null), edge);
     }
 
     /**
@@ -71,9 +71,9 @@ public class VertexTest {
         Edge edge = EdgeFactory.createEdge("edge1", "WordNeighborhood", vertices, 1);
         assert v1 != null;
         v1.addOutEdge(edge);
-        assertEquals(v1.getOutEdges().stream().findFirst().orElse(null), edge);
+        assertEquals(v1.getOutEdges().values().stream().findFirst().orElse(null), edge);
         v1.removeEdge(edge);
-        assertEquals(v1.getOutEdges().stream().findFirst().orElse(null), null);
+        assertEquals(v1.getOutEdges().values().stream().findFirst().orElse(null), null);
     }
 
     /**
@@ -86,7 +86,7 @@ public class VertexTest {
         Edge edge = EdgeFactory.createEdge("edge1", "WordNeighborhood", vertices, 1);
         assert v2 != null;
         v2.addInEdge(edge);
-        assertEquals(v2.getInEdges().stream().findFirst().orElse(null), edge);
+        assertEquals(v2.getInEdges().values().stream().findFirst().orElse(null), edge);
     }
 
     /**
@@ -99,7 +99,7 @@ public class VertexTest {
         Edge edge = EdgeFactory.createEdge("edge1", "WordNeighborhood", vertices, 1);
         assert v1 != null;
         v1.addOutEdge(edge);
-        assertEquals(v1.getOutEdges().stream().findFirst().orElse(null), edge);
+        assertEquals(v1.getOutEdges().values().stream().findFirst().orElse(null), edge);
     }
 
     /**
