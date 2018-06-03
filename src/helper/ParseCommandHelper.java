@@ -13,12 +13,15 @@ import graph.Graph;
 import LoggerFactory.*;
 
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import sun.management.*;
 
 /**
  * 点的命令
@@ -65,6 +68,11 @@ public class ParseCommandHelper {
      * 用于图应用的命令行交互
      */
     public static void command() {
+        // get name representing the running Java virtual machine.
+        String name = ManagementFactory.getRuntimeMXBean().getName();
+        // get pid
+        String pid = name.split("@")[0];
+        System.out.println("Pid is:" + pid);
         Graph graph = null;
         List<String> params;
         Scanner in = new Scanner(System.in);
